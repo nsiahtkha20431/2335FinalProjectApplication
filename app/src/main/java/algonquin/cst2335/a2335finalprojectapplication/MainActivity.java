@@ -1,8 +1,8 @@
 package algonquin.cst2335.a2335finalprojectapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
 
