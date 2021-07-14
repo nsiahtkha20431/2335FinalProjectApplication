@@ -9,6 +9,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); //main layout to pic which of the 4 apps to use
+        setContentView(R.layout.activity_main); //main layout to pirererc which of the 4 apps to use
     }
 }
