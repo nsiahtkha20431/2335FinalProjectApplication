@@ -1,13 +1,17 @@
 package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.os.Bundle;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Date;
 
 public class SoccerGames extends AppCompatActivity {
+    ArticleAdapter adapter = new ArticleAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,5 +37,16 @@ public class SoccerGames extends AppCompatActivity {
         public String getDatePublished() {
             return datePublished;
         }
+    }
+
+    private class ArticleViewHolder extends RecyclerView.ViewHolder {
+
+        public ArticleViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    private class ArticleAdapter extends ArticleViewHolder.Adapter<ArticleViewHolder> {
+
     }
 }
