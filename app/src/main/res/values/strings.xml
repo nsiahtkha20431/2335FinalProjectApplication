@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">2335 Final Project Application</string>
+    <string name="main_header">Welcome to Aparna, Emma, Nishat &amp; Raphael\'s Final Project!</string>
+    <string name="oc_transpo_button">OCTranspo</string>
+    <string name="electric_car_button">Electric Car Charging Stations</string>
+    <string name="movie_info_button">Movie Information</string>
+    <string name="soccer_button">Soccer Games</string>
 </resources>
