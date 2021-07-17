@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
+import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,5 +28,10 @@ public class MainActivity extends AppCompatActivity {
         Button electricCar  = findViewById(R.id.electricCarButton);
         Button movieInfo = findViewById(R.id.movieInfoButton);
         Button soccerGames = findViewById(R.id.soccerGamesButton);
+
+        soccerGames.setOnClickListener(clk -> {
+            Intent nextPage = new Intent( MainActivity.this, SoccerGames.class);
+            startActivity(nextPage);
+        });
     }
 }
