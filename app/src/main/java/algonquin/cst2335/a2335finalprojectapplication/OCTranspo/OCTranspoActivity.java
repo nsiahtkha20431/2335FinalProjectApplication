@@ -1,14 +1,10 @@
-package algonquin.cst2335.a2335finalprojectapplication;
+package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import android.content.Context;
+
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import java.util.ArrayList;
+
+import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class OCTranspoActivity extends AppCompatActivity {
 

@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
-import android.os.Bundle;
-import androidx.recyclerview.widget.RecyclerView;
+
+import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
 
 public class MainActivity extends AppCompatActivity {
 
