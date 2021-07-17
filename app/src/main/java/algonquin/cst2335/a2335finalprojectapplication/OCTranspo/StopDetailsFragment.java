@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication;
+package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
 
 import android.content.ContentValues;
 import android.os.Build;
@@ -11,6 +11,8 @@ import android.widget.EditText;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+
+import algonquin.cst2335.a2335finalprojectapplication.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -98,6 +100,4 @@ public class StopDetailsFragment extends Fragment {
         }
         return detailsView;
     }
-
-
 }
