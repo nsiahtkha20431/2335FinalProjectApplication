@@ -29,7 +29,7 @@ android {
     sourceSets {
         main {
             res {
-                srcDirs 'src\\main\\res', 'src\\main\\res\\layout\\OCTranspoLayout', 'src\\main\\res\\layout\\SoccerGamesLayout'
+                srcDirs 'src\\main\\res', 'src\\main\\res\\layout\\OCTranspoLayout', 'src\\main\\res\\layout\\SoccerGamesLayout', 'src\\main\\res\\layout\\MovieInfoLayout', 'src\\main\\res\\layout\\ElectricCarLayout'
             }
         }
     }
