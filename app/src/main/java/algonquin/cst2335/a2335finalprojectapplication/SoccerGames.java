@@ -1,10 +1,12 @@
 package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,20 +23,29 @@ public class SoccerGames extends AppCompatActivity {
 
     private class ArticleViewHolder extends RecyclerView.ViewHolder{
 
+        ImageView articleThumb;
+        TextView articleTitle;
+
         public ArticleViewHolder(View itemView) {
             super(itemView);
+
+            articleThumb = itemView.findViewById(R.id.articleThumb);
+            articleTitle = itemView.findViewById(R.id.articleTitle);
         }
     }
 
     //Adapter for this RecyclerView - Adapter is like the middle man for what the user sees and how the application gets and displays data
-    private class ArticleAdapter extends RecyclerView.Adapter {
+    private class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
         @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater inflater = getLayoutInflater();
+            View loadedRow = inflater.inflate(R.layout.row_layout, parent, false);
+
             return null;
         }
 
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        public void onBindViewHolder(ArticleViewHolder holder, int position) {
 
         }
 
@@ -50,7 +61,7 @@ public class SoccerGames extends AppCompatActivity {
         String title;
         String datePublished;
 
-        public ArticleInfo(String title, String datePublished) {
+        public ArticleInfo (String title, String datePublished) {
             this.title = title;
             this.datePublished = datePublished;
         }
