@@ -16,7 +16,7 @@ public class SoccerGames extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.article_list_layout); //layout to list the article titles
+        setContentView(R.layout.article_recycler_layout); //layout to list the article titles
         RecyclerView articlesRecyclerView = findViewById(R.id.myrecycler);
         articlesRecyclerView.setAdapter(new ArticleAdapter());
     }
@@ -39,14 +39,14 @@ public class SoccerGames extends AppCompatActivity {
         @Override
         public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = getLayoutInflater();
-            View loadedRow = inflater.inflate(R.layout.row_layout, parent, false);
+            View loadedRow = inflater.inflate(R.layout.article_row_layout, parent, false);
 
-            return null;
+            return new ArticleViewHolder(loadedRow);
         }
 
         @Override
-        public void onBindViewHolder(ArticleViewHolder holder, int position) {
-
+        public void onBindViewHolder(ArticleViewHolder viewHolder, int position) {
+            viewHolder.articleTitle.setText("Article Title");:equals(:1g:wq)
         }
 
         @Override
