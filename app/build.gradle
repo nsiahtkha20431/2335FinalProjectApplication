@@ -26,6 +26,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src\\main\\res', 'src\\main\\res\\layout\\OCTranspoLayout', 'src\\main\\res\\layout\\SoccerGamesLayout', 'src\\main\\res\\layout\\MovieInfoLayout', 'src\\main\\res\\layout\\ElectricCarLayout', 'src\\main\\res\\layout\\electricCarLayout', 'src\\main\\res\\layouts\\electricCarLayout', 'src\\main\\res\\layouts\\ocTranspoLayout', 'src\\main\\res\\layouts\\movieInfoLayout', 'src\\main\\res\\layouts\\soccerGamesLayout'
+            }
+        }
+    }
 }
 
 dependencies {
