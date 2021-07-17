@@ -13,6 +13,15 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
     public static final String OCT_COL_NO = "BusStopNo";
     public static final String OCT_COL_DESC = "BusStopDescription";
 
+    public static final String MOVIE_TABLE_NAME = "SavedMovieInformation";
+    public static final String movie_title = "Title";
+    public static final String movie_year = "Year";
+    public static final String movie_rating = "Rating";
+    public static final String movie_runtime = "Runtime";
+    public static final String movie_actors = "MainActors";
+    public static final String movie_plot = "Plot";
+    public static final String movie_poster = "PosterURL";
+
     public FinalOpenHelper(Context context) {
         super(context, NAME, null, VERSION);
     }
@@ -21,6 +30,10 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + OCTRANSPO_TABLE_NAME + "(" + OCT_COL_ID + " VARCHAR PRIMARY KEY, " +
                 OCT_COL_NO + " INTEGER, " + OCT_COL_DESC + " TEXT);");
+
+        db.execSQL("CREATE TABLE " + MOVIE_TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT," + movie_title
+                + " TEXT," + movie_year + " INTEGER," + movie_rating + " TEXT," + movie_runtime + " TEXT,"
+                + movie_actors + " TEXT," + movie_plot + " TEXT," + movie_poster + " TEXT);");
     }
 
     @Override
