@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -87,10 +88,16 @@ public class MovieSearchFragment extends Fragment {
                     MovieInfo movieInfo = new MovieInfo(response.getString("Title"), response.getString("Year"), response.getString("Rated"),
                                 response.getString("Runtime"), response.getString("Actors"), response.getString("Plot"), response.getString("Poster"));
                     MovieInfoActivity activity = (MovieInfoActivity)getContext();
+
                     activity.usrSearchedMovie(movieInfo);
+
+                    }
+                    else{
+                        throw new JSONException("Response false, no movie found with: " + title_input.getText());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    Snackbar.make(find, "" + e.getMessage(), Snackbar.LENGTH_SHORT).show();
                 }
             }
 
@@ -114,6 +121,7 @@ public class MovieSearchFragment extends Fragment {
         String actors;
         String plot;
         String URL;
+
         public MovieInfo( String title, String year, String rating, String runtime, String actors, String plot, String URL) {
             this.title = title;
             this.year = year;
