@@ -13,18 +13,9 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class MovieInfoActivity extends AppCompatActivity {
 
-    String titleText_input;
-    String url;
-    FinalOpenHelper opener = new FinalOpenHelper(this);
 
-    EditText title_input;
-    String title;
-    int year;
-    String rating;
-    String runtime;
-    String actors;
-    String plot;
-    String URL;
+
+
     MovieSearchFragment searchFrag = new MovieSearchFragment();
 
     @Override
