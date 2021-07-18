@@ -20,14 +20,23 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class StopListFragment extends Fragment {
 
-    private ArrayList<ArrayList<String>> busStops = new ArrayList<>();
+    private ArrayList<ArrayList<String>> busStops;
     private StopListFragment.MyAdapter adptr;
+    private RecyclerView stopList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View stopListLayout = inflater.inflate(R.layout.stop_list_layout, container,false);
+        stopList = stopListLayout.findViewById(R.id.stopRecycler);
+        initializeArray();
+        stopList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        adptr = new StopListFragment.MyAdapter(busStops, getContext());
+        stopList.setAdapter(adptr);
+        return stopListLayout;
+    }
 
-        RecyclerView stopList = stopListLayout.findViewById(R.id.stopRecycler);
+    private void initializeArray() {
+        busStops = new ArrayList<>();
         Cursor results = MainActivity.db.rawQuery("Select * from " + FinalOpenHelper.OCTRANSPO_TABLE_NAME + ";", null);
 
         int ctr = 0;
@@ -38,15 +47,23 @@ public class StopListFragment extends Fragment {
             ctr++;
         }
         busStops.add(new ArrayList<>());
-        busStops.get(ctr).add("0000");
+        busStops.get(ctr).add("5555");
         busStops.get(ctr).add("Add new...");
 
-        stopList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        results.close();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initializeArray();
+        updateList();
+    }
+
+    private void updateList() {
+        initializeArray();
         adptr = new StopListFragment.MyAdapter(busStops, getContext());
         stopList.setAdapter(adptr);
-        results.close();
-
-        return stopListLayout;
     }
 
     protected class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
@@ -61,7 +78,7 @@ public class StopListFragment extends Fragment {
 
         @Override
         public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(ctxt).inflate(R.layout.stop_list_item, parent, false);
+            View view = LayoutInflater.from(ctxt).inflate(R.layout.oct_list_item, parent, false);
             return new MyViewHolder(view);
         }
 
@@ -87,14 +104,16 @@ public class StopListFragment extends Fragment {
 
         public MyViewHolder(View view) {
             super(view);
-            stopNumber = view.findViewById(R.id.busStopNumber);
-            stopDescription = view.findViewById(R.id.busStopDescription);
-            position = getAdapterPosition();
+            stopNumber = view.findViewById(R.id.listNumber);
+            stopDescription = view.findViewById(R.id.listDescription);
+            position = getAbsoluteAdapterPosition();
 
             view.setOnClickListener( clk -> {
                 int stopNo = Integer.parseInt(stopNumber.getText().toString());
                 OCTranspoActivity parent = (OCTranspoActivity) getContext();
                 parent.stopSelected(stopNo);
+
+
             });
         }
 
