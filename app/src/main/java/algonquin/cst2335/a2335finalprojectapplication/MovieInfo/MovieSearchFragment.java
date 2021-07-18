@@ -73,8 +73,9 @@ public class MovieSearchFragment extends Fragment {
     public void httpRequest() {
 
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-
+        MovieInfo movieInfo;
         JsonObjectRequest httpRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
 
 
             @Override
@@ -83,13 +84,16 @@ public class MovieSearchFragment extends Fragment {
                 try {
                     Log.i("Testing", "" + response.getBoolean("Response"));
                     if(response.getBoolean("Response")) {
-                        new MovieInfo(response.getString("Title"), response.getString("Year"), response.getString("Rated"),
+                    MovieInfo movieInfo = new MovieInfo(response.getString("Title"), response.getString("Year"), response.getString("Rated"),
                                 response.getString("Runtime"), response.getString("Actors"), response.getString("Plot"), response.getString("Poster"));
+                    MovieInfoActivity activity = (MovieInfoActivity)getContext();
+                    activity.usrSearchedMovie(movieInfo);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
