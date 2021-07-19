@@ -4,12 +4,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class FinalOpenHelper extends SQLiteOpenHelper {
+public class
+FinalOpenHelper extends SQLiteOpenHelper {
 
     public static final String NAME = "FinalProjectDatabase";
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
     public static final String OCTRANSPO_TABLE_NAME = "BusStops";
-    public static final String OCT_COL_ID = "ID";
     public static final String OCT_COL_NO = "BusStopNo";
     public static final String OCT_COL_DESC = "BusStopDescription";
 
@@ -19,8 +19,8 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + OCTRANSPO_TABLE_NAME + "(" + OCT_COL_ID + " VARCHAR PRIMARY KEY, " +
-                OCT_COL_NO + " INTEGER, " + OCT_COL_DESC + " TEXT);");
+        db.execSQL("CREATE TABLE " + OCTRANSPO_TABLE_NAME + "( " + OCT_COL_NO + " INTEGER PRIMARY KEY, "
+                + OCT_COL_DESC + " TEXT);");
     }
 
     @Override

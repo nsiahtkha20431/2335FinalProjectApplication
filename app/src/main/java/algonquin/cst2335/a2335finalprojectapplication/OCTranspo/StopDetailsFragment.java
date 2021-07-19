@@ -1,6 +1,9 @@
 package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
 
-import android.content.ContentValues;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,17 +11,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -26,15 +31,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class StopDetailsFragment extends Fragment {
+
     private int stopNo;
 
     public StopDetailsFragment(int stopNo) {
@@ -43,22 +50,32 @@ public class StopDetailsFragment extends Fragment {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        OCTranspoActivity parent = (OCTranspoActivity) getContext();
+        SharedPreferences prefs = getActivity().getSharedPreferences("OCT_Data", Context.MODE_PRIVATE);
         View detailsView;
-        if (stopNo == 0000) {
+
+        if (stopNo == 5555) { //if "Add new" selected, inflate Add Stop Layout
             detailsView = inflater.inflate(R.layout.add_stop_layout, container, false);
             EditText stopNumber = detailsView.findViewById(R.id.addStopNumber);
+            String savedStop = prefs.getString("saved_stop", "");
+            stopNumber.setText(savedStop);
+
+            // Add Stop Click Listener
             Button addStop = detailsView.findViewById(R.id.addStopButton);
-            addStop.setOnClickListener( clk -> {
-                if (stopNumber.getText() != null) {
+            addStop.setOnClickListener(clk -> {
+                // If stop number was entered continue to search, else show error alert
+                if (stopNumber.getText().toString().length() > 0) {
+                    // Save stop number entered to Shared Preferences
                     String stop = stopNumber.getText().toString();
-                    int stopNo = Integer.parseInt(stop);
+                    prefs.edit().putString("saved_stop", stop).apply();
+                    // Pull stop data from server
                     try {
                         URL url = new URL("https://api.octranspo1.com/v2.0/GetRouteSummaryForStop?appID=223eb5c3&apiKey=ab27db5b435b8c8819ffb8095328e775&stopNo="
                                 + URLEncoder.encode(stop, "UTF-8"));
-                        HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+                        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         Executor newThread = Executors.newSingleThreadExecutor();
-                        newThread.execute( () -> {
+                        newThread.execute(() -> {
                             try {
                                 InputStream in = new BufferedInputStream(conn.getInputStream());
                                 String text = (new BufferedReader(
@@ -67,15 +84,31 @@ public class StopDetailsFragment extends Fragment {
                                 JSONObject stopData = new JSONObject(text);
                                 JSONObject mainData = stopData.getJSONObject("GetRouteSummaryForStopResult");
                                 String error = mainData.getString("Error");
+                                // If no error code add stop to database, else display error
                                 if (error.equals("")) {
                                     String stopNo1 = mainData.getString("StopNo");
                                     String stopDescription = mainData.getString("StopDescription");
-                                    ContentValues newRow = new ContentValues();
-                                    newRow.put(FinalOpenHelper.OCT_COL_NO, stopNo1);
-                                    newRow.put(FinalOpenHelper.OCT_COL_DESC, stopDescription);
-                                    MainActivity.db.insert(FinalOpenHelper.OCTRANSPO_TABLE_NAME, null, newRow);
+                                    parent.addStop(stopNo1, stopDescription);
+                                    getActivity().runOnUiThread(() -> {
+                                        getParentFragmentManager().popBackStackImmediate();
+                                    });
                                 } else {
-                                    // display error
+                                    String errorText;
+                                    switch (error) {
+                                        case "1":
+                                        case "2":
+                                            errorText = "API Error: Please try again.";
+                                            break;
+                                        case "10":
+                                            errorText = "Error: Invalid stop number.";
+                                            break;
+                                        default:
+                                            errorText = "Error: Please try again.";
+                                            break;
+                                    }
+                                    getActivity().runOnUiThread(() -> {
+                                        Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+                                    });
                                 }
                             } catch (IOException | JSONException e) {
                                 e.printStackTrace();
@@ -84,20 +117,166 @@ public class StopDetailsFragment extends Fragment {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                } else {
-                    //Alert : please enter a stop number
+                } else { // Alert if Stop Number was left empty
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setTitle("Attention")
+                            .setMessage("Please enter a stop number to add to your list.")
+                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alert = builder.create();
+                    alert.show();
                 }
             });
+            // Close Add Stop fragment
             Button closeFrag = detailsView.findViewById(R.id.addStopButtonClose);
-            closeFrag.setOnClickListener( clk -> {
-                getParentFragmentManager().beginTransaction().remove(this).commit();
+            closeFrag.setOnClickListener(clk -> {
+                getParentFragmentManager().popBackStackImmediate();
             });
-        } else {
-            //get api result for stop no
+        } else { // Otherwise inflate the Stop Details layout for the selected stop
             //inflate stop detail layout
             detailsView = inflater.inflate(R.layout.stop_details_layout, container, false);
-            //populate detail fields
+            TextView stopText = detailsView.findViewById(R.id.stopNo);
+            TextView descText = detailsView.findViewById(R.id.description);
+            //get api result for stop no
+            try {
+                URL url = new URL("https://api.octranspo1.com/v2.0/GetRouteSummaryForStop?appID=223eb5c3&apiKey=ab27db5b435b8c8819ffb8095328e775&stopNo="
+                        + URLEncoder.encode(String.valueOf(stopNo), "UTF-8"));
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                Executor newThread = Executors.newSingleThreadExecutor();
+                newThread.execute(() -> {
+                    try {
+                        InputStream in = new BufferedInputStream(conn.getInputStream());
+                        String text = (new BufferedReader(
+                                new InputStreamReader(in, StandardCharsets.UTF_8)))
+                                .lines().collect(Collectors.joining("\n"));
+
+                        JSONObject stopData = new JSONObject(text);
+                        JSONObject mainData = stopData.getJSONObject("GetRouteSummaryForStopResult");
+                        String stopDesc = mainData.getString("StopDescription");
+                        String stop = mainData.getString("StopNo");
+                        JSONObject arrayObject = mainData.getJSONObject("Routes");
+                        JSONArray routeArray = arrayObject.optJSONArray("Route");
+                        String routeNo;
+                        String routeHeading;
+                        int dirID;
+                        JSONObject routeObject;
+                        ArrayList<ArrayList<String>> routes = new ArrayList<>();
+                        if (routeArray == null) {
+                            routeObject = arrayObject.optJSONObject("Route");
+                            if (routeObject != null) {
+                                routeNo = routeObject.getString("RouteNo");
+                                routeHeading = routeObject.getString("RouteHeading");
+                                dirID = routeObject.getInt("DirectionID");
+                                routes.add(new ArrayList<>());
+                                routes.get(0).add(routeNo);
+                                routes.get(0).add(routeHeading);
+                                routes.get(0).add(String.valueOf(dirID));
+                            }
+                        } else {
+                            for (int i = 0; i < routeArray.length(); i++) {
+                                routeObject = routeArray.getJSONObject(i);
+                                routeNo = routeObject.getString("RouteNo");
+                                routeHeading = routeObject.getString("RouteHeading");
+                                dirID = routeObject.getInt("DirectionID");
+                                routes.add(new ArrayList<>());
+                                routes.get(i).add(routeNo);
+                                routes.get(i).add(routeHeading);
+                                routes.get(i).add(String.valueOf(dirID));
+                            }
+
+                        }
+                        // Populate array with route data
+
+                        getActivity().runOnUiThread( () -> {
+                            RecyclerView routeList = detailsView.findViewById(R.id.routeRecycler);
+                            routeList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+                            MyAdapter adptr = new StopDetailsFragment.MyAdapter(routes, getContext());
+                            routeList.setAdapter(adptr);
+                            // Add data to fields
+                            stopText.setText(stop);
+                            descText.setText(stopDesc);
+                            // Set up recycler view with route array
+
+                            // Back button
+                            Button back = detailsView.findViewById(R.id.backButton);
+                            back.setOnClickListener(clk -> {
+                                getParentFragmentManager().popBackStackImmediate();
+                            });
+
+                            // Delete button
+                            Button delete = detailsView.findViewById(R.id.deleteButton);
+                            delete.setOnClickListener(clk -> {
+                                parent.deleteStop(stopNo, stopDesc);
+                                getParentFragmentManager().popBackStackImmediate();
+                            });
+                        });
+
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return detailsView;
     }
+
+    protected class MyAdapter extends RecyclerView.Adapter<StopDetailsFragment.MyViewHolder> {
+
+        private ArrayList<ArrayList<String>> routeData;
+        private Context ctxt;
+
+        public MyAdapter(ArrayList<ArrayList<String>> routeData, Context context) {
+            this.routeData = routeData;
+            this.ctxt = context;
+        }
+
+        @Override
+        public StopDetailsFragment.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(ctxt).inflate(R.layout.oct_list_item, parent, false);
+            return new StopDetailsFragment.MyViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(StopDetailsFragment.MyViewHolder holder, int position) {
+            if (position < routeData.size()) {
+                holder.routeNumber.setText(routeData.get(position).get(0));
+                holder.routeDescription.setText(routeData.get(position).get(1));
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return routeData.size();
+        }
+    }
+
+    protected class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView routeNumber;
+        public TextView routeDescription;
+
+
+        public MyViewHolder(View view) {
+            super(view);
+            routeNumber = view.findViewById(R.id.listNumber);
+            routeDescription = view.findViewById(R.id.listDescription);
+
+
+            view.setOnClickListener( clk -> {
+                int routeNo = Integer.parseInt(routeNumber.getText().toString());
+                OCTranspoActivity parent = (OCTranspoActivity) getContext();
+                parent.routeSelected(routeNo);
+
+
+            });
+        }
+
+    }
+
 }
