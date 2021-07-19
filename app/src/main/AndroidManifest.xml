@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="algonquin.cst2335.a2335finalprojectapplication">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.2335FinalProjectApplication">
-        <activity android:name=".SoccerGames"></activity>
+        <activity android:name=".OCTranspo.OCTranspoActivity"></activity>
+        <activity android:name=".MovieInfo.MovieInfoActivity"
+            android:theme="@style/MovieTheme"></activity>
+        <activity android:name=".SoccerGames.SoccerGames"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

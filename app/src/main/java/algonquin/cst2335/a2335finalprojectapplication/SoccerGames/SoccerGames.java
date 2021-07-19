@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication;
+package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,8 +20,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
+
+import algonquin.cst2335.a2335finalprojectapplication.ArticleDetailsFragment;
+import algonquin.cst2335.a2335finalprojectapplication.ArticleListFragment;
+import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class SoccerGames extends AppCompatActivity {
     ArticleListFragment articleFragment = new ArticleListFragment();
