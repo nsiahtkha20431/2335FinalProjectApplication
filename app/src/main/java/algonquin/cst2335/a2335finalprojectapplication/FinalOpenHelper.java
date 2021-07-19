@@ -4,7 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class FinalOpenHelper extends SQLiteOpenHelper {
+public class
+FinalOpenHelper extends SQLiteOpenHelper {
 
     public static final String NAME = "FinalProjectDatabase";
     public static final int VERSION = 2;
