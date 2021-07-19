@@ -1,79 +1,56 @@
 package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.storage.StorageManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
 
+import algonquin.cst2335.a2335finalprojectapplication.ArticleDetailsFragment;
+import algonquin.cst2335.a2335finalprojectapplication.ArticleListFragment;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class SoccerGames extends AppCompatActivity {
-    ArticleAdapter adapter = new ArticleAdapter();
+    ArticleListFragment articleFragment = new ArticleListFragment();
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.article_list_layout); //layout to list the article titles
-        RecyclerView articlesRecyclerView = findViewById(R.id.myrecycler);
-        articlesRecyclerView.setAdapter(new ArticleAdapter());
+        setContentView(R.layout.empty_layout); //setting the view
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, new ArticleListFragment()).commit();
+
+        SoccerGames.context = getApplicationContext();
     }
 
-    private class ArticleViewHolder extends RecyclerView.ViewHolder{
-
-        ImageView articleThumb;
-        TextView articleTitle;
-
-        public ArticleViewHolder(View itemView) {
-            super(itemView);
-
-            articleThumb = itemView.findViewById(R.id.articleThumb);
-            articleTitle = itemView.findViewById(R.id.articleTitle);
-        }
+    public static Context getAppContext() {
+        return SoccerGames.context;
     }
 
-    //Adapter for this RecyclerView - Adapter is like the middle man for what the user sees and how the application gets and displays data
-    private class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
-        @Override
-        public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater inflater = getLayoutInflater();
-            View loadedRow = inflater.inflate(R.layout.row_layout, parent, false);
-
-            return null;
-        }
-
-        @Override
-        public void onBindViewHolder(ArticleViewHolder holder, int position) {
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return 0;
-        }
+    public void userClickedMessage(String article, int position) {
+        ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
     }
 
-    //this class is similar to the ChatMessage class in the RecyclerView lab (week 5) - used to store and get the information for each article to be displayed in the RecyclerView
-    //not a ViewHolder or and Adapter
-    private class ArticleInfo {
-        String title;
-        String datePublished;
-
-        public ArticleInfo (String title, String datePublished) {
-            this.title = title;
-            this.datePublished = datePublished;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public String getDatePublished() {
-            return datePublished;
-        }
+    //not currently being called in the code
+    public void notifyArticleDeleted(String chosenArticle, int chosenPosition) {
+        articleFragment.notifyArticleDeleted(chosenArticle, chosenPosition);
     }
 }
