@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/movieDetailsFrag">
+
+    <TextView
+        android:id="@+id/actors_mes"
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="175dp"
+        android:text="Main Actors go here"
+        app:layout_constraintStart_toStartOf="@+id/runtime_mes"
+        app:layout_constraintTop_toBottomOf="@+id/runtime_mes" />
+
+    <TextView
+        android:id="@+id/plot_mes"
+        android:layout_width="365dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Plot goes here"
+        app:layout_constraintStart_toStartOf="@+id/actors_mes"
+        app:layout_constraintTop_toBottomOf="@+id/actors_mes" />
+
+    <TextView
+        android:id="@+id/runtime_mes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Runtime goes here"
+        app:layout_constraintStart_toStartOf="@+id/rating_mes"
+        app:layout_constraintTop_toBottomOf="@+id/rating_mes" />
+
+    <TextView
+        android:id="@+id/rating_mes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Rating goes here"
+        app:layout_constraintStart_toStartOf="@+id/year_mes"
+        app:layout_constraintTop_toBottomOf="@+id/year_mes" />
+
+    <TextView
+        android:id="@+id/year_mes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Year goes here"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/title_mes"
+        app:layout_constraintTop_toBottomOf="@+id/title_mes" />
+
+    <TextView
+        android:id="@+id/title_mes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Title goes here"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/pos"
+        android:layout_width="200dp"
+        android:layout_height="275dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/temp" />
+
+    <Button
+        android:id="@+id/close_but"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Close"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/del_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
