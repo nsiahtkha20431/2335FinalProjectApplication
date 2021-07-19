@@ -19,6 +19,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
+import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
 import org.json.JSONArray;

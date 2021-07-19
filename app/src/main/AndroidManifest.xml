@@ -12,6 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.2335FinalProjectApplication">
         <activity android:name=".OCTranspo.OCTranspoActivity"></activity>
+        <activity android:name=".MovieInfo.MovieInfoActivity"
+            android:theme="@style/MovieTheme"></activity>
         <activity android:name=".SoccerGames.SoccerGames"></activity>
         <activity android:name=".ChargingStations.ChargingMainActivity"></activity>
         <activity android:name=".MainActivity">
