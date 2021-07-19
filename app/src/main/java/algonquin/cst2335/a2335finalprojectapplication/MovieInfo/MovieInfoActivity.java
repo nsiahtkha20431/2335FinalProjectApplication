@@ -15,12 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
+import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
+
 public class MovieInfoActivity extends AppCompatActivity {
 
 
     MovieSearchFragment searchFrag = new MovieSearchFragment();
     MovieSearchFragment.MovieInfo movieInfo;
-    FinalOpenHelper opener = new FinalOpenHelper(this);
+
     SavedMovieFragment savedFrag = new SavedMovieFragment();
 
     @Override
@@ -41,10 +43,12 @@ public class MovieInfoActivity extends AppCompatActivity {
                 if(item.getItemId() == R.id.search) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, searchFrag).commit();
                     item.setChecked(true);
+                    toolbar.setTitle("Search Movie");
                 }
                 else if(item.getItemId() == R.id.saved) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
                     item.setChecked(true);
+                    toolbar.setTitle("Saved Movies");
                 }
                 else{
 

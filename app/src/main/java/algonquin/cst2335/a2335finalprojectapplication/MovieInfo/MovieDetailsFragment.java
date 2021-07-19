@@ -34,7 +34,7 @@ public class MovieDetailsFragment extends Fragment {
     Button close;
     MovieSearchFragment searchFrag = new MovieSearchFragment();
     MovieSearchFragment.MovieInfo movieInfo;
-    FinalOpenHelper opener = new FinalOpenHelper(getContext());
+
 
 
 

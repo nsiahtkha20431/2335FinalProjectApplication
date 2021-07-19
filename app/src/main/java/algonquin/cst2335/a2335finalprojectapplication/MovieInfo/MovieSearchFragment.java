@@ -118,7 +118,7 @@ public class MovieSearchFragment extends Fragment {
     }
 
 
-    class MovieInfo {
+    static class MovieInfo {
         String title;
         String year;
         String rating;
