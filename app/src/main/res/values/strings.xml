@@ -9,4 +9,6 @@
     <string name="add_stop_header">Enter Stop Number and Press Add Stop</string>
     <string name="add_stop_button">Add Stop</string>
     <string name="add_stop_close">Close</string>
+    <string name="back_button">Back</string>
+    <string name="delete_button">Delete</string>
 </resources>
