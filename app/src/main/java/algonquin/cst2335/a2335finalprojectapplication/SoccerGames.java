@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class SoccerGames extends AppCompatActivity {
+    ArticleListFragment articleFragment = new ArticleListFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +38,9 @@ public class SoccerGames extends AppCompatActivity {
     public void userClickedMessage(String article, int position) {
         ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
+    }
+
+    public void notifyArticleDeleted(String chosenArticle, int chosenPosition) {
+        articleFragment.notifyArticleDeleted(chosenArticle, chosenPosition);
     }
 }

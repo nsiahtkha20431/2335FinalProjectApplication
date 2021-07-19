@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -15,6 +16,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 
 
@@ -22,6 +26,7 @@ public class ArticleListFragment extends Fragment {
     ArticleAdapter adapter; //declaring an ArticleAdapter object, but not initializing yet
     ArrayList<String> articleTitlesList = new ArrayList<>(); //making an array to hold the titles of each article
 //    RatingBar rating;
+//    Button send;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,6 +34,8 @@ public class ArticleListFragment extends Fragment {
         View articlesListLayout = inflater.inflate(R.layout.article_recycler_layout, container, false);
 
         RecyclerView articlesRecyclerView = articlesListLayout.findViewById(R.id.myrecycler); //creating an instance of RecyclerView and attaching it to the XML tag
+
+//        send = articlesListLayout.findViewById(R.id.deleteFromFavButton);
 
         articleTitlesList.add("Article Title 1"); //adding temporary article titles for the array -- will get these properly from a DB later
         articleTitlesList.add("Article Title 2");
@@ -80,6 +87,18 @@ public class ArticleListFragment extends Fragment {
 //        });
 
         builder.create().show();
+    }
+
+    public void notifyArticleDeleted(String chosenArticle, int chosenPosition) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Danger!")
+                .setMessage("Do you want to delete the article " + articleTitlesList.get(chosenPosition))
+                .setNegativeButton("Cancel", (dialog, cl) -> { })
+                .setPositiveButton("Delete", (dialog, cl) -> {
+                    String removedArticle = articleTitlesList.get(chosenPosition);
+                    articleTitlesList.remove(chosenPosition);
+                    adapter.notifyItemRemoved(chosenPosition);
+                }).create().show();
     }
 
     //ViewHolder for this RecyclerView - this represents one element of the list and how it will look like

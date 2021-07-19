@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.snackbar.Snackbar;
+
 public class ArticleDetailsFragment extends Fragment {
     String chosenArticle;
     int chosenPosition;
+    Button delete;
 
     public ArticleDetailsFragment(String article, int position) {
         chosenArticle = article;
@@ -21,6 +24,8 @@ public class ArticleDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View articlesDetailsLayout = inflater.inflate(R.layout.soccer_details_layout, container, false);
+
+        delete = articlesDetailsLayout.findViewById(R.id.deleteFromFavButton);
 
         TextView titleView = articlesDetailsLayout.findViewById(R.id.titleView);
         TextView urlView = articlesDetailsLayout.findViewById(R.id.urlView);
@@ -42,6 +47,11 @@ public class ArticleDetailsFragment extends Fragment {
         });
 
         deleteFromFavButton.setOnClickListener(clicked -> {
+//            SoccerGames parentActivity = (SoccerGames)getContext();
+//            parentActivity.notifyArticleDeleted(chosenArticle, chosenPosition);
+
+            Snackbar.make(delete, "You deleted " + chosenArticle, Snackbar.LENGTH_SHORT)
+                    .setAction("UNDO", click -> { }).show();
 
         });
 
