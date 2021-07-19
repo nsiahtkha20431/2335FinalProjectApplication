@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class SoccerGames extends AppCompatActivity {
     ArticleListFragment articleFragment = new ArticleListFragment();
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,11 @@ public class SoccerGames extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, new ArticleListFragment()).commit();
 
+        SoccerGames.context = getApplicationContext();
+    }
+
+    public static Context getAppContext() {
+        return SoccerGames.context;
     }
 
     public void userClickedMessage(String article, int position) {
@@ -40,6 +46,7 @@ public class SoccerGames extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
     }
 
+    //not currently being called in the code
     public void notifyArticleDeleted(String chosenArticle, int chosenPosition) {
         articleFragment.notifyArticleDeleted(chosenArticle, chosenPosition);
     }

@@ -25,8 +25,6 @@ import java.util.ArrayList;
 public class ArticleListFragment extends Fragment {
     ArticleAdapter adapter; //declaring an ArticleAdapter object, but not initializing yet
     ArrayList<String> articleTitlesList = new ArrayList<>(); //making an array to hold the titles of each article
-//    RatingBar rating;
-//    Button send;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,13 +33,23 @@ public class ArticleListFragment extends Fragment {
 
         RecyclerView articlesRecyclerView = articlesListLayout.findViewById(R.id.myrecycler); //creating an instance of RecyclerView and attaching it to the XML tag
 
-//        send = articlesListLayout.findViewById(R.id.deleteFromFavButton);
+
 
         articleTitlesList.add("Article Title 1"); //adding temporary article titles for the array -- will get these properly from a DB later
         articleTitlesList.add("Article Title 2");
         articleTitlesList.add("Article Title 3");
         articleTitlesList.add("Article Title 4");
         articleTitlesList.add("Article Title 5");
+        articleTitlesList.add("Article Title 6");
+        articleTitlesList.add("Article Title 7");
+        articleTitlesList.add("Article Title 8");
+        articleTitlesList.add("Article Title 9");
+        articleTitlesList.add("Article Title 10");
+        articleTitlesList.add("Article Title 11");
+        articleTitlesList.add("Article Title 12");
+        articleTitlesList.add("Article Title 13");
+        articleTitlesList.add("Article Title 14");
+        articleTitlesList.add("Article Title 15");
 
         adapter = new ArticleAdapter(articleTitlesList, getContext()); //initializing the ArticleAdapter object and passing it the values of the array and the context (like that it comes from here)
 
@@ -75,20 +83,21 @@ public class ArticleListFragment extends Fragment {
         builder.setTitle("Please rate our app!"); //setting title of the AlertDialog
         builder.setView(linearLayout); //adding the LinearLayout view to the AlertDialog
 
-        //FIGURE THIS OUT -- SharedPreferences
-//        rating.setOnClickListener(clk -> {
-//            float value = rating.getRating(); //saving the value of the RatingBar to the 'value' variable
-//            SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE); //creating a SharedPreferences object
-//            SharedPreferences.Editor editor = prefs.edit(); //allows whatever new value is entered to be saved when it is edited
-//            editor.putFloat("numStars", value); //put value
-//            editor.commit(); //commits the changes to the SharedPreferences to the editor
-//            float ratingInt = prefs.getFloat("numStars", value);
-//            rating.setRating(ratingInt);//save
-//        });
+        SharedPreferences prefs = SoccerGames.getAppContext().getSharedPreferences("MyData", Context.MODE_PRIVATE); //creating a SharedPreferences object
+        float ratingInt = prefs.getFloat("numStars", rating.getRating());
+
+        builder.setPositiveButton("Done", (dialog, cl) -> {
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putFloat("numStars", ratingInt); //put value
+            editor.apply(); //commits the changes to the SharedPreferences to the editor
+
+            rating.setRating(ratingInt);//save
+        });
 
         builder.create().show();
     }
 
+    //not currently being called in the code
     public void notifyArticleDeleted(String chosenArticle, int chosenPosition) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("Danger!")
