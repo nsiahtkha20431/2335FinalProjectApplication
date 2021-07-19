@@ -88,13 +88,13 @@ public class MovieSearchFragment extends Fragment {
             public void onResponse(JSONObject response) {
 
                 try {
-                    Log.i("Testing", "" + response.getBoolean("Response"));
-                    if(response.getBoolean("Response")) {
-                    MovieInfo movieInfo = new MovieInfo(response.getString("Title"), response.getString("Year"), response.getString("Rated"),
-                                response.getString("Runtime"), response.getString("Actors"), response.getString("Plot"), response.getString("Poster"));
-                    MovieInfoActivity activity = (MovieInfoActivity)getContext();
 
-                    activity.usrSearchedMovie(movieInfo);
+                    if(response.getBoolean("Response")) {
+                        MovieInfo movieInfo = new MovieInfo(response.getString("Title"), response.getString("Year"), response.getString("Rated"),
+                                response.getString("Runtime"), response.getString("Actors"), response.getString("Plot"), response.getString("Poster"));
+                        MovieInfoActivity activity = (MovieInfoActivity)getContext();
+
+                        activity.usrSearchedMovie(movieInfo);
 
                     }
                     else{
