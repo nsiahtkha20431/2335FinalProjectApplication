@@ -30,6 +30,7 @@ public class MovieInfoActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Search Movie");
         toolbar.inflateMenu(R.menu.movie_toolbar_menu);
+        toolbar.getMenu().getItem(0).setChecked(true);
         //setSupportActionBar(toolbar);
         getSupportFragmentManager().beginTransaction().add(R.id.movie_room, searchFrag).commit();
 
@@ -39,9 +40,11 @@ public class MovieInfoActivity extends AppCompatActivity {
 
                 if(item.getItemId() == R.id.search) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, searchFrag).commit();
+                    item.setChecked(true);
                 }
                 else if(item.getItemId() == R.id.saved) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
+                    item.setChecked(true);
                 }
                 else{
 
