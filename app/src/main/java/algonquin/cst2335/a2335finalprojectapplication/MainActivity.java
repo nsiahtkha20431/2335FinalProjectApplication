@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
 
+import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingMainActivity;
 import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
 import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
 
@@ -26,6 +27,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(nextPage);
         });
         Button electricCar  = findViewById(R.id.electricCarButton);
+        electricCar.setOnClickListener(click -> {
+            Intent nextPage = new Intent(MainActivity.this, ChargingMainActivity.class);
+            startActivity(nextPage);
+        });
+
         Button movieInfo = findViewById(R.id.movieInfoButton);
         Button soccerGames = findViewById(R.id.soccerGamesButton);
 
