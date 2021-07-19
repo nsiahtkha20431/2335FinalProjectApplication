@@ -27,11 +27,23 @@ public class ArticleDetailsFragment extends Fragment {
         TextView descriptionView = articlesDetailsLayout.findViewById(R.id.descriptionView);
         Button addToFavButton = articlesDetailsLayout.findViewById(R.id.addToFavButton);
         Button deleteFromFavButton = articlesDetailsLayout.findViewById(R.id.deleteFromFavButton);
+        Button backButton = articlesDetailsLayout.findViewById(R.id.backButton);
 
         titleView.setText("Article is: " + chosenArticle);
         urlView.setText("URL is: URL");
         descriptionView.setText("Description: No description yet");
 
+        backButton.setOnClickListener(clicked -> {
+            getParentFragmentManager().beginTransaction().remove(this).commit();
+        });
+
+        addToFavButton.setOnClickListener(clicked -> {
+            //implement this later
+        });
+
+        deleteFromFavButton.setOnClickListener(clicked -> {
+
+        });
 
         return articlesDetailsLayout;
     }

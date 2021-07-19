@@ -28,14 +28,14 @@ public class SoccerGames extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.soccer_details_layout); //setting the view as the RecyclerView layout
+        setContentView(R.layout.empty_layout); //setting the view
 
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, new ArticleListFragment()).commit();
 
     }
 
-
     public void userClickedMessage(String article, int position) {
         ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
     }
 }

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 
 public class ArticleListFragment extends Fragment {
-    ArticleAdapter adapter; //declaring an ArticleAdapter object, but no initializing yet
+    ArticleAdapter adapter; //declaring an ArticleAdapter object, but not initializing yet
     ArrayList<String> articleTitlesList = new ArrayList<>(); //making an array to hold the titles of each article
 //    RatingBar rating;
 
@@ -35,6 +35,7 @@ public class ArticleListFragment extends Fragment {
         articleTitlesList.add("Article Title 3");
         articleTitlesList.add("Article Title 4");
         articleTitlesList.add("Article Title 5");
+
         adapter = new ArticleAdapter(articleTitlesList, getContext()); //initializing the ArticleAdapter object and passing it the values of the array and the context (like that it comes from here)
 
         articlesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false)); //set the layout of the contents, i.e. list of repeating views in the recycler view
@@ -94,10 +95,10 @@ public class ArticleListFragment extends Fragment {
             articleTitle = itemView.findViewById(R.id.articleTitle); //initializing
 
             itemView.setOnClickListener(click -> {
-                Toast.makeText(getContext(), "You clicked on " + articleTitlesList.get(0), Toast.LENGTH_SHORT).show(); //how to make this show the actual title no matter what they click? right now it will only ever show the first title
+                int position = getAbsoluteAdapterPosition();
+                Toast.makeText(getContext(), "You clicked on " + articleTitlesList.get(position), Toast.LENGTH_SHORT).show();
 
                 SoccerGames parentActivity = (SoccerGames)getContext();
-                int position = getAbsoluteAdapterPosition();
                 parentActivity.userClickedMessage(articleTitlesList.get(position), position);
             });
         }
