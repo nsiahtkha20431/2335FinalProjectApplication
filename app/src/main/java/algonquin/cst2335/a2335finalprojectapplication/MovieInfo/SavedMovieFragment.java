@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -73,6 +74,7 @@ public class SavedMovieFragment extends Fragment {
         TextView title;
         TextView year;
         TextView rated;
+        ImageView poster;
         int position = -1;
 
 
@@ -82,25 +84,32 @@ public class SavedMovieFragment extends Fragment {
 
 
             itemView.setOnClickListener(e -> {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setMessage("Are you sure you want to delete:" + title.getText() + "from your list?")
-                        .setTitle("Question: ")
-                        .setNegativeButton("No", (dialog, cl) -> {
-                            //does nothing
-                        })
-                        .setPositiveButton("Yes", (dialog, cl) -> {
-                            position = getAbsoluteAdapterPosition();
-                            MovieSearchFragment.MovieInfo removedMovie = movieInfoArrayList.get(position);
-                            movieInfoArrayList.remove(position);
-                            movieAdapter.notifyItemRemoved(position);
-                            SQLiteDatabase db = opener.getWritableDatabase();
-                            db.delete(FinalOpenHelper.MOVIE_TABLE_NAME, "Title=?", new String[]{removedMovie.getTitle()});
-                        })
-                        .create().show();
+
+                MovieInfoActivity activity = (MovieInfoActivity)getContext();
+
+                activity.usrClickedSavedMovie();
+
             });
+//                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+//                alert.setMessage("Are you sure you want to delete:" + title.getText() + "from your list?")
+//                        .setTitle("Question: ")
+//                        .setNegativeButton("No", (dialog, cl) -> {
+//                            //does nothing
+//                        })
+//                        .setPositiveButton("Yes", (dialog, cl) -> {
+//                            position = getAbsoluteAdapterPosition();
+//                            MovieSearchFragment.MovieInfo removedMovie = movieInfoArrayList.get(position);
+//                            movieInfoArrayList.remove(position);
+//                            movieAdapter.notifyItemRemoved(position);
+//                            SQLiteDatabase db = opener.getWritableDatabase();
+//                            db.delete(FinalOpenHelper.MOVIE_TABLE_NAME, "Title=?", new String[]{removedMovie.getTitle()});
+//                        })
+//                        .create().show();
+//            });
             title = itemView.findViewById(R.id.save_title);
             year = itemView.findViewById(R.id.save_year);
             rated = itemView.findViewById(R.id.save_rating);
+            poster = itemView.findViewById(R.id.save_poster);
         }
 
         public void setPosition(int position) {
@@ -124,6 +133,8 @@ public class SavedMovieFragment extends Fragment {
             hold.title.setText(movieInfoArrayList.get(position).getTitle());
             hold.year.setText(movieInfoArrayList.get(position).getYear());
             hold.rated.setText(movieInfoArrayList.get(position).getRating());
+            new MovieDetailsFragment.DownloadImageTask(hold.poster).execute(movieInfoArrayList.get(position).getURL());
+
             hold.setPosition(position);
         }
 

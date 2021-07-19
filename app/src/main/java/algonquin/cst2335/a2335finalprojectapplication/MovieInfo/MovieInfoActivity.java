@@ -2,10 +2,13 @@ package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -22,7 +25,6 @@ public class MovieInfoActivity extends AppCompatActivity {
 
     MovieSearchFragment searchFrag = new MovieSearchFragment();
     MovieSearchFragment.MovieInfo movieInfo;
-
     SavedMovieFragment savedFrag = new SavedMovieFragment();
 
     @Override
@@ -72,9 +74,9 @@ public class MovieInfoActivity extends AppCompatActivity {
 
 
     public void usrSearchedMovie(MovieSearchFragment.MovieInfo movieInfo) {
+        this.movieInfo = movieInfo;
 
         MovieDetailsFragment detailsFrag = new MovieDetailsFragment(movieInfo);
-        this.movieInfo = movieInfo;
         getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, detailsFrag).commit();
     }
 
@@ -90,6 +92,22 @@ public class MovieInfoActivity extends AppCompatActivity {
         newRow.put(FinalOpenHelper.movie_poster, movieInfo.getURL());
         db.insert(FinalOpenHelper.MOVIE_TABLE_NAME, FinalOpenHelper.movie_title, newRow);
 
+    }
+
+    public void usrClickedSavedMovie(){
+        SavedMovieDetailsFragment savedDetailsFrag = new SavedMovieDetailsFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedDetailsFrag).commit();
+    }
+
+    public void usrClickedDelMovie(){
+        SQLiteDatabase db = opener.getWritableDatabase();
+        // db.delete(FinalOpenHelper.MOVIE_TABLE_NAME, FinalOpenHelper.movie_title, new String[] { Long.toString(removedMessage.getId()) });
+        //db.delete("SELECT " + FinalOpenHelper.movie_title + ", " + FinalOpenHelper.movie_year + " FROM " + FinalOpenHelper.MOVIE_TABLE_NAME + ";", null);
+        getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
+    }
+
+    public void usrClickedCloseSaved(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
     }
 
 }
