@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import androidx.appcompat.widget.Toolbar;
 
@@ -20,26 +21,47 @@ public class MovieInfoActivity extends AppCompatActivity {
     MovieSearchFragment searchFrag = new MovieSearchFragment();
     MovieSearchFragment.MovieInfo movieInfo;
     FinalOpenHelper opener = new FinalOpenHelper(this);
+    SavedMovieFragment savedFrag = new SavedMovieFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_room);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        toolbar.setTitle("Search Movie");
+        toolbar.inflateMenu(R.menu.movie_toolbar_menu);
+        //setSupportActionBar(toolbar);
         getSupportFragmentManager().beginTransaction().add(R.id.movie_room, searchFrag).commit();
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if(item.getItemId() == R.id.search) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, searchFrag).commit();
+                }
+                else if(item.getItemId() == R.id.saved) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
+                }
+                else{
+
+                }
+                return false;
+            }
+        });
+
         SQLiteDatabase db = opener.getWritableDatabase();
 
 
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.movie_toolbar_menu, menu);
-        return true;
-    }
+//Not needed if directly inflate on toolbar and not use setSupportActionBar(toolbar);
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.movie_toolbar_menu, menu);
+//        return true;
+//    }
 
 
     public void usrSearchedMovie(MovieSearchFragment.MovieInfo movieInfo) {
