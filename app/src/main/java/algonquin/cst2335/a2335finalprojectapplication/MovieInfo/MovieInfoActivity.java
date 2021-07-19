@@ -94,20 +94,14 @@ public class MovieInfoActivity extends AppCompatActivity {
 
     }
 
-    public void usrClickedSavedMovie(){
-        SavedMovieDetailsFragment savedDetailsFrag = new SavedMovieDetailsFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedDetailsFrag).commit();
+    public void usrClickedSavedMovie(MovieSearchFragment.MovieInfo movieInfo, int position){
+        SavedMovieDetailsFragment savedDetailsFrag = new SavedMovieDetailsFragment(movieInfo, position);
+        getSupportFragmentManager().beginTransaction().add(R.id.movie_room, savedDetailsFrag).commit();
     }
 
-    public void usrClickedDelMovie(){
-        SQLiteDatabase db = opener.getWritableDatabase();
-        // db.delete(FinalOpenHelper.MOVIE_TABLE_NAME, FinalOpenHelper.movie_title, new String[] { Long.toString(removedMessage.getId()) });
-        //db.delete("SELECT " + FinalOpenHelper.movie_title + ", " + FinalOpenHelper.movie_year + " FROM " + FinalOpenHelper.MOVIE_TABLE_NAME + ";", null);
-        getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
-    }
 
-    public void usrClickedCloseSaved(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
-    }
+    public void movieDeleted(MovieSearchFragment.MovieInfo movieInfo, int position){
+        savedFrag.movieDeleted(movieInfo, position);
 
+    }
 }
