@@ -15,6 +15,7 @@
         <activity android:name=".MovieInfo.MovieInfoActivity"
             android:theme="@style/MovieTheme"></activity>
         <activity android:name=".SoccerGames.SoccerGames"></activity>
+        <activity android:name=".ChargingStations.ChargingMainActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
