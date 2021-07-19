@@ -21,6 +21,8 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
+import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
+
 
 public class ArticleListFragment extends Fragment {
     ArticleAdapter adapter; //declaring an ArticleAdapter object, but not initializing yet
