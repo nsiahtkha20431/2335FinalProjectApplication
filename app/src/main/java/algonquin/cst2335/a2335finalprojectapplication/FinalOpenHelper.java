@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class FinalOpenHelper extends SQLiteOpenHelper {
 
     public static final String NAME = "FinalProjectDatabase";
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
     public static final String OCTRANSPO_TABLE_NAME = "BusStops";
     public static final String OCT_COL_ID = "ID";
     public static final String OCT_COL_NO = "BusStopNo";
@@ -16,7 +16,7 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
     public static final String MOVIE_TABLE_NAME = "SavedMovieInformation";
     public static final String movie_title = "Title";
     public static final String movie_year = "Year";
-    public static final String movie_rating = "Rating";
+    public static final String movie_rating = "Rated";
     public static final String movie_runtime = "Runtime";
     public static final String movie_actors = "MainActors";
     public static final String movie_plot = "Plot";
