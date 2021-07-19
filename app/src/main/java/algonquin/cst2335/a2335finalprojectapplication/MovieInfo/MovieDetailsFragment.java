@@ -1,5 +1,6 @@
 package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -34,7 +35,7 @@ public class MovieDetailsFragment extends Fragment {
     MovieSearchFragment searchFrag = new MovieSearchFragment();
     MovieSearchFragment.MovieInfo movieInfo;
     FinalOpenHelper opener = new FinalOpenHelper(getContext());
-    SQLiteDatabase db = opener.getWritableDatabase();
+
 
 
     @Override
@@ -61,6 +62,8 @@ public class MovieDetailsFragment extends Fragment {
 
         save.setOnClickListener(clk -> {
             //TODO database input
+              MovieInfoActivity activity = (MovieInfoActivity)getContext();
+              activity.usrSaveMovie();
             Toast.makeText(getContext(), "Saved the selected movie.", Toast.LENGTH_SHORT).show();
 
         });
