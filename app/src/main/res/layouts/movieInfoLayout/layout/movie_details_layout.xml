@@ -59,9 +59,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="Title goes here"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="20sp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/poster"

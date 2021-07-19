@@ -31,14 +31,15 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + OCTRANSPO_TABLE_NAME + "(" + OCT_COL_ID + " VARCHAR PRIMARY KEY, " +
                 OCT_COL_NO + " INTEGER, " + OCT_COL_DESC + " TEXT);");
 
-        db.execSQL("CREATE TABLE " + MOVIE_TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT," + movie_title
-                + " TEXT," + movie_year + " INTEGER," + movie_rating + " TEXT," + movie_runtime + " TEXT,"
-                + movie_actors + " TEXT," + movie_plot + " TEXT," + movie_poster + " TEXT);");
+        db.execSQL("CREATE TABLE " + MOVIE_TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, " + movie_title
+                + " TEXT, " + movie_year + " INTEGER, " + movie_rating + " TEXT, " + movie_runtime + " TEXT, "
+                + movie_actors + " TEXT, " + movie_plot + " TEXT, " + movie_poster + " TEXT);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + OCTRANSPO_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + MOVIE_TABLE_NAME);
         onCreate(db);
     }
 }

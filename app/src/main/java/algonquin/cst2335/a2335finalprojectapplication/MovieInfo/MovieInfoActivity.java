@@ -1,6 +1,7 @@
 package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.widget.EditText;
@@ -23,7 +24,8 @@ public class MovieInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_room);
         getSupportFragmentManager().beginTransaction().add(R.id.movie_room, searchFrag).commit();
-
+        FinalOpenHelper opener = new FinalOpenHelper(this);
+        SQLiteDatabase db = opener.getWritableDatabase();
 
 
 
