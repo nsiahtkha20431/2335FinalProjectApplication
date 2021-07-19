@@ -87,13 +87,13 @@ public class ArticleListFragment extends Fragment {
 
         SharedPreferences prefs = SoccerGames.getAppContext().getSharedPreferences("MyData", Context.MODE_PRIVATE); //creating a SharedPreferences object
         float ratingInt = prefs.getFloat("numStars", rating.getRating());
+        rating.setRating(ratingInt);
 
         builder.setPositiveButton("Done", (dialog, cl) -> {
             SharedPreferences.Editor editor = prefs.edit();
-            editor.putFloat("numStars", ratingInt); //put value
+            float ratingGivenByuser = rating.getProgress();
+            editor.putFloat("numStars", ratingGivenByuser); //put value
             editor.apply(); //commits the changes to the SharedPreferences to the editor
-
-            rating.setRating(ratingInt);//save
         });
 
         builder.create().show();
