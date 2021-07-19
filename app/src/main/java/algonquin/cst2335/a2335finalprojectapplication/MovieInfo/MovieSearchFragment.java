@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,7 @@ public class MovieSearchFragment extends Fragment {
     String url;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View searchLayout = inflater.inflate(R.layout.movie_search_layout, container, false);
         SharedPreferences prefs = this.getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -68,6 +70,9 @@ public class MovieSearchFragment extends Fragment {
 
 
         });
+
+
+
         return searchLayout;
     }
 

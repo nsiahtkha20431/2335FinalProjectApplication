@@ -4,8 +4,9 @@ package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
 
-import android.widget.EditText;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,8 +17,6 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 public class MovieInfoActivity extends AppCompatActivity {
 
 
-
-
     MovieSearchFragment searchFrag = new MovieSearchFragment();
     MovieSearchFragment.MovieInfo movieInfo;
     FinalOpenHelper opener = new FinalOpenHelper(this);
@@ -26,13 +25,22 @@ public class MovieInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_room);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportFragmentManager().beginTransaction().add(R.id.movie_room, searchFrag).commit();
-        ;
         SQLiteDatabase db = opener.getWritableDatabase();
 
 
 
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.movie_toolbar_menu, menu);
+        return true;
+    }
+
 
     public void usrSearchedMovie(MovieSearchFragment.MovieInfo movieInfo) {
 
@@ -54,4 +62,5 @@ public class MovieInfoActivity extends AppCompatActivity {
         db.insert(FinalOpenHelper.MOVIE_TABLE_NAME, FinalOpenHelper.movie_title, newRow);
 
     }
+
 }
