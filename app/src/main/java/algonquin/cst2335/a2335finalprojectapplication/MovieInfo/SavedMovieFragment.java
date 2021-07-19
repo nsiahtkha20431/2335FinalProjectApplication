@@ -83,7 +83,7 @@ public class SavedMovieFragment extends Fragment {
                             movieAdapter.notifyItemRemoved(position);
                             SQLiteDatabase db = opener.getWritableDatabase();
                             db.delete(FinalOpenHelper.MOVIE_TABLE_NAME, "Title=? AND Year=?", new String[]{removedMovie.getTitle(), removedMovie.getYear()});
-                            Snackbar.make(movieList, "Movie: " + removedMovie.getTitle() + " " + removedMovie.getYear() + " was deleted.",  Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(movieList, "Movie: " + removedMovie.getTitle() + ", " + removedMovie.getYear() + " was deleted.",  Snackbar.LENGTH_LONG).show();
                         })
                         .create().show();
 
@@ -111,22 +111,7 @@ public class SavedMovieFragment extends Fragment {
                 activity.usrClickedSavedMovie(movieInfoArrayList.get(position), position);
 
             });
-//                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-//                alert.setMessage("Are you sure you want to delete:" + title.getText() + "from your list?")
-//                        .setTitle("Question: ")
-//                        .setNegativeButton("No", (dialog, cl) -> {
-//                            //does nothing
-//                        })
-//                        .setPositiveButton("Yes", (dialog, cl) -> {
-//                            position = getAbsoluteAdapterPosition();
-//                            MovieSearchFragment.MovieInfo removedMovie = movieInfoArrayList.get(position);
-//                            movieInfoArrayList.remove(position);
-//                            movieAdapter.notifyItemRemoved(position);
-//                            SQLiteDatabase db = opener.getWritableDatabase();
-//                            db.delete(FinalOpenHelper.MOVIE_TABLE_NAME, "Title=?", new String[]{removedMovie.getTitle()});
-//                        })
-//                        .create().show();
-//            });
+
             title = itemView.findViewById(R.id.save_title);
             year = itemView.findViewById(R.id.save_year);
             rated = itemView.findViewById(R.id.save_rating);
