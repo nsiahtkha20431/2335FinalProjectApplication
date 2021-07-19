@@ -41,7 +41,14 @@ public class SavedMovieDetailsFragment extends Fragment {
     Button del;
     Button close;
     MovieSearchFragment searchFrag = new MovieSearchFragment();
+    SavedMovieFragment savedFrag = new SavedMovieFragment();
     MovieSearchFragment.MovieInfo movieInfo;
+    int moviePosition;
+
+    public SavedMovieDetailsFragment(MovieSearchFragment.MovieInfo movieInfo, int position) {
+        this.movieInfo = movieInfo;
+        this.moviePosition = position;
+    }
 
 
 
@@ -51,28 +58,29 @@ public class SavedMovieDetailsFragment extends Fragment {
         View savedDetailsLayout =inflater.inflate(R.layout.saved_details_layout, container, false);
         SharedPreferences prefs = this.getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        //title = savedDetailsLayout.findViewById(R.id.title_mes);
-        //title.setText(movieInfo.getTitle());
-        //year = savedDetailsLayout.findViewById(R.id.year_mes);
-        //year.setText(movieInfo.getYear());
-        //rating = savedDetailsLayout.findViewById(R.id.rating_mes);
-        //rating.setText(movieInfo.getRating());
-        //runtime = savedDetailsLayout.findViewById(R.id.runtime_mes);
-        //runtime.setText(movieInfo.getRuntime());
-        //actors = savedDetailsLayout.findViewById(R.id.actors_mes);
-        //actors.setText(movieInfo.getActors());
-        //plot = savedDetailsLayout.findViewById(R.id.plot_mes);
-        //plot.setText(movieInfo.getPlot());
+        title = savedDetailsLayout.findViewById(R.id.title_mes);
+        title.setText(movieInfo.getTitle());
+        year = savedDetailsLayout.findViewById(R.id.year_mes);
+        year.setText(movieInfo.getYear());
+        rating = savedDetailsLayout.findViewById(R.id.rating_mes);
+        rating.setText(movieInfo.getRating());
+        runtime = savedDetailsLayout.findViewById(R.id.runtime_mes);
+        runtime.setText(movieInfo.getRuntime());
+        actors = savedDetailsLayout.findViewById(R.id.actors_mes);
+        actors.setText(movieInfo.getActors());
+        plot = savedDetailsLayout.findViewById(R.id.plot_mes);
+        plot.setText(movieInfo.getPlot());
         //TODO ImageView with ASyncTask
-        //poster = savedDetailsLayout.findViewById(R.id.pos);
-        //new MovieDetailsFragment.DownloadImageTask(poster).execute(movieInfo.getURL());
+        poster = savedDetailsLayout.findViewById(R.id.pos);
+        new MovieDetailsFragment.DownloadImageTask(poster).execute(movieInfo.getURL());
         del = savedDetailsLayout.findViewById(R.id.del_button);
         close = savedDetailsLayout.findViewById(R.id.close_but);
         MovieInfoActivity activity = (MovieInfoActivity)getContext();
 
         del.setOnClickListener(clk -> {
             //TODO database input
-            activity.usrClickedDelMovie();
+            activity.movieDeleted(movieInfo, moviePosition);
+            getParentFragmentManager().beginTransaction().remove(this).commit();
 
         });
 
@@ -80,7 +88,7 @@ public class SavedMovieDetailsFragment extends Fragment {
 
         close.setOnClickListener(clk -> {
 
-            activity.usrClickedCloseSaved();
+            getParentFragmentManager().beginTransaction().remove(this).commit();
         });
 
 
