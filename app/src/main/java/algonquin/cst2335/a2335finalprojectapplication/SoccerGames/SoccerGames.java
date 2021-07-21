@@ -1,26 +1,9 @@
 package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.storage.StorageManager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
 
 import algonquin.cst2335.a2335finalprojectapplication.ArticleDetailsFragment;
 import algonquin.cst2335.a2335finalprojectapplication.ArticleListFragment;
@@ -35,7 +18,7 @@ public class SoccerGames extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.empty_layout); //setting the view
 
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, new ArticleListFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentHolder, new ArticleListFragment()).commit();
 
         SoccerGames.context = getApplicationContext();
     }
@@ -46,7 +29,7 @@ public class SoccerGames extends AppCompatActivity {
 
     public void userClickedMessage(String article, int position) {
         ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentHolder, adFragment).commit();
     }
 
     //not currently being called in the code
