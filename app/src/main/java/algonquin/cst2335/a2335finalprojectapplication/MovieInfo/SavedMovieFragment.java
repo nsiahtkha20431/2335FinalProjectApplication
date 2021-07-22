@@ -2,6 +2,8 @@ package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
@@ -70,6 +73,9 @@ public class SavedMovieFragment extends Fragment {
         return savedLayout;
     }
 
+    public ArrayList<MovieSearchFragment.MovieInfo> getMovieInfoArrayList(){
+        return movieInfoArrayList;
+    }
     public void movieDeleted(MovieSearchFragment.MovieInfo movieInfo, int position){
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
                 alert.setTitle("Question: ")
@@ -136,12 +142,28 @@ public class SavedMovieFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(SavedView hold, int position) {
+            MovieInfoActivity activity = new MovieInfoActivity();
             hold.title.setText(movieInfoArrayList.get(position).getTitle());
             hold.year.setText(movieInfoArrayList.get(position).getYear());
             hold.rated.setText(movieInfoArrayList.get(position).getRating());
-            new MovieDetailsFragment.DownloadImageTask(hold.poster).execute(movieInfoArrayList.get(position).getURL());
 
+            File file = new File(getContext().getFilesDir(), movieInfoArrayList.get(position).getTitle().replace(" ", "") + ".jpeg");
+            Bitmap poster = null;
+
+            if(file.exists()){
+                poster = BitmapFactory.decodeFile(getContext().getFilesDir() + "/" +
+                        movieInfoArrayList.get(position).getTitle().replace(" ", "") + ".jpeg");
+
+            }
+            else{
+                    new MovieDetailsFragment.DownloadImageTask(hold.poster).execute(movieInfoArrayList.get(position).getURL());
+            }
+
+            if(poster != null){
+                hold.poster.setImageBitmap(poster);
+            }
             hold.setPosition(position);
+
         }
 
         @Override

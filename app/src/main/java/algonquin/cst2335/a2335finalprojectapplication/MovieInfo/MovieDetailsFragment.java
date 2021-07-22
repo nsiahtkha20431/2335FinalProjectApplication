@@ -58,7 +58,7 @@ public class MovieDetailsFragment extends Fragment {
         prog = new ProgressDialog(getContext());
         prog.setMessage("Downloading movie information and poster..");
         prog.setProgress(0);
-        prog.setMax(100);
+        prog.setMax(600);
 
 
         title = detailsLayout.findViewById(R.id.title_mes);
@@ -101,7 +101,11 @@ public class MovieDetailsFragment extends Fragment {
                 Toast.makeText(getContext(), "This movie is already saved.", Toast.LENGTH_SHORT).show();
             }
             else{
-                activity.usrSaveMovie();
+                try {
+                    activity.usrSaveMovie();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(getContext(), "Saved the selected movie.", Toast.LENGTH_SHORT).show();
             }
 
@@ -122,12 +126,16 @@ public class MovieDetailsFragment extends Fragment {
 
     public static class DownloadImageTask extends AsyncTask<String, Integer, Bitmap> {
 
-        ImageView movieImage;
+        private ImageView movieImage;
+        private static Bitmap image;
 
         public DownloadImageTask(ImageView movieImage) {
             this.movieImage = movieImage;
         }
 
+        public static Bitmap getMovieBitmap(){
+            return image;
+        }
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -143,7 +151,7 @@ public class MovieDetailsFragment extends Fragment {
 
         @Override
         protected Bitmap doInBackground(String... url) {
-            Bitmap image = null;
+            image = null;
             try {
                 InputStream input = new URL(url[0]).openStream();
                 image = BitmapFactory.decodeStream(input);
