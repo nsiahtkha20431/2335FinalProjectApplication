@@ -5,5 +5,7 @@
             android:title="Search Movie"/>
         <item android:id="@+id/saved"
             android:title="Saved Movies"/>
+        <item android:id="@+id/help"
+            android:title="Help"/>
     </group>
 </menu>
