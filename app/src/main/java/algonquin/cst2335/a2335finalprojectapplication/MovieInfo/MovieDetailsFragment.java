@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Locale;
 
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
 import algonquin.cst2335.a2335finalprojectapplication.R;
@@ -56,7 +57,12 @@ public class MovieDetailsFragment extends Fragment {
         SharedPreferences.Editor editor = prefs.edit();
 
         prog = new ProgressDialog(getContext());
-        prog.setMessage("Downloading movie information and poster..");
+        if (Locale.getDefault().getDisplayLanguage().equals("français")){
+            prog.setMessage("Téléchargement de l'information du film et de l'image en cours");
+        }
+        else{
+            prog.setMessage("Downloading movie information and poster..");
+        }
         prog.setProgress(0);
         prog.setMax(600);
 
@@ -73,14 +79,12 @@ public class MovieDetailsFragment extends Fragment {
         actors.setText(movieInfo.getActors());
         plot = detailsLayout.findViewById(R.id.plot_mes);
         plot.setText(movieInfo.getPlot());
-        //TODO ImageView with ASyncTask
         poster = detailsLayout.findViewById(R.id.pos);
         new DownloadImageTask(poster).execute(movieInfo.getURL());
         save = detailsLayout.findViewById(R.id.del_button);
         close = detailsLayout.findViewById(R.id.close_but);
 
         save.setOnClickListener(clk -> {
-            //TODO database input
             MovieInfoActivity activity = (MovieInfoActivity)getContext();
 
             SQLiteDatabase db = opener.getWritableDatabase();
@@ -98,7 +102,12 @@ public class MovieDetailsFragment extends Fragment {
             }
             if(valid == true){
                 //do not post
-                Toast.makeText(getContext(), "This movie is already saved.", Toast.LENGTH_SHORT).show();
+                if (Locale.getDefault().getDisplayLanguage().equals("français")){
+                    Toast.makeText(getContext(), "Ce film est déjà été sauvegardée.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getContext(), "This movie is already saved.", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
                 try {
@@ -106,7 +115,13 @@ public class MovieDetailsFragment extends Fragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Toast.makeText(getContext(), "Saved the selected movie.", Toast.LENGTH_SHORT).show();
+                if (Locale.getDefault().getDisplayLanguage().equals("français")){
+                    Toast.makeText(getContext(), "Film sélectionné a été sauvegardée.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getContext(), "Saved the selected movie.", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
         });
