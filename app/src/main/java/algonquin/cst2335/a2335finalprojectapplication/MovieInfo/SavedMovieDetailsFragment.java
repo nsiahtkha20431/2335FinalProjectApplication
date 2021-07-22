@@ -70,7 +70,7 @@ public class SavedMovieDetailsFragment extends Fragment {
         actors.setText(movieInfo.getActors());
         plot = savedDetailsLayout.findViewById(R.id.plot_mes);
         plot.setText(movieInfo.getPlot());
-        //TODO ImageView with ASyncTask
+
         poster = savedDetailsLayout.findViewById(R.id.pos);
         Bitmap posterImage = BitmapFactory.decodeFile(getContext().getFilesDir() + "/" + movieInfo.getTitle().replace(" ", "") + ".jpeg");
         poster.setImageBitmap(posterImage);
@@ -80,7 +80,7 @@ public class SavedMovieDetailsFragment extends Fragment {
         MovieInfoActivity activity = (MovieInfoActivity)getContext();
 
         del.setOnClickListener(clk -> {
-            //TODO database input
+
             activity.movieDeleted(movieInfo, moviePosition);
             getParentFragmentManager().beginTransaction().remove(this).commit();
 
