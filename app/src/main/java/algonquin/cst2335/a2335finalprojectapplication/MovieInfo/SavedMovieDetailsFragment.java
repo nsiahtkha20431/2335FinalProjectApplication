@@ -72,7 +72,9 @@ public class SavedMovieDetailsFragment extends Fragment {
         plot.setText(movieInfo.getPlot());
         //TODO ImageView with ASyncTask
         poster = savedDetailsLayout.findViewById(R.id.pos);
-        new MovieDetailsFragment.DownloadImageTask(poster).execute(movieInfo.getURL());
+        Bitmap posterImage = BitmapFactory.decodeFile(getContext().getFilesDir() + "/" + movieInfo.getTitle().replace(" ", "") + ".jpeg");
+        poster.setImageBitmap(posterImage);
+        //new MovieDetailsFragment.DownloadImageTask(poster).execute(movieInfo.getURL());
         del = savedDetailsLayout.findViewById(R.id.del_button);
         close = savedDetailsLayout.findViewById(R.id.close_but);
         MovieInfoActivity activity = (MovieInfoActivity)getContext();
