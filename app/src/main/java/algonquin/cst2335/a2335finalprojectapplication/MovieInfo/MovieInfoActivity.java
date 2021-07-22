@@ -1,9 +1,14 @@
 package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 
 
+import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.icu.text.CaseMap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +19,14 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
 import algonquin.cst2335.a2335finalprojectapplication.R;
@@ -42,17 +55,15 @@ public class MovieInfoActivity extends AppCompatActivity {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
 
-                if(item.getItemId() == R.id.search) {
+                if (item.getItemId() == R.id.search) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, searchFrag).commit();
                     item.setChecked(true);
                     toolbar.setTitle("Search Movie");
-                }
-                else if(item.getItemId() == R.id.saved) {
+                } else if (item.getItemId() == R.id.saved) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
                     item.setChecked(true);
                     toolbar.setTitle("Saved Movies");
-                }
-                else{
+                } else {
 
                 }
                 return false;
@@ -60,7 +71,6 @@ public class MovieInfoActivity extends AppCompatActivity {
         });
 
         SQLiteDatabase db = opener.getWritableDatabase();
-
 
 
     }
@@ -80,7 +90,7 @@ public class MovieInfoActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, detailsFrag).commit();
     }
 
-    public void usrSaveMovie() {
+    public void usrSaveMovie() throws IOException {
         SQLiteDatabase db = opener.getWritableDatabase();
         ContentValues newRow = new ContentValues();
         newRow.put(FinalOpenHelper.movie_title, movieInfo.getTitle());
@@ -91,8 +101,41 @@ public class MovieInfoActivity extends AppCompatActivity {
         newRow.put(FinalOpenHelper.movie_plot, movieInfo.getPlot());
         newRow.put(FinalOpenHelper.movie_poster, movieInfo.getURL());
         db.insert(FinalOpenHelper.MOVIE_TABLE_NAME, FinalOpenHelper.movie_title, newRow);
+        //TODO
+        Bitmap poster = null;
+        File file = new File(getFilesDir(), movieInfo.getTitle().replace(" ", "") + ".jpeg");
+
+
+        if (file.exists()) {
+            //poster = BitmapFactory.decodeFile(getFilesDir() + "/" + movieInfo.getTitle().replace(" ", "") + ".jpeg");
+        } else {
+
+            poster = MovieDetailsFragment.DownloadImageTask.getMovieBitmap();
+//            URL imgUrl = new URL(movieInfo.getURL());
+//            HttpURLConnection con = (HttpURLConnection) imgUrl.openConnection();
+//            con.connect();
+//            int response = con.getResponseCode();
+//
+//            if (response == 200) {
+//                poster = BitmapFactory.decodeStream(con.getInputStream());
+            poster.compress(Bitmap.CompressFormat.JPEG, 100,
+                    openFileOutput(movieInfo.getTitle().replace(" ", "") + ".jpeg", Activity.MODE_PRIVATE));
+//}
+        FileOutputStream fOut = null;
+        try {
+            fOut = openFileOutput(movieInfo.getTitle().replace(" ", "") + ".jpeg", Context.MODE_PRIVATE);
+            poster.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+
+        }
 
     }
+
+}
+
 
     public void usrClickedSavedMovie(MovieSearchFragment.MovieInfo movieInfo, int position){
         SavedMovieDetailsFragment savedDetailsFrag = new SavedMovieDetailsFragment(movieInfo, position);
@@ -104,4 +147,5 @@ public class MovieInfoActivity extends AppCompatActivity {
         savedFrag.movieDeleted(movieInfo, position);
 
     }
+
 }
