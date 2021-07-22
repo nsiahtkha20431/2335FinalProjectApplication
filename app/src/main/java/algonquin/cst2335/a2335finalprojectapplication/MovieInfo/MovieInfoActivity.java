@@ -15,10 +15,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -63,7 +66,20 @@ public class MovieInfoActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
                     item.setChecked(true);
                     toolbar.setTitle("Saved Movies");
-                } else {
+                } else if (item.getItemId() == R.id.help){
+                    new AlertDialog.Builder(MovieInfoActivity.this)
+                    .setTitle("Help")
+                            .setMessage("This app, Movie Information, allows the user to search throughout the database utilized on omdbapi.com by simply typing" +
+                                    " text that is contained within a movie title. \n   If the movie title entered can't be found or simply does not exist, a message will" +
+                                    " be shown to inform that no movie was found. \n   Once the movie has been found, it will provide details regarding the movie from" +
+                                    " which can be saved onto the device locally along with the information and movie image. \n   Saved movies can be found using the" +
+                                    " menu options from which you found this help button. The saved list will be displayed instead of the current page along with" +
+                                    " the movie names, year and rating with the image. \n   Upon clicking a movie, the saved details will be displayed." +
+                                    "\n   Once again, you may close the details or continue to look at your saved list and search as you like! ")
+                            .setNegativeButton("Close", (dialog, cl) -> {
+                                //does nothing, closes.
+                            })
+                            .create().show();
 
                 }
                 return false;
