@@ -1,5 +1,7 @@
 package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +45,7 @@ public class MovieDetailsFragment extends Fragment {
     Button close;
     MovieSearchFragment searchFrag = new MovieSearchFragment();
     MovieSearchFragment.MovieInfo movieInfo;
-
+    private static ProgressDialog prog;
 
 
 
@@ -51,7 +54,13 @@ public class MovieDetailsFragment extends Fragment {
         View detailsLayout =inflater.inflate(R.layout.movie_details_layout, container, false);
         SharedPreferences prefs = this.getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        Log.i("Test movieinfo" , "" + movieInfo.getTitle());
+
+        prog = new ProgressDialog(getContext());
+        prog.setMessage("Downloading movie information and poster..");
+        prog.setProgress(0);
+        prog.setMax(100);
+
+
         title = detailsLayout.findViewById(R.id.title_mes);
         title.setText(movieInfo.getTitle());
         year = detailsLayout.findViewById(R.id.year_mes);
@@ -120,6 +129,19 @@ public class MovieDetailsFragment extends Fragment {
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            prog.show();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            prog.setProgress(values[0]);
+
+        }
+
+        @Override
         protected Bitmap doInBackground(String... url) {
             Bitmap image = null;
             try {
@@ -134,6 +156,7 @@ public class MovieDetailsFragment extends Fragment {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             movieImage.setImageBitmap(bitmap);
+            prog.dismiss();
         }
     }
 }
