@@ -37,11 +37,10 @@ public class ChargingSecondPage extends AppCompatActivity {
                     })
                     .show();
         });
-//        setContentView(R.layout.charging_empty_fragment);
-//        ChargingStationFragment listFragment = new ChargingStationFragment();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction tx = fragmentManager.beginTransaction();
-//        tx.add(R.id.fragmentHolder, listFragment);
-//        tx.commit();
+        ChargingStationFragment listFragment = new ChargingStationFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction tx = fragmentManager.beginTransaction();
+        tx.add(R.id.chargingFragmentHolder, listFragment);
+        tx.commit();
     }
 }

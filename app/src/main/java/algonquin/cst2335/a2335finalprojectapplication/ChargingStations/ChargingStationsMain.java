@@ -6,10 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
@@ -31,7 +34,8 @@ public class ChargingStationsMain extends AppCompatActivity {
         prefs.getString("MyData","");
         String longAndLat = prefs.getString("LongitudeAndLatitude","");
         landingPageEdit.setText(longAndLat);
-
+        //Toast.makeText(this, "Hello world", Toast.LENGTH_LONG).show();
+       // Snackbar.makeText(this, "Hello world", Snackbar.LENGTH_LONG).show();
         goButton.setOnClickListener(click -> {
             //to go from the main page to the second page
             Intent chargingSecondPage = new Intent(ChargingStationsMain.this, ChargingSecondPage.class);
@@ -56,5 +60,11 @@ public class ChargingStationsMain extends AppCompatActivity {
 
     public static Context getAppContext() {
         return ChargingStationsMain.context;
+    }
+
+    public void userClickedMessage(String location, int position) {
+        ChargingDetailsFragment chargingDetailsFragment = new ChargingDetailsFragment(location, position);
+        //since it's only on a phone, we only have to
+        getSupportFragmentManager().beginTransaction().add((R.id.chargingFragmentHolder), chargingDetailsFragment);
     }
 }
