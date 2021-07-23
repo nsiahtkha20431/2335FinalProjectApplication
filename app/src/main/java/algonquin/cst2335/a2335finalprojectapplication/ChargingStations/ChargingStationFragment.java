@@ -26,7 +26,8 @@ public class ChargingStationFragment extends Fragment {
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View chargingList = inflater.inflate(R.layout.charging_recycler_page, container, false);
-        RecyclerView stationsRecyclerView = chargingList.findViewById(R.id.chargingRecyclerView);
+
+        //Button enterAnother = chargingList.findViewById(R.id.otherLocationButton);
 
 
         //adding temp values to my recycler
@@ -38,13 +39,15 @@ public class ChargingStationFragment extends Fragment {
 
 
         myAdapter = new ChargingStationAdapter(stationList, getContext());
+        RecyclerView chargingRecyclerView = chargingList.findViewById(R.id.chargingRecyclerView);
+        chargingRecyclerView.setHasFixedSize(true);
+        chargingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        chargingRecyclerView.setAdapter(myAdapter);
 
-        stationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        stationsRecyclerView.setAdapter(myAdapter);
 
-//        stationsRecyclerView.setAdapter(myAdapter);
+//        chargingRecyclerView.setAdapter(myAdapter);
 //        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL,false);
-//        stationsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        chargingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return chargingList;
     }
@@ -52,14 +55,22 @@ public class ChargingStationFragment extends Fragment {
     private class StationsListHolder extends RecyclerView.ViewHolder {
         public TextView stationName;
         public ImageView plugImage;
-
         public StationsListHolder(View itemView) {
             //stores the itemView in a public member that can be used to access the context from any viewHolder instance
             super(itemView);
 
             stationName = itemView.findViewById(R.id.stationName);
             plugImage = itemView.findViewById(R.id.plugImage);
+
+            itemView.setOnClickListener(click -> {
+                ChargingStationsMain parentActivity = (ChargingStationsMain)getContext();
+                int position = getAbsoluteAdapterPosition();
+                parentActivity.userClickedMessage(stationList.get(position), position);
+                    }
+
+            );
             }
+
         }
 
     private class ChargingStationAdapter extends RecyclerView.Adapter<StationsListHolder> {
