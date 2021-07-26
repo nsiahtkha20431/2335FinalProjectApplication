@@ -19,7 +19,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
 
@@ -36,8 +44,7 @@ public class ArticleListFragment extends Fragment {
         RecyclerView articlesRecyclerView = articlesListLayout.findViewById(R.id.myrecycler); //creating an instance of RecyclerView and attaching it to the XML tag
 
 
-
-        articleTitlesList.add("Article Title 1"); //adding temporary article titles for the array -- will get these properly from a DB later
+        articleTitlesList.add("Article Title 1"); //adding temporary article titles for the array
         articleTitlesList.add("Article Title 2");
         articleTitlesList.add("Article Title 3");
         articleTitlesList.add("Article Title 4");
@@ -59,9 +66,6 @@ public class ArticleListFragment extends Fragment {
         articlesRecyclerView.setAdapter(adapter); //this line tells the adapter object that the array we have created is the collection of objects to display
 
         ratingAlertDialog(); //calling this function to get the AlertDialog running as soon as the app is opened
-
-//        SharedPreferences prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-//        prefs.getString("VariableName", "");
 
         return articlesListLayout;
     }
