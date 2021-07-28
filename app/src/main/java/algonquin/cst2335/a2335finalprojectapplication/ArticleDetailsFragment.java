@@ -5,11 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -22,7 +27,15 @@ import java.util.concurrent.Executors;
 public class ArticleDetailsFragment extends Fragment {
     String chosenArticle;
     int chosenPosition;
-    String stringURL = "http://www.goal.com/en/feeds/news?fmt=rss";
+
+    String stringURL = "http://www.goal.com/en/feeds/news?fmt=rss&mode=xml";
+
+    String title = null;
+    String link = null;
+    String description = null;
+    String pubDate = null;
+    ImageView thumbnail = null;
+
 
     public ArticleDetailsFragment(String article, int position) {
         chosenArticle = article;
@@ -52,15 +65,39 @@ public class ArticleDetailsFragment extends Fragment {
         addToFavButton.setOnClickListener(clicked -> {
             Executor newThread = Executors.newSingleThreadExecutor();
             newThread.execute( () -> {
-                URL url = null;
 
                 try {
 
-                    url = new URL(stringURL);
+                    URL url = new URL(stringURL);
                     HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                     InputStream in = new BufferedInputStream(urlConnection.getInputStream());
 
-                } catch (IOException e) {
+                    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                    factory.setNamespaceAware(false);
+                    XmlPullParser xpp = factory.newPullParser();
+                    xpp.setInput(in,"UTF-8");
+
+                    while (xpp.next() != XmlPullParser.END_DOCUMENT) {
+                        switch (xpp.getEventType()) {
+
+                            case XmlPullParser.START_DOCUMENT:
+                                break;
+                            case XmlPullParser.END_DOCUMENT:
+                                break;
+                            case XmlPullParser.START_TAG:
+
+                                if (xpp.getName().equals("item")) {
+
+                                }
+                                break;
+                            case XmlPullParser.END_TAG:
+                                break;
+                            case XmlPullParser.TEXT:
+                                break;
+                        }
+                    }
+
+                } catch (IOException | XmlPullParserException e) {
                     e.printStackTrace();
                 }
             });
