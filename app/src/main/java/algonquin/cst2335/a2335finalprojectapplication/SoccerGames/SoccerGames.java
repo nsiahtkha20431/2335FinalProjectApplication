@@ -1,26 +1,12 @@
 package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.storage.StorageManager;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.Menu;
+import android.view.MenuInflater;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.ArrayList;
+import androidx.appcompat.widget.Toolbar;
 
 import algonquin.cst2335.a2335finalprojectapplication.ArticleDetailsFragment;
 import algonquin.cst2335.a2335finalprojectapplication.ArticleListFragment;
@@ -31,6 +17,14 @@ public class SoccerGames extends AppCompatActivity {
     private static Context context;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.soccer_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.empty_layout); //setting the view
@@ -38,6 +32,9 @@ public class SoccerGames extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, new ArticleListFragment()).commit();
 
         SoccerGames.context = getApplicationContext();
+
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
     }
 
     public static Context getAppContext() {
