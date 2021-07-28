@@ -17,10 +17,7 @@
     <string name="delete_button">Delete</string>
     <string name="soccer_list_article_title">Article Title</string>
     <string name="help_dialog_title">How to use the app</string>
-    <string name="help_dialog">This app allows you to search through a list of articles on news in
-        professional soccer. Click the article to read the description and open the article in your browser.
-        There is also an option to save the article to your Favorites. you can alternate between your Favorites list
-        and the rest of the articles. You can also remove an article from your Favorites.</string>
+    <string name="help_dialog">This app allows you to search through a list of articles on news in professional soccer. Click the article to read the description and open the article in your browser. There is also an option to save the article to your Favorites. you can alternate between your Favorites list and the rest of the articles. You can also remove an article from your Favorites.</string>
     <string name="help_dialog_got_it">Got it!</string>
     <string name="article_is">Article: </string>
     <string name="description_is">"Description: "</string>
