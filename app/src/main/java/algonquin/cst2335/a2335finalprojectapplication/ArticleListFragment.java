@@ -12,6 +12,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,10 +26,9 @@ public class ArticleListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View articlesListLayout = inflater.inflate(R.layout.article_recycler_layout, container, false);
-
         RecyclerView articlesRecyclerView = articlesListLayout.findViewById(R.id.myrecycler); //creating an instance of RecyclerView and attaching it to the XML tag
+
 
 
         articleTitlesList.add("Article Title 1"); //adding temporary article titles for the array
@@ -46,6 +46,11 @@ public class ArticleListFragment extends Fragment {
         articleTitlesList.add("Article Title 13");
         articleTitlesList.add("Article Title 14");
         articleTitlesList.add("Article Title 15");
+        articleTitlesList.add("Article Title 16");
+        articleTitlesList.add("Article Title 17");
+        articleTitlesList.add("Article Title 18");
+        articleTitlesList.add("Article Title 19");
+        articleTitlesList.add("Article Title 20");
 
         adapter = new ArticleAdapter(articleTitlesList, getContext()); //initializing the ArticleAdapter object and passing it the values of the array and the context (like that it comes from here)
 
@@ -82,8 +87,8 @@ public class ArticleListFragment extends Fragment {
 
         builder.setPositiveButton("Done", (dialog, cl) -> {
             SharedPreferences.Editor editor = prefs.edit();
-            float ratingGivenByuser = rating.getProgress();
-            editor.putFloat("numStars", ratingGivenByuser); //put value
+            float ratingGivenByUser = rating.getProgress();
+            editor.putFloat("numStars", ratingGivenByUser); //put value
             editor.apply(); //commits the changes to the SharedPreferences to the editor
         });
 
