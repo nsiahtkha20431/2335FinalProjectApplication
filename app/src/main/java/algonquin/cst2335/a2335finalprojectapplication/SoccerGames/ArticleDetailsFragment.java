@@ -89,7 +89,6 @@ public class ArticleDetailsFragment extends Fragment {
                             case XmlPullParser.START_TAG:
 
                                 if (xpp.getName().equals("item")) {
-
                                 }
                                 break;
                             case XmlPullParser.END_TAG:
