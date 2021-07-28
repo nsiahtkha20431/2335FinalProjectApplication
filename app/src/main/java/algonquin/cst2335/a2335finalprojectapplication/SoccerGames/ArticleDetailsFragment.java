@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication;
+package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +23,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class ArticleDetailsFragment extends Fragment {
     String chosenArticle;
@@ -54,9 +56,9 @@ public class ArticleDetailsFragment extends Fragment {
         Button backButton = articlesDetailsLayout.findViewById(R.id.backButton);
 
 
-        titleView.setText("Article is: " + chosenArticle);
-        urlView.setText("URL is: URL");
-        descriptionView.setText("Description: No description yet");
+        titleView.setText(getString(R.string.article_is) + " " + chosenArticle);
+        descriptionView.setText(getString(R.string.description_is));
+        urlView.setText(getString(R.string.url_is));
 
         backButton.setOnClickListener(clicked -> {
             getParentFragmentManager().beginTransaction().remove(this).commit();
@@ -107,8 +109,8 @@ public class ArticleDetailsFragment extends Fragment {
 //            SoccerGames parentActivity = (SoccerGames)getContext();
 //            parentActivity.notifyArticleDeleted(chosenArticle, chosenPosition);
 
-            Snackbar.make(deleteFromFavButton, "You deleted " + chosenArticle, Snackbar.LENGTH_SHORT)
-                    .setAction("UNDO", click -> { }).show();
+            Snackbar.make(deleteFromFavButton, getString(R.string.soccer_details_snackbar_udeleted) + " " + chosenArticle, Snackbar.LENGTH_SHORT)
+                    .setAction(getString(R.string.soccer_details_snackbar_undo), click -> { }).show();
 
         });
 
