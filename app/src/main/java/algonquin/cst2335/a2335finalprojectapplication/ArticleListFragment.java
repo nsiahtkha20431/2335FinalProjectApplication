@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication;
+package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,7 +12,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,26 +30,26 @@ public class ArticleListFragment extends Fragment {
 
 
 
-        articleTitlesList.add("Article Title 1"); //adding temporary article titles for the array
-        articleTitlesList.add("Article Title 2");
-        articleTitlesList.add("Article Title 3");
-        articleTitlesList.add("Article Title 4");
-        articleTitlesList.add("Article Title 5");
-        articleTitlesList.add("Article Title 6");
-        articleTitlesList.add("Article Title 7");
-        articleTitlesList.add("Article Title 8");
-        articleTitlesList.add("Article Title 9");
-        articleTitlesList.add("Article Title 10");
-        articleTitlesList.add("Article Title 11");
-        articleTitlesList.add("Article Title 12");
-        articleTitlesList.add("Article Title 13");
-        articleTitlesList.add("Article Title 14");
-        articleTitlesList.add("Article Title 15");
-        articleTitlesList.add("Article Title 16");
-        articleTitlesList.add("Article Title 17");
-        articleTitlesList.add("Article Title 18");
-        articleTitlesList.add("Article Title 19");
-        articleTitlesList.add("Article Title 20");
+        articleTitlesList.add(getString(R.string.soccer_list_article_title)); //adding temporary article titles for the array
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        articleTitlesList.add(getString(R.string.soccer_list_article_title));
 
         adapter = new ArticleAdapter(articleTitlesList, getContext()); //initializing the ArticleAdapter object and passing it the values of the array and the context (like that it comes from here)
 
@@ -78,14 +77,14 @@ public class ArticleListFragment extends Fragment {
 
         linearLayout.addView(rating); //add RatingBar to linearLayout
 
-        builder.setTitle("Please rate our app!"); //setting title of the AlertDialog
+        builder.setTitle(getString(R.string.soccer_list_rating_title)); //setting title of the AlertDialog
         builder.setView(linearLayout); //adding the LinearLayout view to the AlertDialog
 
         SharedPreferences prefs = SoccerGames.getAppContext().getSharedPreferences("MyData", Context.MODE_PRIVATE); //creating a SharedPreferences object
         float ratingInt = prefs.getFloat("numStars", rating.getRating());
         rating.setRating(ratingInt);
 
-        builder.setPositiveButton("Done", (dialog, cl) -> {
+        builder.setPositiveButton(getString(R.string.soccer_list_rating_done_button), (dialog, cl) -> {
             SharedPreferences.Editor editor = prefs.edit();
             float ratingGivenByUser = rating.getProgress();
             editor.putFloat("numStars", ratingGivenByUser); //put value
@@ -122,7 +121,7 @@ public class ArticleListFragment extends Fragment {
 
             itemView.setOnClickListener(click -> {
                 int position = getAbsoluteAdapterPosition();
-                Toast.makeText(getContext(), "You clicked on " + articleTitlesList.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.soccer_list_u_clicked_on) + " " + articleTitlesList.get(position), Toast.LENGTH_SHORT).show();
 
                 SoccerGames parentActivity = (SoccerGames)getContext();
                 parentActivity.userClickedMessage(articleTitlesList.get(position), position);

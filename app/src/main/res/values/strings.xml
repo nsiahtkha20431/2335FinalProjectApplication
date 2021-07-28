@@ -15,60 +15,22 @@
     <string name="add_stop_close">Close</string>
     <string name="back_button">Back</string>
     <string name="delete_button">Delete</string>
-    <string name="refresh_button">Refresh</string>
-    <string name="destination_label">Destination</string>
-    <string name="undo">UNDO</string>
-    <string name="snackbar_start">Bus Stop #</string>
-    <string name="snackbar_added"> has been added.</string>
-    <string name="snackbar_deleted"> has been deleted.</string>
-    <string name="route_label">Route</string>
-    <string name="rt_label">Route:</string>
-    <string name="stop_label">Stop:</string>
-    <string name="dest_label">Destination:</string>
-    <string name="current_position">Current Position:</string>
-    <string name="speed">km/h</string>
-    <string name="arrival_label">Arrival Time:</string>
-    <string name="start_label">Start Time:</string>
-    <string name="next_trips_label">Next Trips</string>
-    <string name="trips_arrival_label">Arriving</string>
-    <string name="trips_start_label">Start Time</string>
-    <string name="trips_age_label">Updated</string>
-    <string name="trips_last_label">Last Trip?</string>
-    <string name="no_trips">No trips to display</string>
-    <string name="menu_add_stop">Add Stop</string>
-    <string name="menu_help">Help</string>
-    <string name="help">OC Transpo Stop Selector displays live stop and route data from
-        the OCTranspo server.\n\nSelect a stop number to display incoming bus routes.
-        \n\nSelect a route number to display route details and upcoming trips.
-        \n\nTo add a stop to your list select the plus sign from the toolbar or \'Add Stop\'
-        from the navigation menu.</string>
-    <string name="menu_close">Exit</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="oct_api_error">API Error: Please try again.</string>
-    <string name="oct_stop_error">Error: Invalid stop number.</string>
-    <string name="oct_default_error">Error: Please try again.</string>
-    <string name="oct_alert_title">Attention</string>
-    <string name="oct_alert_message">Please enter a stop number to add to your list.</string>
-    <string name="oct_loading_title">Loading</string>
-    <string name="oct_stop_loading_message">Loading stop data...</string>
-    <string name="oct_route_loading_message">Loading route data...</string>
-
-    <!-- Electric Car Charging -->
-    <string name="electric_car_button">Electric Car Charging Stations</string>
-    <!-- Movies -->
-    <string name="movie_info_button">Movie Information</string>
-    <string name="movie_close_button">Close</string>
-    <string name="movie_save_button">Save</string>
-    <string name="movie_enter_title">Enter Movie Title:</string>
-    <string name="movie_title_hint">Enter movie title here..</string>
-    <string name="movie_find_button">Find</string>
-    <string name="movie_delete_button">Delete</string>
-    <string name="search_movies">Search Movies</string>
-    <string name="saved_movies">Saved Movies</string>
-    <string name="movie_nav_header">Movie Information \nAuthor: Raphael Leblanc \nVersion: 1.0</string>
-    <string name="toolbar_help">Help</string>
-    <!-- Soccer Games -->
-    <string name="soccer_button">Soccer Games</string>
-
+    <string name="soccer_list_article_title">Article Title</string>
+    <string name="help_dialog_title">How to use the app</string>
+    <string name="help_dialog">This app allows you to search through a list of articles on news in
+        professional soccer. Click the article to read the description and open the article in your browser.
+        There is also an option to save the article to your Favorites. you can alternate between your Favorites list
+        and the rest of the articles. You can also remove an article from your Favorites.</string>
+    <string name="help_dialog_got_it">Got it!</string>
+    <string name="article_is">Article: </string>
+    <string name="description_is">"Description: "</string>
+    <string name="url_is">url: </string>
+    <string name="soccer_details_back_button">Back</string>
+    <string name="soccer_details_add_to_fav_button">Add to favorites</string>
+    <string name="soccer_details_delete_from_fav_button">Delete from favorites</string>
+    <string name="soccer_details_snackbar_udeleted">You deleted:</string>
+    <string name="soccer_details_snackbar_undo">UNDO</string>
+    <string name="soccer_list_u_clicked_on">You chose:</string>
+    <string name="soccer_list_rating_title">Please rate our app!</string>
+    <string name="soccer_list_rating_done_button">DONE</string>
 </resources>

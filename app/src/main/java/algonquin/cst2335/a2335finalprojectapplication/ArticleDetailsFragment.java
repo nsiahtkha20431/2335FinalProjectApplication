@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication;
+package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +23,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class ArticleDetailsFragment extends Fragment {
     String chosenArticle;
