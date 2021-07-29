@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item android:id="@+id/ic_ocTranspo"
-            android:icon="@drawable/ic_octranspo"
-            android:title="OCTranspo"/>
-        <item android:id="@+id/ic_electric"
-            android:icon="@drawable/ic_electric"
-            android:title="Electric Car"/>
-        <item android:id="@+id/ic_soccer"
-            android:icon="@drawable/ic_soccer"
-            android:title="Soccer Games"/>
-        <item android:id="@+id/ic_movie"
-            android:icon="@drawable/ic_movie"
-            android:title="Movie Information"/>
+    <item
+        android:id="@+id/ic_ocTranspo"
+        android:icon="@drawable/ic_octranspo"
+        android:title="OCTranspo"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/ic_electric"
+        android:icon="@drawable/ic_electric"
+        android:title="Electric Car"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/ic_movie"
+        android:icon="@drawable/ic_movie"
+        android:title="Movie Information"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/ic_soccer"
+        android:icon="@drawable/ic_soccer"
+        android:title="Soccer Games"
+        app:showAsAction="always" />
 
-    </group>
 
 </menu>

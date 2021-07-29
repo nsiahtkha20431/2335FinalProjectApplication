@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication;
+package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import algonquin.cst2335.a2335finalprojectapplication.R;
 import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
 
 
