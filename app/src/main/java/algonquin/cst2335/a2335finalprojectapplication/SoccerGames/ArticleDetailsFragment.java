@@ -1,6 +1,7 @@
 package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,13 +27,15 @@ import java.util.concurrent.Executors;
 
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
+import static android.content.ContentValues.TAG;
+
 public class ArticleDetailsFragment extends Fragment {
     String chosenArticle;
     int chosenPosition;
 
-    String stringURL = "http://www.goal.com/en/feeds/news?fmt=rss&mode=xml";
+    String stringURL = "https://www.goal.com/en/feeds/news?fmt=rss&mode=xml";
 
-    String title = null;
+    String titleString = null;
     String link = null;
     String description = null;
     String pubDate = null;
@@ -65,43 +68,6 @@ public class ArticleDetailsFragment extends Fragment {
         });
 
         addToFavButton.setOnClickListener(clicked -> {
-            Executor newThread = Executors.newSingleThreadExecutor();
-            newThread.execute( () -> {
-
-                try {
-
-                    URL url = new URL(stringURL);
-                    HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                    InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-                    XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                    factory.setNamespaceAware(false);
-                    XmlPullParser xpp = factory.newPullParser();
-                    xpp.setInput(in,"UTF-8");
-
-                    while (xpp.next() != XmlPullParser.END_DOCUMENT) {
-                        switch (xpp.getEventType()) {
-
-                            case XmlPullParser.START_DOCUMENT:
-                                break;
-                            case XmlPullParser.END_DOCUMENT:
-                                break;
-                            case XmlPullParser.START_TAG:
-
-                                if (xpp.getName().equals("item")) {
-                                }
-                                break;
-                            case XmlPullParser.END_TAG:
-                                break;
-                            case XmlPullParser.TEXT:
-                                break;
-                        }
-                    }
-
-                } catch (IOException | XmlPullParserException e) {
-                    e.printStackTrace();
-                }
-            });
         });
 
         deleteFromFavButton.setOnClickListener(clicked -> {
@@ -111,6 +77,62 @@ public class ArticleDetailsFragment extends Fragment {
             Snackbar.make(deleteFromFavButton, getString(R.string.soccer_details_snackbar_udeleted) + " " + chosenArticle, Snackbar.LENGTH_SHORT)
                     .setAction(getString(R.string.soccer_details_snackbar_undo), click -> { }).show();
 
+        });
+
+        Executor newThread = Executors.newSingleThreadExecutor();
+        newThread.execute( () -> {
+
+            try {
+
+                URL url = new URL(stringURL);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                factory.setNamespaceAware(false);
+                XmlPullParser xpp = factory.newPullParser();
+                xpp.setInput(in,"UTF-8");
+
+                //code is not currently reaching this point
+                boolean startedItem = false;
+                while (xpp.next() != XmlPullParser.END_DOCUMENT) {
+                    switch (xpp.getEventType()) {
+
+                        case XmlPullParser.START_DOCUMENT:
+                            break;
+                        case XmlPullParser.END_DOCUMENT:
+                            break;
+                        case XmlPullParser.START_TAG:
+
+                            if (xpp.getName().equals("channel")) {
+                                startedItem = true;
+                                titleString = xpp.getAttributeValue(null, "title");
+                            }
+
+                            break;
+                        case XmlPullParser.END_TAG:
+                            if (xpp.getName().equals("item")) {
+                                startedItem = false;
+                            }
+
+
+                            break;
+                        case XmlPullParser.TEXT:
+                            if(startedItem) {
+                                Log.d(TAG, xpp.getText());
+                            }
+                            break;
+                    }
+                }
+
+                getActivity().runOnUiThread( () -> {
+                   TextView title = getActivity().findViewById(R.id.titleView);
+                   title.setText(titleString);
+                });
+
+            } catch (IOException | XmlPullParserException e) {
+                e.printStackTrace();
+            }
         });
 
         return articlesDetailsLayout;
