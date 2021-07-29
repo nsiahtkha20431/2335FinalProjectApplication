@@ -13,14 +13,14 @@
         android:title="Electric Car"
         app:showAsAction="always" />
     <item
-        android:id="@+id/ic_soccer"
-        android:icon="@drawable/ic_soccer"
-        android:title="Soccer Games"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/ic_movie"
         android:icon="@drawable/ic_movie"
         android:title="Movie Information"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/ic_soccer"
+        android:icon="@drawable/ic_soccer"
+        android:title="Soccer Games"
         app:showAsAction="always" />
 
 
