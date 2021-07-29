@@ -36,7 +36,7 @@ public class ArticleDetailsFragment extends Fragment {
     String stringURL = "https://www.goal.com/en/feeds/news?fmt=rss&mode=xml";
 
     String titleString = null;
-    String link = null;
+    String linkString = null;
     String description = null;
     String pubDate = null;
     ImageView thumbnail = null;
@@ -93,9 +93,8 @@ public class ArticleDetailsFragment extends Fragment {
                 XmlPullParser xpp = factory.newPullParser();
                 xpp.setInput(in,"UTF-8");
 
-                //code is not currently reaching this point
-                boolean startedItem = false;
                 while (xpp.next() != XmlPullParser.END_DOCUMENT) {
+                    String whatIsIt = String.valueOf(xpp.next());
                     switch (xpp.getEventType()) {
 
                         case XmlPullParser.START_DOCUMENT:
@@ -104,27 +103,17 @@ public class ArticleDetailsFragment extends Fragment {
                             break;
                         case XmlPullParser.START_TAG:
 
-                            if (xpp.getName().equals("channel")) {
-                                startedItem = true;
-                                titleString = xpp.getAttributeValue(null, "title");
+                            if (xpp.getEventType() == XmlPullParser.TEXT) {
+                                if (xpp.getName().equals("pubDate")) {
+                                    titleString = xpp.getText();
+                                }
                             }
 
                             break;
                         case XmlPullParser.END_TAG:
-                            if (xpp.getName().equals("item")) {
-                                startedItem = false;
-                            }
-
-
-                            break;
-                        case XmlPullParser.TEXT:
-                            if(startedItem) {
-                                Log.d(TAG, xpp.getText());
-                            }
                             break;
                     }
                 }
-
                 getActivity().runOnUiThread( () -> {
                    TextView title = getActivity().findViewById(R.id.titleView);
                    title.setText(titleString);
@@ -137,4 +126,20 @@ public class ArticleDetailsFragment extends Fragment {
 
         return articlesDetailsLayout;
     }
+
+//    private String readTitle(XmlPullParser xpp) throws IOException, XmlPullParserException {
+//        xpp.require(XmlPullParser.START_TAG, null, "title");
+//        String title = readText(xpp);
+//        xpp.require(XmlPullParser.END_TAG, null, "title");
+//        return title;
+//    }
+//
+//    private String readText(XmlPullParser xpp) throws IOException, XmlPullParserException {
+//        String result = "";
+//        if (xpp.next() == XmlPullParser.TEXT) {
+//            result = xpp.getText();
+//            xpp.nextTag();
+//        }
+//        return result;
+//    }
 }
