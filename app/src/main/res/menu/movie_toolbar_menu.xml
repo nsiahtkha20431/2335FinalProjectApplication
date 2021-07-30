@@ -2,6 +2,34 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/ic_ocTranspo"
+            android:icon="@drawable/ic_octranspo"
+            android:title="OCTranspo"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/ic_electric"
+            android:icon="@drawable/ic_electric"
+            android:title="Electric Car"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/ic_soccer"
+            android:icon="@drawable/ic_soccer"
+            android:title="Soccer Games"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/ic_movie"
+            android:icon="@drawable/ic_movie"
+            android:title="Movie Information"
+            app:showAsAction="always" />
+        <item
+            android:enabled="false"
+            android:icon="@android:color/transparent"
+            android:title=""
+            app:showAsAction="always" />
+    </group>
+
+    <group android:checkableBehavior="single">
         <item android:id="@+id/search"
             android:title="@string/search_movies"/>
         <item android:id="@+id/saved"
