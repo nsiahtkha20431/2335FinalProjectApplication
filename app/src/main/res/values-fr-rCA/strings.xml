@@ -21,4 +21,6 @@
     <string name="search_movies">Recherche des Films</string>
     <string name="saved_movies">Films Sauvegardées</string>
     <string name="toolbar_help">Aide</string>
+    <string name="movie_nav_header">Movie Information \nAuthor: Raphael Leblanc \nVersion: 1.0</string>
+    <string name="move_selection">S</string>
 </resources>

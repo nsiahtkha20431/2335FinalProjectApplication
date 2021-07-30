@@ -24,5 +24,6 @@
     <string name="toolbar_help">Help</string>
     <string name="open" translatable="false">Open Menu</string>
     <string name="close" translatable="false">Close Menu</string>
+    <string name="movie_nav_header">Movie Information \nAuthor: Raphael Leblanc \nVersion: 1.0</string>
 
 </resources>
