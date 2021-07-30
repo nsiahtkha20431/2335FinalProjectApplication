@@ -157,26 +157,21 @@ public class MovieDetailsFragment extends Fragment {
             prog.show();
         }
 
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            prog.setProgress(values[0]);
 
-        }
-
-        @Override
+        @Override //execute new thread:
         protected Bitmap doInBackground(String... url) {
             image = null;
             try {
                 InputStream input = new URL(url[0]).openStream();
+
                 image = BitmapFactory.decodeStream(input);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return image;
         }
-
-        @Override
+        @Override //runOnUI:
         protected void onPostExecute(Bitmap bitmap) {
             movieImage.setImageBitmap(bitmap);
             prog.dismiss();

@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group android:checkableBehavior="single">
-        <item android:id="@+id/search"
-            android:title="@string/search_movies"/>
-        <item android:id="@+id/saved"
-            android:title="@string/saved_movies"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group>
+        <item
+            android:id="@+id/ic_ocTranspo"
+            android:checkable="true"
+            android:icon="@drawable/ic_octranspo"
+            android:title="OCTranspo"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/ic_electric"
+            android:checkable="true"
+            android:icon="@drawable/ic_electric"
+            android:title="Electric Car"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/ic_movie"
+            android:checkable="true"
+            android:icon="@drawable/ic_movie"
+            android:title="Movie Information"
+            app:showAsAction="always" />
+        <item
+            android:id="@+id/ic_soccer"
+            android:checkable="true"
+            android:icon="@drawable/ic_soccer"
+            android:title="Soccer Games"
+            app:showAsAction="always" />
+        <item
+            android:enabled="false"
+            android:icon="@android:color/transparent"
+            android:title=""
+            app:showAsAction="always" />
+    </group>
+
+    <group>
+        <item
+            android:id="@+id/search"
+            android:checkable="true"
+            android:title="@string/search_movies" />
+        <item
+            android:id="@+id/saved"
+            android:checkable="true"
+            android:title="@string/saved_movies" />
         <item android:id="@+id/help"
             android:title="@string/toolbar_help"/>
     </group>
