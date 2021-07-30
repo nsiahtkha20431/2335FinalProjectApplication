@@ -4,6 +4,7 @@ package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -32,8 +33,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingMainActivity;
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
+import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
+import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
 import algonquin.cst2335.a2335finalprojectapplication.R;
+import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
 
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
 
@@ -49,13 +54,9 @@ public class MovieInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_room);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        if (Locale.getDefault().getDisplayLanguage().equals("français")){
-            toolbar.setTitle("Recherche des Films");
-        }
-        else{
-            toolbar.setTitle("Search Movie");
-        }
 
+        //toolbar.setTitle(R.string.search_movies);
+        //toolbar.inflateMenu(R.menu.nav_menu);
         toolbar.inflateMenu(R.menu.movie_toolbar_menu);
         toolbar.getMenu().getItem(0).setChecked(true);
         //setSupportActionBar(toolbar);
@@ -66,28 +67,40 @@ public class MovieInfoActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
 
                 switch(item.getItemId()) {
+                    case R.id.ic_ocTranspo:
+                        Intent ocPage = new Intent(getApplicationContext(), OCTranspoActivity.class);
+                        startActivity(ocPage);
 
+
+                        break;
+                    case R.id.ic_electric:
+                        Intent elecPage = new Intent(getApplicationContext(), ChargingMainActivity.class);
+                        startActivity(elecPage);
+
+
+                        break;
+                    case R.id.ic_movie:
+                        Intent movPage = new Intent(getApplicationContext(), MovieInfoActivity.class);
+                        startActivity(movPage);
+
+                        break;
+                    case R.id.ic_soccer:
+                        Intent soccPage = new Intent(getApplicationContext(), SoccerGames.class);
+                        startActivity(soccPage);
+
+
+                        break;
                     case R.id.search:
                         getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, searchFrag).commit();
                         item.setChecked(true);
-                        if (Locale.getDefault().getDisplayLanguage().equals("français")){
-                            toolbar.setTitle("Recherche des Films");
-                        }
-                        else{
-                            toolbar.setTitle("Search Movie");
-                        }
+                        //toolbar.setTitle(R.string.search_movies);
 
 
                         break;
                     case R.id.saved:
                         getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, savedFrag).commit();
                         item.setChecked(true);
-                        if (Locale.getDefault().getDisplayLanguage().equals("français")){
-                            toolbar.setTitle("Films Sauvegardées");
-                        }
-                        else{
-                            toolbar.setTitle("Saved Movies");
-                        }
+                        //toolbar.setTitle(R.string.saved_movies);
 
 
                         break;
