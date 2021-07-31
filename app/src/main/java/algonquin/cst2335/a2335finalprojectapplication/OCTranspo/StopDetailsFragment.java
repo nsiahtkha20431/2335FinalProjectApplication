@@ -46,6 +46,8 @@ public class StopDetailsFragment extends Fragment {
 
     private int stopNo;
 
+    public StopDetailsFragment() { this.stopNo = -1; }
+
     public StopDetailsFragment(int stopNo) {
         this.stopNo = stopNo;
     }
@@ -57,7 +59,7 @@ public class StopDetailsFragment extends Fragment {
         SharedPreferences prefs = getActivity().getSharedPreferences("OCT_Data", Context.MODE_PRIVATE);
         View detailsView;
 
-        if (stopNo == 5555) { //if "Add new" selected, inflate Add Stop Layout
+        if (stopNo == -1) { //if "Add new" selected, inflate Add Stop Layout
             detailsView = inflater.inflate(R.layout.add_stop_layout, container, false);
             EditText stopNumber = detailsView.findViewById(R.id.addStopNumber);
             String savedStop = prefs.getString("saved_stop", "");
@@ -140,6 +142,7 @@ public class StopDetailsFragment extends Fragment {
             });
         } else { // Otherwise inflate the Stop Details layout for the selected stop
             //inflate stop detail layout
+
             detailsView = inflater.inflate(R.layout.stop_details_layout, container, false);
             TextView stopText = detailsView.findViewById(R.id.stopNo);
             TextView descText = detailsView.findViewById(R.id.description);
@@ -193,10 +196,10 @@ public class StopDetailsFragment extends Fragment {
                         }
                         // Populate array with route data
 
-                        getActivity().runOnUiThread( () -> {
+                        getActivity().runOnUiThread(() -> {
                             RecyclerView routeList = detailsView.findViewById(R.id.routeRecycler);
                             routeList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                            MyAdapter adptr = new StopDetailsFragment.MyAdapter(routes, getContext());
+                            MyAdapter adptr = new MyAdapter(routes, getContext());
                             routeList.setAdapter(adptr);
                             // Add data to fields
                             stopText.setText(stop);
@@ -269,13 +272,10 @@ public class StopDetailsFragment extends Fragment {
             routeNumber = view.findViewById(R.id.listNumber);
             routeDescription = view.findViewById(R.id.listDescription);
 
-
             view.setOnClickListener( clk -> {
                 int routeNo = Integer.parseInt(routeNumber.getText().toString());
                 OCTranspoActivity parent = (OCTranspoActivity) getContext();
                 parent.routeSelected(routeNo);
-
-
             });
         }
 
