@@ -80,50 +80,54 @@ public class ArticleDetailsFragment extends Fragment {
 
         });
 
-        Executor newThread = Executors.newSingleThreadExecutor();
-        newThread.execute( () -> {
-
-            try {
-
-                URL url = new URL(stringURL);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
-                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-                factory.setNamespaceAware(false);
-                XmlPullParser xpp = factory.newPullParser();
-                xpp.setInput(in,"UTF-8");
-
-                while (xpp.next() != XmlPullParser.END_DOCUMENT) {
-                    String whatIsIt = String.valueOf(xpp.next());
-                    switch (xpp.getEventType()) {
-
-                        case XmlPullParser.START_DOCUMENT:
-                            break;
-                        case XmlPullParser.END_DOCUMENT:
-                            break;
-                        case XmlPullParser.START_TAG:
-
-                            if (xpp.getEventType() == XmlPullParser.TEXT) {
-                                if (xpp.getName().equals("pubDate")) {
-                                    titleString = xpp.getText();
-                                }
-                            }
-
-                            break;
-                        case XmlPullParser.END_TAG:
-                            break;
-                    }
-                }
-                getActivity().runOnUiThread( () -> {
-                   TextView title = getActivity().findViewById(R.id.titleView);
-                   title.setText(titleString);
-                });
-
-            } catch (IOException | XmlPullParserException e) {
-                e.printStackTrace();
-            }
-        });
+//        Executor newThread = Executors.newSingleThreadExecutor();
+//        newThread.execute( () -> {
+//
+//            try {
+//
+//                URL url = new URL(stringURL);
+//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+//
+//                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+//                factory.setNamespaceAware(false);
+//                XmlPullParser xpp = factory.newPullParser();
+//                xpp.setInput(in,"UTF-8");
+//
+//                while (xpp.next() != XmlPullParser.END_DOCUMENT) {
+//                    String whatIsIt = String.valueOf(xpp.next());
+//                    switch (xpp.getEventType()) {
+//
+//                        case XmlPullParser.START_TAG:
+//
+//                            if (xpp.getEventType() == XmlPullParser.TEXT) {
+//
+//                                String contents = xpp.getName();
+//
+////                                if (contents.equals("pubDate")) {
+////                                    titleString = xpp.getText();
+////                                }
+//                            }
+//
+//                            break;
+//                        case XmlPullParser.END_TAG:
+//                            break;
+//
+//                        case XmlPullParser.TEXT:
+//                            String hello = null;
+//                            //logic to get the text out of the tag
+//                            break;
+//                    }
+//                }
+//                getActivity().runOnUiThread( () -> {
+//                   TextView title = getActivity().findViewById(R.id.titleView);
+//                   title.setText(titleString);
+//                });
+//
+//            } catch (IOException | XmlPullParserException e) {
+//                e.printStackTrace();
+//            }
+//        });
 
         return articlesDetailsLayout;
     }

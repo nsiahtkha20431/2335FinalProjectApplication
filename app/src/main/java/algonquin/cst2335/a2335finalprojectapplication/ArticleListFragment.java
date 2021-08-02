@@ -3,6 +3,7 @@ package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,40 +17,57 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 
 public class ArticleListFragment extends Fragment {
     ArticleAdapter adapter; //declaring an ArticleAdapter object, but not initializing yet
     ArrayList<String> articleTitlesList = new ArrayList<>(); //making an array to hold the titles of each article
+    String stringURL = "https://www.goal.com/en/feeds/news?fmt=rss";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View articlesListLayout = inflater.inflate(R.layout.article_recycler_layout, container, false);
         RecyclerView articlesRecyclerView = articlesListLayout.findViewById(R.id.myrecycler); //creating an instance of RecyclerView and attaching it to the XML tag
 
-
-
-        articleTitlesList.add(getString(R.string.soccer_list_article_title)); //adding temporary article titles for the array
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+        Executor newThread = Executors.newSingleThreadExecutor();
+        newThread.execute(() -> {
+            fetchAndParseRSS();
+            getActivity().runOnUiThread( () -> {
+                articlesRecyclerView.getAdapter().notifyDataSetChanged();
+            });
+        });
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title)); //adding temporary article titles for the array
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
+//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
 
         adapter = new ArticleAdapter(articleTitlesList, getContext()); //initializing the ArticleAdapter object and passing it the values of the array and the context (like that it comes from here)
 
@@ -59,6 +77,70 @@ public class ArticleListFragment extends Fragment {
         ratingAlertDialog(); //calling this function to get the AlertDialog running as soon as the app is opened
 
         return articlesListLayout;
+    }
+
+    public void fetchAndParseRSS () {
+        InputStream is = fetchRSS(this.stringURL);
+
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xpp = factory.newPullParser();
+
+            xpp.setInput(is, null);
+
+            articleTitlesList.clear();
+
+            String tag = null;
+            String title = null;
+            String link  = null;
+            String description = null;
+
+            while (xpp.next() != XmlPullParser.END_DOCUMENT) {
+                String name = xpp.getName();
+
+                switch (xpp.getEventType()) {
+                    case XmlPullParser.TEXT:
+                        tag = xpp.getText();
+                        break;
+
+                    case XmlPullParser.END_TAG:
+                        if (name.equals("title")) {
+                            // in your details fragment
+                            // if title == chosenArticle
+                            // then set the description, link and tag
+                            title = tag;
+                            articleTitlesList.add(title);
+                        } else if (name.equals("description")) {
+                            description = tag;
+                            articleTitlesList.add(description);
+                        }
+                        else if(name.equals("link")){
+                            link = tag;
+                            articleTitlesList.add(link);
+                        }
+
+
+                }
+            }
+
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public InputStream fetchRSS(String stringURL) {
+        try {
+            URL url = new URL(stringURL);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            int responseCode = urlConnection.getResponseCode();
+            if (responseCode == urlConnection.HTTP_OK) {
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                return in;
+            }
+        } catch (IOException ioe) {
+            Log.e("Connection Error", ioe.getMessage());
+        }
+        return null;
     }
 
     public void ratingAlertDialog() { //function for the rating AlertDialog
