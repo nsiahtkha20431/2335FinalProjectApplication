@@ -68,4 +68,6 @@ public class SoccerGames extends AppCompatActivity {
     public void notifyArticleDeleted(String chosenArticle, int chosenPosition) {
         articleFragment.notifyArticleDeleted(chosenArticle, chosenPosition);
     }
+
+
 }
