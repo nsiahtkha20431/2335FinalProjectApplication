@@ -7,7 +7,8 @@
     <string name="close" translatable="false">Close Menu</string>
     <!-- OC Transpo -->
     <string name="oc_transpo_button">OCTranspo</string>
-    <string name="oc_transpo_header">OC Transpo Stop Selector</string>
+    <string name="oc_transpo_header">OCTranspo Stop Selector</string>
+    <string name="oct_header_text">OCTranspo Stop Selector, Emma McArthur, Version 1.0</string>
     <string name="add_stop_header">Enter Stop Number and Press Add Stop</string>
     <string name="add_stop_button">Add Stop</string>
     <string name="add_stop_close">Close</string>
