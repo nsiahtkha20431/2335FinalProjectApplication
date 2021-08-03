@@ -13,20 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
 import algonquin.cst2335.a2335finalprojectapplication.R;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -47,7 +41,6 @@ public class StopDetailsFragment extends Fragment {
     private int stopNo;
 
     public StopDetailsFragment() { this.stopNo = -1; }
-
     public StopDetailsFragment(int stopNo) {
         this.stopNo = stopNo;
     }
@@ -58,6 +51,8 @@ public class StopDetailsFragment extends Fragment {
         OCTranspoActivity parent = (OCTranspoActivity) getContext();
         SharedPreferences prefs = getActivity().getSharedPreferences("OCT_Data", Context.MODE_PRIVATE);
         View detailsView;
+        String stopUrl = "https://api.octranspo1.com/v2.0/GetRouteSummaryForStop?appID=" + parent.getAppId()
+                + "&apiKey=" + parent.getApiKey() + "&stopNo=";
 
         if (stopNo == -1) { //if "Add new" selected, inflate Add Stop Layout
             detailsView = inflater.inflate(R.layout.add_stop_layout, container, false);
@@ -75,8 +70,7 @@ public class StopDetailsFragment extends Fragment {
                     prefs.edit().putString("saved_stop", stop).apply();
                     // Pull stop data from server
                     try {
-                        URL url = new URL("https://api.octranspo1.com/v2.0/GetRouteSummaryForStop?appID=223eb5c3&apiKey=ab27db5b435b8c8819ffb8095328e775&stopNo="
-                                + URLEncoder.encode(stop, "UTF-8"));
+                        URL url = new URL(stopUrl + URLEncoder.encode(stop, "UTF-8"));
                         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                         Executor newThread = Executors.newSingleThreadExecutor();
                         newThread.execute(() -> {
@@ -148,8 +142,7 @@ public class StopDetailsFragment extends Fragment {
             TextView descText = detailsView.findViewById(R.id.description);
             //get api result for stop no
             try {
-                URL url = new URL("https://api.octranspo1.com/v2.0/GetRouteSummaryForStop?appID=223eb5c3&apiKey=ab27db5b435b8c8819ffb8095328e775&stopNo="
-                        + URLEncoder.encode(String.valueOf(stopNo), "UTF-8"));
+                URL url = new URL(stopUrl + URLEncoder.encode(String.valueOf(stopNo), "UTF-8"));
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 Executor newThread = Executors.newSingleThreadExecutor();
                 newThread.execute(() -> {
@@ -275,7 +268,7 @@ public class StopDetailsFragment extends Fragment {
             view.setOnClickListener( clk -> {
                 int routeNo = Integer.parseInt(routeNumber.getText().toString());
                 OCTranspoActivity parent = (OCTranspoActivity) getContext();
-                parent.routeSelected(routeNo);
+                parent.routeSelected(stopNo, routeNo);
             });
         }
 

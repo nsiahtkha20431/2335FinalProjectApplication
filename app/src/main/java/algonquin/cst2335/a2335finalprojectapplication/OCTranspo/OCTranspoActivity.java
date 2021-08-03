@@ -1,8 +1,11 @@
 package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -14,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
@@ -23,6 +27,8 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 public class OCTranspoActivity extends AppCompatActivity {
 
     SharedPreferences prefs;
+    private String appId = "016a3846";
+    private String apiKey = "688558ead5b36ba6318c11207ea85d0d";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,16 @@ public class OCTranspoActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.listFrag, listFrag, "list").commit();
         Toolbar toolbar = findViewById(R.id.oct_toolbar);
         setSupportActionBar(toolbar);
-
+        DrawerLayout drawer = findViewById(R.id.oct_drawer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigation = findViewById(R.id.oct_nav);
+        navigation.setNavigationItemSelectedListener( (item) -> {
+            onOptionsItemSelected(item);
+            drawer.closeDrawer(GravityCompat.START);
+            return false;
+        });
     }
 
     @Override
@@ -109,6 +124,16 @@ public class OCTranspoActivity extends AppCompatActivity {
         getSupportFragmentManager().findFragmentByTag("list").onResume();
     }
 
-    public void routeSelected(int route) {
+    public void routeSelected(int stop, int route) {
+        RouteDetailsFragment newFrag = new RouteDetailsFragment(stop, route);
+        getSupportFragmentManager().beginTransaction().replace(R.id.listFrag, newFrag, "rdetail").addToBackStack(null).commit();
+    }
+
+    public String getAppId() {
+        return appId;
+    }
+
+    public String getApiKey() {
+        return apiKey;
     }
 }
