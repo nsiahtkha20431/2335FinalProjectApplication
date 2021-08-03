@@ -101,53 +101,84 @@ public class RouteDetailsFragment extends Fragment {
                 JSONObject routeObject = stopData.getJSONObject("Route");
                 JSONObject routeData = routeObject.getJSONObject("RouteDirection");
                 String routeNumber = routeData.getString("RouteNo");
-                String routeDest = routeData.getString("RouteLabel");
-                JSONObject tripsObject = routeData.getJSONObject("Trips");
-                JSONArray trips = tripsObject.getJSONArray("Trip");
-                int length = trips.length();
-                JSONObject currentTrip = trips.getJSONObject(0);
-                String longitude = currentTrip.getString("Longitude");
-                String latitude = currentTrip.getString("Latitude");
-                String speed = currentTrip.getString("GPSSpeed");
-                String tripStart = currentTrip.getString("TripStartTime");
-                String tripArrive = currentTrip.getString("AdjustedScheduleTime");
-                ArrayList<ArrayList<String>> tripList = new ArrayList<>();
-                for (int i = 0; i < length; i++) {
-                    currentTrip = trips.getJSONObject(i);
-                    tripList.add(new ArrayList<>());
-                    tripList.get(i).add(currentTrip.getString("AdjustedScheduleTime"));
-                    tripList.get(i).add(currentTrip.getString("TripStartTime"));
-                    tripList.get(i).add(currentTrip.getString("AdjustmentAge"));
-                    tripList.get(i).add(currentTrip.getString("LastTripOfSchedule"));
+                if (!routeNumber.equals("")) {
+                    String routeDest = routeData.getString("RouteLabel");
+                    JSONObject tripsObject = routeData.getJSONObject("Trips");
+                    JSONArray trips = tripsObject.optJSONArray("Trip");
+                    int length;
+                    JSONObject currentTrip;
+                    if (trips == null) {
+                        currentTrip = tripsObject.optJSONObject("Trip");
+                        length = 1;
+                    } else {
+                        length = trips.length();
+                        currentTrip = trips.getJSONObject(0);
+                    }
+                    String longitude = currentTrip.getString("Longitude");
+                    String latitude = currentTrip.getString("Latitude");
+                    String speed = currentTrip.getString("GPSSpeed");
+                    String tripStart = currentTrip.getString("TripStartTime");
+                    String tripArrive = currentTrip.getString("AdjustedScheduleTime") + " min";
+                    ArrayList<ArrayList<String>> tripList = new ArrayList<>();
+                    for (int i = 0; i < length; i++) {
+                        if (i > 0) {
+                            currentTrip = trips.getJSONObject(i);
+                        }
+                        String age;
+                        if (Double.parseDouble(currentTrip.getString("AdjustmentAge")) < 1) {
+                            age = "< 1 min";
+                        } else if (Double.parseDouble(currentTrip.getString("AdjustmentAge")) < 5) {
+                            age = "< 5 min";
+                        } else if (Double.parseDouble(currentTrip.getString("AdjustmentAge")) < 10) {
+                            age = "< 10 min";
+                        } else {
+                            age = "> 10 min";
+                        }
+                        String lastTrip;
+                        if (currentTrip.getString("LastTripOfSchedule").equals("true")) {
+                            lastTrip = "Yes";
+                        } else {
+                            lastTrip = "No";
+                        }
+                        tripList.add(new ArrayList<>());
+                        tripList.get(i).add(currentTrip.getString("AdjustedScheduleTime") + " min");
+                        tripList.get(i).add(currentTrip.getString("TripStartTime"));
+                        tripList.get(i).add(age);
+                        tripList.get(i).add(lastTrip);
+                    }
+
+                    parent.runOnUiThread(() -> {
+
+                        routeNo.setText(routeNumber);
+                        stopNo.setText(stopNumber);
+                        destView.setText(routeDest);
+                        busLongitude.setText(longitude);
+                        busLatitude.setText(latitude);
+                        busSpeed.setText(speed);
+                        arrivalTime.setText(tripArrive);
+                        startTime.setText(tripStart);
+                        tripArrival1.setText(tripList.get(0).get(0));
+                        tripStart1.setText(tripList.get(0).get(1));
+                        tripAge1.setText(tripList.get(0).get(2));
+                        tripLast1.setText(tripList.get(0).get(3));
+                        if (length > 1) {
+                            tripArrival2.setText(tripList.get(1).get(0));
+                            tripStart2.setText(tripList.get(1).get(1));
+                            tripAge2.setText(tripList.get(1).get(2));
+                            tripLast2.setText(tripList.get(1).get(3));
+                        }
+                        if (length > 2) {
+                            tripArrival3.setText(tripList.get(2).get(0));
+                            tripStart3.setText(tripList.get(2).get(1));
+                            tripAge3.setText(tripList.get(2).get(2));
+                            tripLast3.setText(tripList.get(2).get(3));
+                        }
+                    });
+                } else {
+                    parent.runOnUiThread(() -> {
+                        destView.setText("No trips to display");
+                    });
                 }
-
-                parent.runOnUiThread( () -> {
-
-                    routeNo.setText(routeNumber);
-                    stopNo.setText(stopNumber);
-                    destView.setText(routeDest);
-                    busLongitude.setText(longitude);
-                    busLatitude.setText(latitude);
-                    busSpeed.setText(speed);
-                    arrivalTime.setText(tripArrive);
-                    startTime.setText(tripStart);
-                    tripArrival1.setText(tripList.get(0).get(0));
-                    tripStart1.setText(tripList.get(0).get(1));
-                    tripAge1.setText(tripList.get(0).get(2));
-                    tripLast1.setText(tripList.get(0).get(3));
-                    if (length > 1) {
-                        tripArrival2.setText(tripList.get(1).get(0));
-                        tripStart2.setText(tripList.get(1).get(1));
-                        tripAge2.setText(tripList.get(1).get(2));
-                        tripLast2.setText(tripList.get(1).get(3));
-                    }
-                    if (length > 2) {
-                        tripArrival3.setText(tripList.get(2).get(0));
-                        tripStart3.setText(tripList.get(2).get(1));
-                        tripAge3.setText(tripList.get(2).get(2));
-                        tripLast3.setText(tripList.get(2).get(3));
-                    }
-                });
 
             } catch (IOException | JSONException e) {
                 e.printStackTrace();
@@ -156,7 +187,7 @@ public class RouteDetailsFragment extends Fragment {
 
         Button rfrsh = routeDetailsView.findViewById(R.id.refreshButton);
         rfrsh.setOnClickListener( clk -> {
-            getParentFragmentManager().popBackStackImmediate();
+            getParentFragmentManager().popBackStack();
             parent.routeSelected(stop, route);
         });
 
