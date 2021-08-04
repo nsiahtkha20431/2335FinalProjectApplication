@@ -30,6 +30,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Locale;
 
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
@@ -98,7 +99,12 @@ public class MovieSearchFragment extends Fragment {
 
                     }
                     else{
-                        throw new JSONException("Response false, no movie found with: " + title_input.getText());
+                        if (Locale.getDefault().getDisplayLanguage().equals("français")){
+                            throw new JSONException("Réponse faillit, pas de film retrouvée avec: " + title_input.getText());
+                        }
+                        else{
+                            throw new JSONException("Response false, no movie found with: " + title_input.getText());
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -109,7 +115,12 @@ public class MovieSearchFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Snackbar.make(find, "Something went wrong while retrieving data", Snackbar.LENGTH_SHORT).show();
+                if (Locale.getDefault().getDisplayLanguage().equals("français")){
+                    Snackbar.make(find, "Quelque chose de mal y a passer en récuperant l'information", Snackbar.LENGTH_SHORT).show();
+                }
+                else {
+                    Snackbar.make(find, "Something went wrong while retrieving data", Snackbar.LENGTH_SHORT).show();
+                }
                 error.printStackTrace();
             }
         });

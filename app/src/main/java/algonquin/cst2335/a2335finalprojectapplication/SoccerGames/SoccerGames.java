@@ -5,8 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import algonquin.cst2335.a2335finalprojectapplication.ArticleDetailsFragment;
-import algonquin.cst2335.a2335finalprojectapplication.ArticleListFragment;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class SoccerGames extends AppCompatActivity {

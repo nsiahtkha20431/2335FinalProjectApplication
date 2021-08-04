@@ -1,5 +1,7 @@
 package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import androidx.fragment.app.Fragment;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Locale;
 
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
 import algonquin.cst2335.a2335finalprojectapplication.R;
@@ -42,7 +46,7 @@ public class MovieDetailsFragment extends Fragment {
     Button close;
     MovieSearchFragment searchFrag = new MovieSearchFragment();
     MovieSearchFragment.MovieInfo movieInfo;
-
+    private static ProgressDialog prog;
 
 
 
@@ -51,7 +55,18 @@ public class MovieDetailsFragment extends Fragment {
         View detailsLayout =inflater.inflate(R.layout.movie_details_layout, container, false);
         SharedPreferences prefs = this.getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        Log.i("Test movieinfo" , "" + movieInfo.getTitle());
+
+        prog = new ProgressDialog(getContext());
+        if (Locale.getDefault().getDisplayLanguage().equals("français")){
+            prog.setMessage("Téléchargement de l'information du film et de l'image en cours");
+        }
+        else{
+            prog.setMessage("Downloading movie information and poster..");
+        }
+        prog.setProgress(0);
+        prog.setMax(600);
+
+
         title = detailsLayout.findViewById(R.id.title_mes);
         title.setText(movieInfo.getTitle());
         year = detailsLayout.findViewById(R.id.year_mes);
@@ -64,14 +79,12 @@ public class MovieDetailsFragment extends Fragment {
         actors.setText(movieInfo.getActors());
         plot = detailsLayout.findViewById(R.id.plot_mes);
         plot.setText(movieInfo.getPlot());
-        //TODO ImageView with ASyncTask
         poster = detailsLayout.findViewById(R.id.pos);
         new DownloadImageTask(poster).execute(movieInfo.getURL());
         save = detailsLayout.findViewById(R.id.del_button);
         close = detailsLayout.findViewById(R.id.close_but);
 
         save.setOnClickListener(clk -> {
-            //TODO database input
             MovieInfoActivity activity = (MovieInfoActivity)getContext();
 
             SQLiteDatabase db = opener.getWritableDatabase();
@@ -89,11 +102,26 @@ public class MovieDetailsFragment extends Fragment {
             }
             if(valid == true){
                 //do not post
-                Toast.makeText(getContext(), "This movie is already saved.", Toast.LENGTH_SHORT).show();
+                if (Locale.getDefault().getDisplayLanguage().equals("français")){
+                    Toast.makeText(getContext(), "Ce film est déjà été sauvegardée.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getContext(), "This movie is already saved.", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
-                activity.usrSaveMovie();
-                Toast.makeText(getContext(), "Saved the selected movie.", Toast.LENGTH_SHORT).show();
+                try {
+                    activity.usrSaveMovie();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (Locale.getDefault().getDisplayLanguage().equals("français")){
+                    Toast.makeText(getContext(), "Film sélectionné a été sauvegardée.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(getContext(), "Saved the selected movie.", Toast.LENGTH_SHORT).show();
+                }
+
             }
 
         });
@@ -113,27 +141,40 @@ public class MovieDetailsFragment extends Fragment {
 
     public static class DownloadImageTask extends AsyncTask<String, Integer, Bitmap> {
 
-        ImageView movieImage;
+        private ImageView movieImage;
+        private static Bitmap image;
 
         public DownloadImageTask(ImageView movieImage) {
             this.movieImage = movieImage;
         }
 
+        public static Bitmap getMovieBitmap(){
+            return image;
+        }
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            prog.show();
+        }
+
+
+        @Override //execute new thread:
         protected Bitmap doInBackground(String... url) {
-            Bitmap image = null;
+            image = null;
             try {
                 InputStream input = new URL(url[0]).openStream();
+
                 image = BitmapFactory.decodeStream(input);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return image;
         }
-
-        @Override
+        @Override //runOnUI:
         protected void onPostExecute(Bitmap bitmap) {
             movieImage.setImageBitmap(bitmap);
+            prog.dismiss();
         }
     }
 }

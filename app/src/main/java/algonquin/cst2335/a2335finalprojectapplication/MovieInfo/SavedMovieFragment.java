@@ -2,6 +2,8 @@ package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,7 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
 import algonquin.cst2335.a2335finalprojectapplication.R;
@@ -70,23 +74,44 @@ public class SavedMovieFragment extends Fragment {
         return savedLayout;
     }
 
+    public ArrayList<MovieSearchFragment.MovieInfo> getMovieInfoArrayList(){
+        return movieInfoArrayList;
+    }
     public void movieDeleted(MovieSearchFragment.MovieInfo movieInfo, int position){
-        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-                alert.setTitle("Question: ")
-                        .setMessage("Are you sure you want to delete: " + movieInfo.getTitle() + " from your list?")
-                        .setNegativeButton("No", (dialog, cl) -> {
-                            //does nothing
-                        })
-                        .setPositiveButton("Yes", (dialog, cl) -> {
-                            MovieSearchFragment.MovieInfo removedMovie = movieInfoArrayList.get(position);
-                            movieInfoArrayList.remove(position);
-                            movieAdapter.notifyItemRemoved(position);
-                            SQLiteDatabase db = opener.getWritableDatabase();
-                            db.delete(FinalOpenHelper.MOVIE_TABLE_NAME, "Title=? AND Year=?", new String[]{removedMovie.getTitle(), removedMovie.getYear()});
-                            Snackbar.make(movieList, "Movie: " + removedMovie.getTitle() + ", " + removedMovie.getYear() + " was deleted.",  Snackbar.LENGTH_LONG).show();
-                        })
-                        .create().show();
-
+        if (Locale.getDefault().getDisplayLanguage().equals("français")){
+            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+            alert.setTitle("Question: ")
+                    .setMessage("Êtes-vous certain de vouloir effacer: " + movieInfo.getTitle() + " de votre liste?")
+                    .setNegativeButton("Non", (dialog, cl) -> {
+                        //does nothing
+                    })
+                    .setPositiveButton("Oui", (dialog, cl) -> {
+                        MovieSearchFragment.MovieInfo removedMovie = movieInfoArrayList.get(position);
+                        movieInfoArrayList.remove(position);
+                        movieAdapter.notifyItemRemoved(position);
+                        SQLiteDatabase db = opener.getWritableDatabase();
+                        db.delete(FinalOpenHelper.MOVIE_TABLE_NAME, "Title=? AND Year=?", new String[]{removedMovie.getTitle(), removedMovie.getYear()});
+                        Snackbar.make(movieList, "Film: " + removedMovie.getTitle() + ", " + removedMovie.getYear() + " a été effacer.",  Snackbar.LENGTH_LONG).show();
+                    })
+                    .create().show();
+        }
+        else {
+            AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+            alert.setTitle("Question: ")
+                    .setMessage("Are you sure you want to delete: " + movieInfo.getTitle() + " from your list?")
+                    .setNegativeButton("No", (dialog, cl) -> {
+                        //does nothing
+                    })
+                    .setPositiveButton("Yes", (dialog, cl) -> {
+                        MovieSearchFragment.MovieInfo removedMovie = movieInfoArrayList.get(position);
+                        movieInfoArrayList.remove(position);
+                        movieAdapter.notifyItemRemoved(position);
+                        SQLiteDatabase db = opener.getWritableDatabase();
+                        db.delete(FinalOpenHelper.MOVIE_TABLE_NAME, "Title=? AND Year=?", new String[]{removedMovie.getTitle(), removedMovie.getYear()});
+                        Snackbar.make(movieList, "Movie: " + removedMovie.getTitle() + ", " + removedMovie.getYear() + " was deleted.", Snackbar.LENGTH_LONG).show();
+                    })
+                    .create().show();
+        }
 
     }
 
@@ -136,12 +161,28 @@ public class SavedMovieFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(SavedView hold, int position) {
+            MovieInfoActivity activity = new MovieInfoActivity();
             hold.title.setText(movieInfoArrayList.get(position).getTitle());
             hold.year.setText(movieInfoArrayList.get(position).getYear());
             hold.rated.setText(movieInfoArrayList.get(position).getRating());
-            new MovieDetailsFragment.DownloadImageTask(hold.poster).execute(movieInfoArrayList.get(position).getURL());
 
+            File file = new File(getContext().getFilesDir(), movieInfoArrayList.get(position).getTitle().replace(" ", "") + ".jpeg");
+            Bitmap poster = null;
+
+            if(file.exists()){
+                poster = BitmapFactory.decodeFile(getContext().getFilesDir() + "/" +
+                        movieInfoArrayList.get(position).getTitle().replace(" ", "") + ".jpeg");
+
+            }
+            else{
+                    new MovieDetailsFragment.DownloadImageTask(hold.poster).execute(movieInfoArrayList.get(position).getURL());
+            }
+
+            if(poster != null){
+                hold.poster.setImageBitmap(poster);
+            }
             hold.setPosition(position);
+
         }
 
         @Override
