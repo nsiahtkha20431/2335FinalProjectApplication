@@ -2,16 +2,54 @@
 <resources>
     <string name="app_name">2335 Application du Projet Finale</string>
     <string name="main_header">"Bienvenue au Projet Finale de Aparna, Emma, Nishat et Raphael! "</string>
-    <string name="oc_transpo_button">OCTranspo</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+
+    <!-- OC Transpo -->
+    <string name="oc_transpo_header">OC Transpo sélecteur d\'arrêt </string>
+    <string name="add_stop_header">Entrez le numéro d\'arrêt et appuyez \'Ajouter\'</string>
+    <string name="add_stop_button">Ajouter</string>
+    <string name="add_stop_hint">Entrez numéro d\'arrêt</string>
+    <string name="add_stop_close">Fermé</string>
+    <string name="back_button">Retourner</string>
+    <string name="delete_button">Supprimer</string>
+    <string name="refresh_button">Rafraîchir</string>
+    <string name="undo">ANNULER</string>
+    <string name="snackbar_start">Arrêt de bus #</string>
+    <string name="snackbar_added"> a été ajouté.</string>
+    <string name="snackbar_deleted"> a été supprimé.</string>
+    <string name="destination_label">Destination</string>
+    <string name="route_label">Route</string>
+    <string name="rt_label">Route:</string>
+    <string name="stop_label">Arrêt:</string>
+    <string name="dest_label">Destination:</string>
+    <string name="current_position">Position actuelle:</string>
+    <string name="speed">km/h</string>
+    <string name="arrival_label">Heure d\'arrivée:</string>
+    <string name="start_label">Heure de départ:</string>
+    <string name="next_trips_label">Prochains voyages</string>
+    <string name="trips_arrival_label">Arrivée</string>
+    <string name="trips_start_label">Départ</string>
+    <string name="trips_age_label">Actualisé</string>
+    <string name="trips_last_label">Dernier?</string>
+    <string name="no_trips">Aucune voyage à afficher</string>
+    <string name="menu_add_stop">Ajouter arrêt</string>
+    <string name="menu_help">Aide</string>
+    <string name="help">OCTranspo selecteur d\'arrêt affiche en direct les données relatives aux
+        arrêts et aux itinéraires provenant du serveur d\'OCTranspo.
+        \n\nSelectionnez un numéro d\'arrêt pour afficher les itinéraires des bus entrants.
+        \n\nPour ajouter un arrêt à votre liste, sélectionnez le signe plus dans la barre d\'outils
+        ou \'Ajouter arrêt\' dans le menu navigation.</string>
+    <string name="menu_close">Sortie</string>
+    <string name="oct_api_error">Erreur d\'API: Veuillex réssayer.</string>
+    <string name="oct_stop_error">Erreur: Numéro d\'arrêt invalide.</string>
+    <string name="oct_default_error">Erreur: Veuillex réssayer.</string>
+    <string name="oct_alert_title">Attention</string>
+    <string name="oct_alert_message">Veuillez entrer un numéro d\'arrêt à ajouter à votre liste.</string>
+
     <string name="electric_car_button">Station de Charge de Vehicule Electrique</string>
     <string name="movie_info_button">Information de films</string>
     <string name="soccer_button">Jeux de Soccer</string>
-    <string name="oc_transpo_header">Selecteur d\'arret d\'autobus OCTranspo</string>
-    <string name="add_stop_header">Entrer le # d\'arret et appuyer sur Additionner</string>
-    <string name="add_stop_button">Additionner</string>
-    <string name="add_stop_close">Fermer</string>
-    <string name="back_button">Retour</string>
-    <string name="delete_button">Effacer</string>
     <string name="movie_close_button">Fermer</string>
     <string name="movie_save_button">Sauvegarder</string>
     <string name="movie_enter_title">Entrer le titre du film:</string>
@@ -22,5 +60,5 @@
     <string name="saved_movies">Films Sauvegardées</string>
     <string name="toolbar_help">Aide</string>
     <string name="movie_nav_header">Movie Information \nAuthor: Raphael Leblanc \nVersion: 1.0</string>
-    <string name="move_selection">S</string>
+
 </resources>

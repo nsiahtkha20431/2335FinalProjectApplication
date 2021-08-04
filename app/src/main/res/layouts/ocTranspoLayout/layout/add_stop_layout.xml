@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:ems="10"
-        android:hint="Enter Stop Number"
+        android:hint="@string/add_stop_hint"
         android:inputType="number"
         app:layout_constraintStart_toStartOf="@+id/addStopHeader"
         app:layout_constraintTop_toBottomOf="@+id/addStopHeader" />

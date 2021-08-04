@@ -5,15 +5,52 @@
     <string name="author_text" translatable="false">Created by:\nAparna Tiwari\nEmma McArthur\nNishat Khan\nRaphael Leblanc</string>
     <string name="open" translatable="false">Open Menu</string>
     <string name="close" translatable="false">Close Menu</string>
+
     <!-- OC Transpo -->
-    <string name="oc_transpo_button">OCTranspo</string>
     <string name="oc_transpo_header">OCTranspo Stop Selector</string>
-    <string name="oct_header_text">OCTranspo Stop Selector, Emma McArthur, Version 1.0</string>
+    <string name="oct_header_text" translatable="false">OCTranspo Stop Selector, Emma McArthur, Version 1.0</string>
     <string name="add_stop_header">Enter Stop Number and Press Add Stop</string>
     <string name="add_stop_button">Add Stop</string>
+    <string name="add_stop_hint">Enter Stop Number</string>
     <string name="add_stop_close">Close</string>
     <string name="back_button">Back</string>
     <string name="delete_button">Delete</string>
+    <string name="refresh_button">Refresh</string>
+    <string name="destination_label">Destination</string>
+    <string name="undo">UNDO</string>
+    <string name="snackbar_start">Bus Stop #</string>
+    <string name="snackbar_added"> has been added.</string>
+    <string name="snackbar_deleted"> has been deleted.</string>
+    <string name="route_label">Route</string>
+    <string name="rt_label">Route:</string>
+    <string name="stop_label">Stop:</string>
+    <string name="dest_label">Destination:</string>
+    <string name="current_position">Current Position:</string>
+    <string name="speed">km/h</string>
+    <string name="arrival_label">Arrival Time:</string>
+    <string name="start_label">Start Time:</string>
+    <string name="next_trips_label">Next Trips</string>
+    <string name="trips_arrival_label">Arriving</string>
+    <string name="trips_start_label">Start Time</string>
+    <string name="trips_age_label">Updated</string>
+    <string name="trips_last_label">Last Trip?</string>
+    <string name="no_trips">No trips to display</string>
+    <string name="menu_add_stop">Add Stop</string>
+    <string name="menu_help">Help</string>
+    <string name="help">OC Transpo Stop Selector displays live stop and route data from
+        the OCTranspo server.\n\nSelect a stop number to display incoming bus routes.
+        \n\nSelect a route number to display route details and upcoming trips.
+        \n\nTo add a stop to your list select the plus sign from the toolbar or \'Add Stop\'
+        from the navigation menu.</string>
+    <string name="menu_close">Exit</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="oct_api_error">API Error: Please try again.</string>
+    <string name="oct_stop_error">Error: Invalid stop number.</string>
+    <string name="oct_default_error">Error: Please try again.</string>
+    <string name="oct_alert_title">Attention</string>
+    <string name="oct_alert_message">Please enter a stop number to add to your list.</string>
+
     <!-- Electric Car Charging -->
     <string name="electric_car_button">Electric Car Charging Stations</string>
     <!-- Movies -->

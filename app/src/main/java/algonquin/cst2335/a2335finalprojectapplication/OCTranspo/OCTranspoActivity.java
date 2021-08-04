@@ -1,12 +1,10 @@
 package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -15,14 +13,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
 import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
 import algonquin.cst2335.a2335finalprojectapplication.R;
+
 
 public class OCTranspoActivity extends AppCompatActivity {
 
@@ -67,12 +63,8 @@ public class OCTranspoActivity extends AppCompatActivity {
                 break;
             case R.id.menu_help:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Help")
-                        .setMessage("OC Transpo Stop Selector displays live stop and route data from" +
-                                "the OCTranspo server.\n\nSelect a stop number to display incoming bus routes." +
-                                "\n\nSelect a route number to display route details and upcoming trips." +
-                                "\n\nTo add a stop to your list select the plus sign from the toolbar or \"Add Stop\" " +
-                                "from the navigation menu.")
+                builder.setTitle(getResources().getString(R.string.menu_help))
+                        .setMessage(getResources().getString(R.string.help ))
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -91,11 +83,13 @@ public class OCTranspoActivity extends AppCompatActivity {
 
     public void addStop(String stop, String description) {
         ContentValues newStop = new ContentValues();
+        String message = getResources().getString(R.string.snackbar_start)
+                + stop + getResources().getString(R.string.snackbar_added);
         newStop.put(FinalOpenHelper.OCT_COL_NO, stop);
         newStop.put(FinalOpenHelper.OCT_COL_DESC, description);
         MainActivity.db.insert(FinalOpenHelper.OCTRANSPO_TABLE_NAME, FinalOpenHelper.OCT_COL_NO, newStop);
-        Snackbar.make(findViewById(R.id.listFrag), "Bus Stop #" + stop + " has been added.", Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", click -> {
+        Snackbar.make(findViewById(R.id.listFrag), message, Snackbar.LENGTH_SHORT)
+                .setAction(getResources().getString(R.string.undo), click -> {
                     deleteStop(Integer.parseInt(stop), description);
                 }).show();
     }
@@ -107,11 +101,13 @@ public class OCTranspoActivity extends AppCompatActivity {
 
     public void deleteStop(int stopNo, String description) {
         String where = FinalOpenHelper.OCT_COL_NO + " = " + stopNo;
+        String message = getResources().getString(R.string.snackbar_start)
+                + stopNo + getResources().getString(R.string.snackbar_deleted);
         MainActivity.db.delete(FinalOpenHelper.OCTRANSPO_TABLE_NAME, where, null);
         prefs.edit().putString("deleted_stop", String.valueOf(stopNo)).apply();
         prefs.edit().putString("deleted_stop_desc", description).apply();
-        Snackbar.make(findViewById(R.id.listFrag), "Bus Stop #" + stopNo + " has been deleted.", Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", click -> {
+        Snackbar.make(findViewById(R.id.listFrag), message, Snackbar.LENGTH_SHORT)
+                .setAction(getResources().getString(R.string.undo), click -> {
                     undoDelete();
                 }).show();
         getSupportFragmentManager().findFragmentByTag("list").onResume();
