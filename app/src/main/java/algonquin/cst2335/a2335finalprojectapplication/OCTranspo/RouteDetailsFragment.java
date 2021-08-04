@@ -1,11 +1,13 @@
 package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
 
+import android.app.AlertDialog;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -61,6 +63,12 @@ public class RouteDetailsFragment extends Fragment {
 
         // Create view
         View routeDetailsView = inflater.inflate(R.layout.route_details, container, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getResources().getString(R.string.oct_loading_title))
+                .setMessage(getResources().getString(R.string.oct_route_loading_message))
+                .setView(new ProgressBar(getContext()));
+        AlertDialog loadingDialog = builder.create();
+        loadingDialog.show();
         TextView routeNo = routeDetailsView.findViewById(R.id.routeNumber);
         TextView stopNo = routeDetailsView.findViewById(R.id.stopNumber);
         TextView destView = routeDetailsView.findViewById(R.id.destText);
@@ -173,10 +181,12 @@ public class RouteDetailsFragment extends Fragment {
                             tripAge3.setText(tripList.get(2).get(2));
                             tripLast3.setText(tripList.get(2).get(3));
                         }
+                        loadingDialog.hide();
                     });
                 } else {
                     parent.runOnUiThread(() -> {
                         destView.setText(getResources().getString(R.string.no_trips));
+                        loadingDialog.hide();
                     });
                 }
 

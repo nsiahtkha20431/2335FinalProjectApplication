@@ -46,6 +46,9 @@
     <string name="oct_default_error">Erreur: Veuillex réssayer.</string>
     <string name="oct_alert_title">Attention</string>
     <string name="oct_alert_message">Veuillez entrer un numéro d\'arrêt à ajouter à votre liste.</string>
+    <string name="oct_loading_title">Chargement</string>
+    <string name="oct_stop_loading_message">Chargement des données d\'arrêt...</string>
+    <string name="oct_route_loading_message">Chargement des données de la route..</string>
 
     <string name="electric_car_button">Station de Charge de Vehicule Electrique</string>
     <string name="movie_info_button">Information de films</string>

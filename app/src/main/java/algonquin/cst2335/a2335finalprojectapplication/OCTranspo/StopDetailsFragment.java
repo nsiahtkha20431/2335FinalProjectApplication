@@ -10,12 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+
+import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +52,7 @@ public class StopDetailsFragment extends Fragment {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         parent = (OCTranspoActivity) getContext();
         SharedPreferences prefs = getActivity().getSharedPreferences("OCT_Data", Context.MODE_PRIVATE);
         View detailsView;
@@ -124,8 +130,14 @@ public class StopDetailsFragment extends Fragment {
             closeFrag.setOnClickListener(clk -> getParentFragmentManager().popBackStackImmediate());
         } else { // Otherwise inflate the Stop Details layout for the selected stop
             //inflate stop detail layout
-
             detailsView = inflater.inflate(R.layout.stop_details_layout, container, false);
+            // Loading dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle(getResources().getString(R.string.oct_loading_title))
+                    .setMessage(getResources().getString(R.string.oct_stop_loading_message))
+                    .setView(new ProgressBar(getContext()));
+            AlertDialog loadingDialog = builder.create();
+            loadingDialog.show();
             TextView stopText = detailsView.findViewById(R.id.stopNo);
             TextView descText = detailsView.findViewById(R.id.description);
             //get api result for stop no
@@ -165,6 +177,7 @@ public class StopDetailsFragment extends Fragment {
                         // Populate array with route data
 
                         getActivity().runOnUiThread(() -> {
+                            // Set up recycler view with route array
                             RecyclerView routeList = detailsView.findViewById(R.id.routeRecycler);
                             routeList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
                             MyAdapter adptr = new MyAdapter(routes, getContext());
@@ -172,8 +185,6 @@ public class StopDetailsFragment extends Fragment {
                             // Add data to fields
                             stopText.setText(stop);
                             descText.setText(stopDesc);
-                            // Set up recycler view with route array
-
                             // Back button
                             Button back = detailsView.findViewById(R.id.backButton);
                             back.setOnClickListener(clk -> getParentFragmentManager().popBackStackImmediate());
@@ -184,6 +195,7 @@ public class StopDetailsFragment extends Fragment {
                                 parent.deleteStop(stopNo, stopDesc);
                                 getParentFragmentManager().popBackStackImmediate();
                             });
+                            loadingDialog.hide();
                         });
 
                     } catch (IOException | JSONException e) {
