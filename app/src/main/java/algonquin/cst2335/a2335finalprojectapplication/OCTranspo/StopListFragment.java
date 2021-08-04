@@ -46,9 +46,6 @@ public class StopListFragment extends Fragment {
             busStops.get(ctr).add(results.getString(results.getColumnIndex(FinalOpenHelper.OCT_COL_DESC)));
             ctr++;
         }
-        busStops.add(new ArrayList<>());
-        busStops.get(ctr).add("5555");
-        busStops.get(ctr).add("Add new...");
 
         results.close();
     }
@@ -112,8 +109,6 @@ public class StopListFragment extends Fragment {
                 int stopNo = Integer.parseInt(stopNumber.getText().toString());
                 OCTranspoActivity parent = (OCTranspoActivity) getContext();
                 parent.stopSelected(stopNo);
-
-
             });
         }
 

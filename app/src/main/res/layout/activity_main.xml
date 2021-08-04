@@ -1,63 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="@drawable/ottawa_edit"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/mainHeader"
-        android:layout_width="256dp"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/main_header"
-        android:textAlignment="center"
-        android:textColor="#020202"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14" />
+        android:background="?attr/colorPrimary" />
 
-    <Button
-        android:id="@+id/ocTranspoButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/oc_transpo_button"
-        app:layout_constraintEnd_toEndOf="@+id/mainHeader"
-        app:layout_constraintStart_toStartOf="@+id/mainHeader"
-        app:layout_constraintTop_toBottomOf="@+id/mainHeader" />
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/electricCarButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/electric_car_button"
-        app:layout_constraintEnd_toEndOf="@+id/mainHeader"
-        app:layout_constraintStart_toStartOf="@+id/mainHeader"
-        app:layout_constraintTop_toBottomOf="@+id/ocTranspoButton" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/movieInfoButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/movie_info_button"
-        app:layout_constraintEnd_toEndOf="@+id/mainHeader"
-        app:layout_constraintStart_toStartOf="@+id/mainHeader"
-        app:layout_constraintTop_toBottomOf="@+id/electricCarButton" />
+            <TextView
+                android:id="@+id/mainHeader"
+                android:layout_width="292dp"
+                android:layout_height="181dp"
+                android:background="#2FBB86FC"
+                android:text="@string/main_header"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="48sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.19" />
 
-    <Button
-        android:id="@+id/soccerGamesButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/soccer_button"
-        app:layout_constraintEnd_toEndOf="@+id/mainHeader"
-        app:layout_constraintStart_toStartOf="@+id/mainHeader"
-        app:layout_constraintTop_toBottomOf="@+id/movieInfoButton" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#2ABB86FC"
+                android:text="@string/author_text"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mainHeader"
+                app:layout_constraintVertical_bias="0.22000003" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:fitsSystemWindows="true"
+            app:headerLayout="@layout/nav_header"
+            app:menu="@menu/nav_menu" />
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+
+</LinearLayout>
