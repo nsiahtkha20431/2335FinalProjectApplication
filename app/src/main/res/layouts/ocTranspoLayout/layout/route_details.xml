@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Route:"
+        android:text="@string/rt_label"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Stop:"
+        android:text="@string/stop_label"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Destination:"
+        android:text="@string/dest_label"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Current Position:"
+        android:text="@string/current_position"
         android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -115,7 +115,7 @@
         android:layout_marginTop="16dp"
         android:maxWidth="100dp"
         android:minWidth="50dp"
-        android:text="Arrival Time:"
+        android:text="@string/arrival_label"
         android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -130,7 +130,7 @@
         android:layout_marginEnd="8dp"
         android:maxWidth="100dp"
         android:minWidth="50dp"
-        android:text="Start Time:"
+        android:text="@string/start_label"
         android:textAlignment="textEnd"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -164,7 +164,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:text="km/hr"
+        android:text="@string/speed"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -197,9 +197,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/teal_200"
-            android:text="Next Trips"
+            android:text="@string/next_trips_label"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -217,9 +218,10 @@
                     android:id="@+id/arrivingHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Arriving"
+                    android:text="@string/trips_arrival_label"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/arriving1"
@@ -254,9 +256,10 @@
                     android:id="@+id/startTimeHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Start Time"
+                    android:text="@string/trips_start_label"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/startTime1"
@@ -291,9 +294,10 @@
                     android:id="@+id/ageHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Age"
+                    android:text="@string/trips_age_label"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/age1"
@@ -329,9 +333,10 @@
                     android:id="@+id/lastHeader"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Last Trip"
+                    android:text="@string/trips_last_label"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/last1"
@@ -374,7 +379,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="64dp"
         android:background="@color/teal_200"
-        android:text="Refresh"
+        android:text="@string/refresh_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nextTrips" />
 
@@ -385,7 +390,7 @@
         android:layout_marginStart="64dp"
         android:layout_marginTop="32dp"
         android:background="@color/teal_200"
-        android:text="Back"
+        android:text="@string/back_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nextTrips" />
 

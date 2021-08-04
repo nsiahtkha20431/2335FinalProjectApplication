@@ -136,9 +136,9 @@ public class RouteDetailsFragment extends Fragment {
                         }
                         String lastTrip;
                         if (currentTrip.getString("LastTripOfSchedule").equals("true")) {
-                            lastTrip = "Yes";
+                            lastTrip = getResources().getString(R.string.yes);
                         } else {
-                            lastTrip = "No";
+                            lastTrip = getResources().getString(R.string.no);
                         }
                         tripList.add(new ArrayList<>());
                         tripList.get(i).add(currentTrip.getString("AdjustedScheduleTime") + " min");
@@ -176,7 +176,7 @@ public class RouteDetailsFragment extends Fragment {
                     });
                 } else {
                     parent.runOnUiThread(() -> {
-                        destView.setText("No trips to display");
+                        destView.setText(getResources().getString(R.string.no_trips));
                     });
                 }
 

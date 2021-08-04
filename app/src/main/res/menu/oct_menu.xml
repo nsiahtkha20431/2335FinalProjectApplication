@@ -5,16 +5,16 @@
     <item
         android:id="@+id/menu_add_stop"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="Add Stop"
-        app:showAsAction="always" />
+        android:title="@string/menu_add_stop"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_help"
         android:icon="@android:drawable/ic_menu_help"
-        android:title="Help"
-        app:showAsAction="always" />
+        android:title="@string/menu_help"
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_exit"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        android:title="Exit"
-        app:showAsAction="always" />
+        android:title="@string/menu_close"
+        app:showAsAction="ifRoom" />
 </menu>

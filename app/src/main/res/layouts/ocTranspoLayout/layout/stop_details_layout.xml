@@ -39,7 +39,8 @@
             android:id="@+id/routeNoCol"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
-            android:text="Route"
+            android:layout_marginStart="8dp"
+            android:text="@string/route_label"
             android:textColor="#000000"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -47,11 +48,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/routeDestCol"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_marginStart="8dp"
-            android:text="Destination"
+            android:text="@string/destination_label"
             android:textColor="#000000"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
