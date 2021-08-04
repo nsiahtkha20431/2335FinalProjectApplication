@@ -16,7 +16,7 @@ public class SoccerGames extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.empty_layout); //setting the view
 
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, new ArticleListFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentHolder, new ArticleListFragment()).commit();
 
         SoccerGames.context = getApplicationContext();
     }
@@ -27,7 +27,7 @@ public class SoccerGames extends AppCompatActivity {
 
     public void userClickedMessage(String article, int position) {
         ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentHolder, adFragment).commit();
     }
 
     //not currently being called in the code

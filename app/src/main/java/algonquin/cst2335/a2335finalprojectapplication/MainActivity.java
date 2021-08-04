@@ -8,6 +8,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.widget.Button;
+import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingStationsMain;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         opener = new FinalOpenHelper(this);
         db = opener.getWritableDatabase();
+
 
         Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
