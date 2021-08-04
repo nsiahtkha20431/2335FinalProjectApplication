@@ -50,6 +50,9 @@
     <string name="oct_default_error">Error: Please try again.</string>
     <string name="oct_alert_title">Attention</string>
     <string name="oct_alert_message">Please enter a stop number to add to your list.</string>
+    <string name="oct_loading_title">Loading</string>
+    <string name="oct_stop_loading_message">Loading stop data...</string>
+    <string name="oct_route_loading_message">Loading route data...</string>
 
     <!-- Electric Car Charging -->
     <string name="electric_car_button">Electric Car Charging Stations</string>
