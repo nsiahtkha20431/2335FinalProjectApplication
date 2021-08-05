@@ -1,14 +1,19 @@
 package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -25,9 +30,10 @@ import java.net.URL;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
-import static android.content.ContentValues.TAG;
+import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.db;
 
 public class ArticleDetailsFragment extends Fragment {
     String chosenArticle;
@@ -40,7 +46,6 @@ public class ArticleDetailsFragment extends Fragment {
     String description = null;
     String pubDate = null;
     ImageView thumbnail = null;
-
 
     public ArticleDetailsFragment(String article, int position) {
         chosenArticle = article;
@@ -58,6 +63,9 @@ public class ArticleDetailsFragment extends Fragment {
         Button addToFavButton = articlesDetailsLayout.findViewById(R.id.addToFavButton);
         Button deleteFromFavButton = articlesDetailsLayout.findViewById(R.id.deleteFromFavButton);
         Button backButton = articlesDetailsLayout.findViewById(R.id.backButton);
+
+        Toolbar detailsToolbar = articlesDetailsLayout.findViewById(R.id.details_toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(detailsToolbar);
 
 
 //        titleView.setText(getString(R.string.article_is) + " " + chosenArticle);
@@ -80,6 +88,14 @@ public class ArticleDetailsFragment extends Fragment {
         });
 
         addToFavButton.setOnClickListener(clicked -> {
+            ArticleListFragment.Article article;
+            article = new ArticleListFragment.Article(chosenArticle, pubDate, linkString, description);
+            ContentValues newRow = new ContentValues();
+            newRow.put(FinalOpenHelper.TITLE_COLUMN, article.getTitle());
+            newRow.put(FinalOpenHelper.DATE_COLUMN, article.getDatePublished());
+            newRow.put(FinalOpenHelper.URL_COLUMN, article.getUrl());
+            newRow.put(FinalOpenHelper.DESC_COLUMN, article.getDesc());
+            db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
         });
 
         deleteFromFavButton.setOnClickListener(clicked -> {
@@ -142,6 +158,13 @@ public class ArticleDetailsFragment extends Fragment {
 
         return articlesDetailsLayout;
     }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        MenuInflater menuInflater = ((AppCompatActivity)getActivity()).getMenuInflater();
+//        menuInflater.inflate(R.menu.soccer_details_menu, menu);
+//        return super.onCreateOptionsMenu(menu, menuInflater);
+//    }
 
     public void fetchAndParseRSS () {
         InputStream is = fetchRSS(this.stringURL);
