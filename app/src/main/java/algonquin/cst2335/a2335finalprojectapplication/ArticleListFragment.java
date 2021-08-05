@@ -48,26 +48,6 @@ public class ArticleListFragment extends Fragment {
                 articlesRecyclerView.getAdapter().notifyDataSetChanged();
             });
         });
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title)); //adding temporary article titles for the array
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
-//        articleTitlesList.add(getString(R.string.soccer_list_article_title));
 
         adapter = new ArticleAdapter(articleTitlesList, getContext()); //initializing the ArticleAdapter object and passing it the values of the array and the context (like that it comes from here)
 
@@ -105,21 +85,9 @@ public class ArticleListFragment extends Fragment {
 
                     case XmlPullParser.END_TAG:
                         if (name.equals("title")) {
-                            // in your details fragment
-                            // if title == chosenArticle
-                            // then set the description, link and tag
                             title = tag;
                             articleTitlesList.add(title);
-                        } else if (name.equals("description")) {
-                            description = tag;
-                            articleTitlesList.add(description);
                         }
-                        else if(name.equals("link")){
-                            link = tag;
-                            articleTitlesList.add(link);
-                        }
-
-
                 }
             }
 
