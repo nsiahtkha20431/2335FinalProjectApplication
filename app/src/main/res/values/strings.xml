@@ -17,6 +17,7 @@
     <string name="help_dialog">This app allows you to search through a list of articles on news in professional soccer. Click the article to read the description and open the article in your browser. There is also an option to save the article to your Favorites. you can alternate between your Favorites list and the rest of the articles. You can also remove an article from your Favorites.</string>
     <string name="help_dialog_got_it">Got it!</string>
     <string name="article_is">Article: </string>
+    <string name="date_is">Date: </string>
     <string name="description_is">"Description: "</string>
     <string name="url_is">url: </string>
     <string name="soccer_details_back_button">Back</string>

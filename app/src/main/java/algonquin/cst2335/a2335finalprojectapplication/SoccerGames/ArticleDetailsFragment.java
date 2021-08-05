@@ -52,6 +52,7 @@ public class ArticleDetailsFragment extends Fragment {
         View articlesDetailsLayout = inflater.inflate(R.layout.soccer_details_layout, container, false);
 
         TextView titleView = articlesDetailsLayout.findViewById(R.id.titleView);
+        TextView dateView = articlesDetailsLayout.findViewById(R.id.dateView);
         TextView urlView = articlesDetailsLayout.findViewById(R.id.urlView);
         TextView descriptionView = articlesDetailsLayout.findViewById(R.id.descriptionView);
         Button addToFavButton = articlesDetailsLayout.findViewById(R.id.addToFavButton);
@@ -59,9 +60,20 @@ public class ArticleDetailsFragment extends Fragment {
         Button backButton = articlesDetailsLayout.findViewById(R.id.backButton);
 
 
-        titleView.setText(getString(R.string.article_is) + " " + chosenArticle);
+//        titleView.setText(getString(R.string.article_is) + " " + chosenArticle);
         descriptionView.setText(getString(R.string.description_is));
         urlView.setText(getString(R.string.url_is));
+
+        Executor newThread = Executors.newSingleThreadExecutor();
+        newThread.execute(() -> {
+            fetchAndParseRSS();
+            getActivity().runOnUiThread( () -> {
+                titleView.setText(getString(R.string.article_is) + " " + chosenArticle);
+                descriptionView.setText(getString(R.string.description_is) + " " + description);
+                dateView.setText(getString(R.string.date_is) + " " + pubDate);
+                urlView.setText(getString(R.string.url_is) + " " + linkString);
+            });
+        });
 
         backButton.setOnClickListener(clicked -> {
             getParentFragmentManager().beginTransaction().remove(this).commit();
@@ -129,6 +141,66 @@ public class ArticleDetailsFragment extends Fragment {
 //        });
 
         return articlesDetailsLayout;
+    }
+
+    public void fetchAndParseRSS () {
+        InputStream is = fetchRSS(this.stringURL);
+
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            XmlPullParser xpp = factory.newPullParser();
+
+            xpp.setInput(is, null);
+
+            String tag = null;
+            String title = null;
+            String link  = null;
+            String description = null;
+
+            boolean titleTagSeenAndEqualsChosenArticle = false;
+            while (xpp.next() != XmlPullParser.END_DOCUMENT) {
+                String tagName = xpp.getName();
+                switch (xpp.getEventType()) {
+                    case XmlPullParser.TEXT:
+                        tag = xpp.getText();
+                        break;
+                    case XmlPullParser.END_TAG:
+                        if (tagName.equals("title")) {
+                            title = tag;
+                            if (chosenArticle.equals(title)) {
+                                titleTagSeenAndEqualsChosenArticle = true;
+                            }
+                        } else if (tagName.equals("description") && titleTagSeenAndEqualsChosenArticle && description == null) {
+                            description = tag;
+                        }
+                        else if(tagName.equals("link") && titleTagSeenAndEqualsChosenArticle && link == null){
+                            link = tag;
+                        }
+                        else if (tagName.equals("pubDate") && titleTagSeenAndEqualsChosenArticle && pubDate == null) {
+                            pubDate = tag;
+                        }
+                }
+            }
+            this.linkString = link;
+            this.description = description;
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public InputStream fetchRSS(String stringURL) {
+        try {
+            URL url = new URL(stringURL);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            int responseCode = urlConnection.getResponseCode();
+            if (responseCode == urlConnection.HTTP_OK) {
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                return in;
+            }
+        } catch (IOException ioe) {
+            Log.e("Connection Error", ioe.getMessage());
+        }
+        return null;
     }
 
 //    private String readTitle(XmlPullParser xpp) throws IOException, XmlPullParserException {
