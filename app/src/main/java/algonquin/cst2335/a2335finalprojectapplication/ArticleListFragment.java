@@ -71,9 +71,9 @@ public class ArticleListFragment extends Fragment {
             articleTitlesList.clear();
 
             String tag = null;
-            String title = null;
-            String link  = null;
-            String description = null;
+            String title;
+//            String link  = null;
+//            String description = null;
 
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String name = xpp.getName();
@@ -174,7 +174,7 @@ public class ArticleListFragment extends Fragment {
                 Toast.makeText(getContext(), getString(R.string.soccer_list_u_clicked_on) + " " + articleTitlesList.get(position), Toast.LENGTH_SHORT).show();
 
                 SoccerGames parentActivity = (SoccerGames)getContext();
-                parentActivity.userClickedMessage(articleTitlesList.get(position), position);
+                parentActivity.userClickedTitle(articleTitlesList.get(position), position);
             });
         }
     }
@@ -214,21 +214,33 @@ public class ArticleListFragment extends Fragment {
 
     //this class is similar to the ChatMessage class in the RecyclerView lab (week 5) - used to store and get the information for each article to be displayed in the RecyclerView
     //not a ViewHolder or an Adapter
-//    private class ArticleInfo {
-//        String title;
-//        String datePublished;
-//
-//        public ArticleInfo (String title, String datePublished) {
-//            this.title = title;
-//            this.datePublished = datePublished;
-//        }
-//
-//        public String getTitle() {
-//            return title;
-//        }
-//
-//        public String getDatePublished() {
-//            return datePublished;
-//        }
-//    }
+    public static class Article {
+        String title;
+        String datePublished;
+        String url;
+        String desc;
+
+        public Article(String title, String datePublished, String url, String desc) {
+            this.title = title;
+            this.datePublished = datePublished;
+            this.url = url;
+            this.desc = desc;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getDatePublished() {
+            return datePublished;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+    }
 }
