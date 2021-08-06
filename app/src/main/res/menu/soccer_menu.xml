@@ -8,4 +8,11 @@
         android:title="Help"
         app:showAsAction="always"
         />
+
+    <item
+        android:id="@+id/fav_icon"
+        android:icon="@drawable/star"
+        android:title="Favorites"
+        app:showAsAction="always"
+        />
 </menu>

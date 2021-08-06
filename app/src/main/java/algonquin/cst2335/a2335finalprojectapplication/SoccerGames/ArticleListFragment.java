@@ -76,8 +76,6 @@ public class ArticleListFragment extends Fragment {
 
             String tag = null;
             String title;
-//            String link  = null;
-//            String description = null;
 
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String name = xpp.getName();
@@ -223,12 +221,14 @@ public class ArticleListFragment extends Fragment {
         String datePublished;
         String url;
         String desc;
+        long id;
 
         public Article(String title, String datePublished, String url, String desc) {
             this.title = title;
             this.datePublished = datePublished;
             this.url = url;
             this.desc = desc;
+            setID(id);
         }
 
         public String getTitle() {
@@ -243,8 +243,13 @@ public class ArticleListFragment extends Fragment {
             return url;
         }
 
+
         public String getDesc() {
             return desc;
+        }
+
+        public void setID(long id) {
+            id = 1;
         }
     }
 }
