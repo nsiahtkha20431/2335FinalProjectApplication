@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,13 +6,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class OCTranspoActivity extends AppCompatActivity {
 

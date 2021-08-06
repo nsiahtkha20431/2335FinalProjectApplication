@@ -5,11 +5,6 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.Button;
-import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingMainActivity;
-
-import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
-import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
-import algonquin.cst2335.a2335finalprojectapplication.MovieInfo.MovieInfoActivity;
 
 
 public class MainActivity extends AppCompatActivity {

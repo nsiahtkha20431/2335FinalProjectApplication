@@ -1,17 +1,15 @@
-package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import androidx.appcompat.app.AlertDialog;
@@ -25,8 +23,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
 
@@ -35,7 +31,8 @@ import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener
  * option of MovieSearchFragment.
  * Functionality added to find and use each object in the recyclerview to load a detailed information of the specified movie
  * on a MovieSavedDetailsFragment.
- *
+ * @author Raphael Leblanc
+ * @version 1.0
  */
 public class SavedMovieFragment extends Fragment {
 

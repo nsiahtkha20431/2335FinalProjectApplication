@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -14,9 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class StopListFragment extends Fragment {
 

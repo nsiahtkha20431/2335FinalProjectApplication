@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import algonquin.cst2335.a2335finalprojectapplication.R;
+
 
 public class ChargingSecondActivity extends AppCompatActivity {
 

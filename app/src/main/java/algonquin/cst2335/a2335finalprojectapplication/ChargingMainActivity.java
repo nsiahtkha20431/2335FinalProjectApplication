@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
+package algonquin.cst2335.a2335finalprojectapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
-import algonquin.cst2335.a2335finalprojectapplication.R;
+
 public class ChargingMainActivity extends AppCompatActivity {
     SharedPreferences preferences;
     @Override
