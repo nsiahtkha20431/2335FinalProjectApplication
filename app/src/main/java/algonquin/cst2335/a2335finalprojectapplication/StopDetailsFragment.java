@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -19,9 +19,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,7 +36,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class StopDetailsFragment extends Fragment {

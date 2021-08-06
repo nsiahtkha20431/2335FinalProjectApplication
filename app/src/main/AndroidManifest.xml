@@ -11,11 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.2335FinalProjectApplication">
-        <activity android:name=".OCTranspo.OCTranspoActivity"></activity>
-        <activity android:name=".MovieInfo.MovieInfoActivity"
+        <activity android:name=".OCTranspoActivity"></activity>
+        <activity android:name=".MovieInfoActivity"
             android:theme="@style/MovieTheme"></activity>
-        <activity android:name=".SoccerGames.SoccerGames"></activity>
-        <activity android:name=".ChargingStations.ChargingMainActivity"></activity>
+        <activity android:name=".SoccerGames"></activity>
+        <activity android:name=".ChargingMainActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

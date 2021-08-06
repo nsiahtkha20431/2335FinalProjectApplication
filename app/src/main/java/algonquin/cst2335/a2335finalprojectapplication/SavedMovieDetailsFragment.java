@@ -1,12 +1,9 @@
-package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,24 +11,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.R;
-
-import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
 
 /**This class allows to obtain data from the movieInfo object that was selected by its position and display it in a fragment, just
  * like MovieDetailsFragment.
  * Added functionality is to either close or delete the movie from the recyclerview.
+ * @author Raphael Leblanc
+ * @version 1.0
  */
 public class SavedMovieDetailsFragment extends Fragment {
 

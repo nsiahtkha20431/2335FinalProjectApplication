@@ -1,8 +1,7 @@
-package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Movie;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,11 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -32,7 +27,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Locale;
 
-import algonquin.cst2335.a2335finalprojectapplication.R;
+
 
 /**Class that holds an application fragment providing an editText with user input for a movie to be searched and a Search button.
  * Once the user clicks on the search button, the application will take in the text placed in the editText and search the omdbapi database online
