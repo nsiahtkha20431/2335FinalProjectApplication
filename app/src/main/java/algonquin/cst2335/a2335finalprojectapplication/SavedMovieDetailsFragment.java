@@ -14,30 +14,61 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+/**This class allows to obtain data from the movieInfo object that was selected by its position and display it in a fragment, just
+ * like MovieDetailsFragment.
+ * Added functionality is to either close or delete the movie from the recyclerview.
+ * @author Raphael Leblanc
+ * @version 1.0
+ */
 public class SavedMovieDetailsFragment extends Fragment {
 
+    /**Title of the movie */
     TextView title;
+    /**Year of the movie */
     TextView year;
+    /**Rating of the movie */
     TextView rating;
+    /**Runtime of the movie */
     TextView runtime;
+    /**Actors of the movie */
     TextView actors;
+    /**Plot of the movie */
     TextView plot;
+    /**Poster of the movie */
     ImageView poster;
+    /**Button with text "Delete", allows to delete from database and recyclerview. */
     Button del;
+    /**Button with text "Close", allows to close current fragment of the movie selected to return to the recyclerview list. */
     Button close;
+    /** Search functionality fragment to be called or referenced from to use its functions. */
     MovieSearchFragment searchFrag = new MovieSearchFragment();
+    /**Saved movie list fragment to be called or referenced from to use its functions. */
     SavedMovieFragment savedFrag = new SavedMovieFragment();
+    /**MovieInfo object containing all relative information/details of a movie. */
     MovieSearchFragment.MovieInfo movieInfo;
+    /**New field variable for the position to delete correct movie from the recyclerview. */
     int moviePosition;
 
+    /**Constructor that allows to assign to class scope movieInfo object and position from other classes/functions.
+     *
+     * @param movieInfo Object containing information from a movie.
+     * @param position Position of movie selected.
+     */
     public SavedMovieDetailsFragment(MovieSearchFragment.MovieInfo movieInfo, int position) {
         this.movieInfo = movieInfo;
         this.moviePosition = position;
     }
 
 
-
-
+    /**This function allows the creation of the SavedMovieDetailsFragment layout and assigns information to the correct text and image views.
+     * Functionality added to the buttons close and delete.
+     * Functionality to the delete button allows to close current fragment and provide instructions to previous fragment.
+     *
+     * @param inflater Inflater used to inflate a layout to the container.
+     * @param container Container holding the specified layout.
+     * @param savedInstanceState
+     * @return Return view (savedDetailsLayout)
+     */
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View savedDetailsLayout =inflater.inflate(R.layout.saved_details_layout, container, false);
