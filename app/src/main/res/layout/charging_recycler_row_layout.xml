@@ -18,36 +18,10 @@
         android:id="@+id/stationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="36dp"
         android:text="Title goes here"
         app:layout_constraintStart_toEndOf="@+id/plugImage"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/latitudeGoesHere"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="latitudeGoesHere"
-        app:layout_constraintStart_toEndOf="@+id/plugImage"
-        app:layout_constraintTop_toBottomOf="@+id/stationName" />
-
-    <TextView
-        android:id="@+id/longitudeGoesHere"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="longitudeGoesHere"
-        app:layout_constraintStart_toEndOf="@+id/plugImage"
-        app:layout_constraintTop_toBottomOf="@+id/latitudeGoesHere" />
-
-    <TextView
-        android:id="@+id/contactPhoneGoesHere"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="contactPhoneGoesHere"
-        app:layout_constraintStart_toEndOf="@+id/plugImage"
-        app:layout_constraintTop_toBottomOf="@+id/longitudeGoesHere" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
