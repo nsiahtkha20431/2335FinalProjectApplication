@@ -30,12 +30,32 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
 
+
+/**This class withholds a layout with a recyclerview and  using the database to populate it with the saved movies selected within the search
+ * option of MovieSearchFragment.
+ * Functionality added to find and use each object in the recyclerview to load a detailed information of the specified movie
+ * on a MovieSavedDetailsFragment.
+ *
+ */
 public class SavedMovieFragment extends Fragment {
 
+    /**ArrayList containing all MovieInfo object for the recyclerview. */
     ArrayList<MovieSearchFragment.MovieInfo> movieInfoArrayList = new ArrayList<>();
+    /**Object of MovieAdapter, a Recyclerview adapter.  */
     MovieAdapter movieAdapter = new MovieAdapter();
+    /**Recyclerview named movieList containing all saved movies by using the movieInfoArrayList ArrayList. */
     RecyclerView movieList;
 
+
+    /** This function allows to inflate and populate a fragment for the saved movies list using a recyclerview.
+     * From this function, functionality will be available to click on the correct movie within the list and attain the details of that
+     * movie from an added SavedMovieDetailsFragment.
+     *
+     * @param inflater Inflater used to inflate a layout to the container.
+     * @param container Container holding the specified layout.
+     * @param savedInstanceState
+     * @return Return view (savedLayout).
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View savedLayout = inflater.inflate(R.layout.saved_movies_layout, container, false);
@@ -74,9 +94,12 @@ public class SavedMovieFragment extends Fragment {
         return savedLayout;
     }
 
-    public ArrayList<MovieSearchFragment.MovieInfo> getMovieInfoArrayList(){
-        return movieInfoArrayList;
-    }
+    /**This function allows an alert dialog to be displayed whenever called and added functionality.
+     * This function is called when a movie is deleted from the saved movies list.
+     *
+     * @param movieInfo Object to be deleted from the database and the recyclerview.
+     * @param position Position from which the selected object to be deleted will be.
+     */
     public void movieDeleted(MovieSearchFragment.MovieInfo movieInfo, int position){
         if (Locale.getDefault().getDisplayLanguage().equals("français")){
             AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
@@ -115,6 +138,9 @@ public class SavedMovieFragment extends Fragment {
 
     }
 
+    /**This class allows to populate the recyclerview and assign data correctly to each view component in the row layout.
+     *
+     */
     private class SavedView extends RecyclerView.ViewHolder {
 
         TextView title;
@@ -123,7 +149,10 @@ public class SavedMovieFragment extends Fragment {
         ImageView poster;
         int position = -1;
 
-
+        /**Allows to load in a view to the recyclerview (Load row layout within the recyclerview).
+         *
+         * @param itemView View to be given in the recyclerview.
+         */
         public SavedView(View itemView) {
             super(itemView);
 
@@ -143,14 +172,27 @@ public class SavedMovieFragment extends Fragment {
             poster = itemView.findViewById(R.id.save_poster);
         }
 
+        /**This function allows to set the position of the view within the recyclerview.
+         *
+         * @param position Position of current view within the recyclerview.
+         */
         public void setPosition(int position) {
             this.position = position;
         }
     }
 
-
+    /**Adapter used for the recyclerview to assign appropriately the correct view upon creation and assigning the correct data to
+     * the appropriate fields.
+     *
+     */
     private class MovieAdapter extends RecyclerView.Adapter<SavedView> {
 
+        /**Allows to inflate and add the view to be given to the recyclerview.
+         *
+         * @param parent The viewgroup.
+         * @param viewType Type of the view.
+         * @return Returns view of type SavedView.
+         */
         @Override
         public SavedView onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = getLayoutInflater();
@@ -159,6 +201,12 @@ public class SavedMovieFragment extends Fragment {
             return new SavedView(loadMovie);
         }
 
+        /**This allows to assign the data to the appropriate TextView and their position.
+         * Also allows to load the image poster from internal storage, unless it is not there, then it will download it again.
+         *
+         * @param hold The current view.
+         * @param position The position of the current view within the recyclerview.
+         */
         @Override
         public void onBindViewHolder(SavedView hold, int position) {
             MovieInfoActivity activity = new MovieInfoActivity();
@@ -185,6 +233,10 @@ public class SavedMovieFragment extends Fragment {
 
         }
 
+        /**Allows to obtain the total size/amount of objects within the movieInfoArrayList (recyclerview).
+         *
+         * @return Returns item count (size of the array (recyclerview)).
+         */
         @Override
         public int getItemCount() {
             return movieInfoArrayList.size();
