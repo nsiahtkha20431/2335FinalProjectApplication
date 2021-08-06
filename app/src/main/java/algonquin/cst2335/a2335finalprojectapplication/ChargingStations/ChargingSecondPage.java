@@ -1,6 +1,7 @@
 package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,5 +43,9 @@ public class ChargingSecondPage extends AppCompatActivity {
         FragmentTransaction tx = fragmentManager.beginTransaction();
         tx.add(R.id.chargingFragmentHolder, listFragment);
         tx.commit();
+    }
+    public void userClickedMessage(String location, int position) {
+        Intent chargingThirdPage = new Intent(ChargingSecondPage.this, ChargingThirdPage.class);
+        startActivity(chargingThirdPage);
     }
 }

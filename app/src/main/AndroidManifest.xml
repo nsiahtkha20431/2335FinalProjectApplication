@@ -17,6 +17,7 @@
         <activity android:name=".SoccerGames.SoccerGames"></activity>
         <activity android:name=".ChargingStations.ChargingStationsMain"></activity>
         <activity android:name=".ChargingStations.ChargingSecondPage"></activity>
+        <activity android:name=".ChargingStations.ChargingThirdPage"></activity>
 
         <activity android:name=".MainActivity">
             <intent-filter>

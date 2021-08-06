@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -40,7 +41,7 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 public class ChargingStationFragment extends Fragment {
 
     ChargingStationAdapter myAdapter;
-    ArrayList<String> stationList = new ArrayList<>(); //something to hold values just until i can connect to the database
+    ArrayList<String> stationList = new ArrayList<>(); //something to hold values
     String stringURL;
     String locationTitle;
 
@@ -152,9 +153,9 @@ public class ChargingStationFragment extends Fragment {
             plugImage = itemView.findViewById(R.id.plugImage);//initializing the variables
 
             itemView.setOnClickListener(click -> {
-
                         int position = getAbsoluteAdapterPosition();
-                        ChargingStationsMain parentActivity = (ChargingStationsMain) getContext();
+                        ChargingSecondPage parentActivity = (ChargingSecondPage) getContext();
+                        Toast.makeText(getContext(),"You clicked on" + stationList.get(position), Toast.LENGTH_SHORT).show(); //shows us a toast with what was clicked
                         parentActivity.userClickedMessage(stationList.get(position), position);
                     }
 
@@ -163,20 +164,27 @@ public class ChargingStationFragment extends Fragment {
 
         }
 
+    /**
+     * This is the adapter for the recycler view
+     * The adapter is the middle man for what the user sees and how the application gets and sets the data
+     * It will also tell us how to build the list
+     * The context variable gets us the context
+     */
     private class ChargingStationAdapter extends RecyclerView.Adapter<StationsListHolder> {
         Context context;
         ArrayList<String> myArray; //any array
 
         public ChargingStationAdapter(ArrayList myArray, Context context) {
             this.myArray = myArray;
-            this.context = context;
+            this.context = context; //setting "this" as the context for this instance of ChargingStationAdapter
         }
 
         @Override
         public StationsListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = getLayoutInflater();
-            View myChargingRows = inflater.inflate(R.layout.charging_recycler_row_layout, parent, false);
-           // View myChargingRows = LayoutInflater.from(context).inflate(R.layout.charging_recycler_row_layout, parent,false);
+            //taking the loaded row and inflating it (takes layout xml files and converts into a View object)
+            //View myChargingRows = inflater.inflate(R.layout.charging_recycler_row_layout, parent, false);
+           View myChargingRows = LayoutInflater.from(context).inflate(R.layout.charging_recycler_row_layout, parent,false);
             return new StationsListHolder(myChargingRows);
         }
 
@@ -186,8 +194,11 @@ public class ChargingStationFragment extends Fragment {
         }
 
         @Override
+        /**
+         * This method just returns the size of the array (the number of rows that are in the RecyclerView)
+         */
         public int getItemCount() {
-            return myArray.size();
+            return myArray.size(); //returns the size of the array aka the number of rows in the RecyclerView
         }
     }
 

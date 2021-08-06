@@ -37,9 +37,11 @@ public class ChargingStationsMain extends AppCompatActivity {
         //set the view to the first page where the user will enter the longitude and latitude
         setContentView(R.layout.charging_landing_page);
 
+        //find the various widgets on the page
         EditText landingPageEdit = findViewById(R.id.firstEditText);
         Button goButton = findViewById(R.id.goButton);
 
+        //shared preferences store data to be used at a later time
         prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
 
         prefs.getString("MyData","");
@@ -51,7 +53,7 @@ public class ChargingStationsMain extends AppCompatActivity {
 
         //clicking this button will start a new thread
         goButton.setOnClickListener(click -> {
-            //to go from the main page to the second page
+            //to go from this page to the second page
             Intent chargingSecondPage = new Intent(ChargingStationsMain.this, ChargingSecondPage.class);
             chargingSecondPage.putExtra("LongitudeAndLatitude", landingPageEdit.getText().toString());
             SharedPreferences.Editor editor = prefs.edit();
@@ -62,29 +64,22 @@ public class ChargingStationsMain extends AppCompatActivity {
             //display an alert that tells the user that their information is being loaded
             AlertDialog dialog = new AlertDialog.Builder(ChargingStationsMain.this)
                     .setTitle("Getting Charging Stations")
-                    .setMessage("We're looking for your charging stations! Hang tight!")
+                    .setMessage("We're looking for your charging stations. Hang tight!")
                     .setView(new ProgressBar(ChargingStationsMain.this))
                     .show();
         });
-
-//        setContentView(R.layout.charging_empty_fragment);
-//        ChargingStationFragment listFragment = new ChargingStationFragment();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction tx = fragmentManager.beginTransaction();
-//        tx.add(R.id.fragmentHolder, listFragment);
-//        tx.commit();
-
     }
-//        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, new ChargingStationFragment()).commit();
-        //ChargingStationsMain.context = getApplicationContext();
 
     public static Context getAppContext() {
         return ChargingStationsMain.context;
     }
 
     public void userClickedMessage(String location, int position) {
-        ChargingDetailsFragment chargingDetailsFragment = new ChargingDetailsFragment(location, position);
-        //since it's only on a phone, we only have to
-        getSupportFragmentManager().beginTransaction().add((R.id.chargingFragmentHolder), chargingDetailsFragment);
+        ChargingDetailsFragment listFragment = new ChargingDetailsFragment(location, position);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction tx = fragmentManager.beginTransaction();
+        tx.add(R.id.chargingFragmentRoom, listFragment);
+        tx.commit();
+
     }
 }
