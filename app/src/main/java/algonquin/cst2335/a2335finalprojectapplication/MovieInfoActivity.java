@@ -85,7 +85,7 @@ public class MovieInfoActivity extends AppCompatActivity {
 
                     break;
                 case R.id.ic_electric:
-                    Intent elecPage = new Intent(getApplicationContext(), ChargingMainActivity.class);
+                    Intent elecPage = new Intent(getApplicationContext(), ChargingStationsMain.class);
                     startActivity(elecPage);
 
 
@@ -175,7 +175,7 @@ public class MovieInfoActivity extends AppCompatActivity {
 
                         break;
                     case R.id.ic_electric:
-                        Intent elecPage = new Intent(getApplicationContext(), ChargingMainActivity.class);
+                        Intent elecPage = new Intent(getApplicationContext(), ChargingStationsMain.class);
                         startActivity(elecPage);
 
 
