@@ -45,14 +45,29 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
 
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
-
+/**Class that holds an application page providing a tool bar and a navigation drawer to browse through options and between other internal applications
+ * on the app, as well as a fragment room to display each page below the toolbar.
+ * This is the main page that will start with having the MovieSearchFragment class's fragment loaded in the fragment room and will continue to load the appropriate fragments
+ * as you explore and browse through the application.
+ * @author Raphael Leblanc
+ * @version 1.0
+ */
 public class MovieInfoActivity extends AppCompatActivity {
 
-
+    /**This represents the MovieSearchFragment class to use internal functions or assign to the new fragment. */
     MovieSearchFragment searchFrag = new MovieSearchFragment();
+    /**This represents the MovieInfo class from MovieSearchFragment as an object. */
     MovieSearchFragment.MovieInfo movieInfo;
+    /**This represents the MovieSearchFragment class to use internal functions or assign to the new fragment. */
     SavedMovieFragment savedFrag = new SavedMovieFragment();
 
+
+    /** This function will allow the main page content to be loaded on screen upon creation, providing a toolbar, navigation drawer, onclick functions
+     * alert dialogs.
+     * Provided functions for onClicks include either fragment changes, displaying dialogs and option selection.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -260,7 +275,6 @@ public class MovieInfoActivity extends AppCompatActivity {
         });
     }
 
-        SQLiteDatabase db = opener.getWritableDatabase();
 
 
 
@@ -272,7 +286,10 @@ public class MovieInfoActivity extends AppCompatActivity {
 //        return true;
 //    }
 
-
+    /**This function will assign the MovieInfo object information from MovieSearchFragment to the class scope when called.
+     *
+     * @param movieInfo Object from MovieInfo class within MovieSearchFragment, providing movie details.
+     */
     public void usrSearchedMovie(MovieSearchFragment.MovieInfo movieInfo) {
         this.movieInfo = movieInfo;
 
@@ -280,6 +297,11 @@ public class MovieInfoActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.movie_room, detailsFrag).commit();
     }
 
+    /**This function allows input of movie details into the local database.
+     * This function is called within the MovieDetailsFragment class on the save button.
+     *
+     * @throws IOException Exception handling Input/Output (in this case it would be to the database). Something went wrong providing data.
+     */
     public void usrSaveMovie() throws IOException {
         SQLiteDatabase db = opener.getWritableDatabase();
         ContentValues newRow = new ContentValues();
@@ -326,13 +348,24 @@ public class MovieInfoActivity extends AppCompatActivity {
 
 }
 
-
+    /**This function allows the fragment room to change to the SavedMovieDetailsFragment.
+     * This function is called when the user clicks on a saved movie within the recycler view presented in the SavedMovieFragment.
+     *
+     * @param movieInfo Passes along the movieInfo object of the current item clicked on.
+     * @param position Passes along the position within the recyclerview of the current movie clicked on (movieInfo object) to ensure correct movie.
+     */
     public void usrClickedSavedMovie(MovieSearchFragment.MovieInfo movieInfo, int position){
         SavedMovieDetailsFragment savedDetailsFrag = new SavedMovieDetailsFragment(movieInfo, position);
         getSupportFragmentManager().beginTransaction().add(R.id.movie_room, savedDetailsFrag).commit();
     }
 
-
+    /**This function allows the deletion from the database and recyclerview of the current movie.
+     * This function is called within SavedMovieDetailsFragment to then be called back to the SavedMovieFragment to delete/update from
+     * the recycler view.
+     *
+     * @param movieInfo Object (movie) to be deleted.
+     * @param position Position from which the object (movie) is to be deleted within the recyclerview.
+     */
     public void movieDeleted(MovieSearchFragment.MovieInfo movieInfo, int position){
         savedFrag.movieDeleted(movieInfo, position);
 
