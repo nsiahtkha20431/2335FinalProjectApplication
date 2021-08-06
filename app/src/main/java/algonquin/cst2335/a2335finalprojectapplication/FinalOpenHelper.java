@@ -47,8 +47,8 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE " + CHARGING_TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + location_name + " TEXT, "
-                + location_latitude + " INTEGER, "
-                + location_longitude + " INTEGER, "
+                + location_latitude + " TEXT, "
+                + location_longitude + " TEXT, "
                 + contact_phone_number + " TEXT);");
 
     }
