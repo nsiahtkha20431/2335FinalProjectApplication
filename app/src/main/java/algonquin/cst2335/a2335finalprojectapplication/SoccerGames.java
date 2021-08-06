@@ -11,21 +11,36 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class SoccerGames extends AppCompatActivity {
     ArticleListFragment articleFragment = new ArticleListFragment();
+    ArticleFavoritesListFragment favFrag = new ArticleFavoritesListFragment();
     private static Context context;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.empty_layout); //setting the view
+
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, articleFragment).commit();
+
+        SoccerGames.context = getApplicationContext();
+
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
+        FinalOpenHelper opener = new FinalOpenHelper(this);
+        SQLiteDatabase db = opener.getWritableDatabase();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.soccer_menu, menu);
-
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.soccer_details_menu, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -43,28 +58,12 @@ public class SoccerGames extends AppCompatActivity {
                         .create().show();
                 break;
 
-            case R.id.favorites_icon:
-
+            case R.id.fav_icon:
+                getSupportFragmentManager().beginTransaction().replace(R.id.favFrag, favFrag, "tag").addToBackStack(null).commit();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.empty_layout); //setting the view
-
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentHolder, new ArticleListFragment()).commit();
-
-        SoccerGames.context = getApplicationContext();
-
-        Toolbar myToolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
-
-        FinalOpenHelper opener = new FinalOpenHelper(this);
-        SQLiteDatabase db = opener.getWritableDatabase();
     }
 
     public static Context getAppContext() {
@@ -77,9 +76,9 @@ public class SoccerGames extends AppCompatActivity {
     }
 
     //not currently being called in the code
-    public void notifyArticleDeleted(String chosenArticle, int chosenPosition) {
-        articleFragment.notifyArticleDeleted(chosenArticle, chosenPosition);
-    }
+//    public void notifyArticleDeleted(String chosenArticle, int chosenPosition) {
+//        articleFragment.notifyArticleDeleted(chosenArticle, chosenPosition);
+//    }
 
 
 }

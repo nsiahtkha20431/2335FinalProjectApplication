@@ -98,6 +98,8 @@ public class ArticleDetailsFragment extends Fragment {
             newRow.put(FinalOpenHelper.URL_COLUMN, article.getUrl());
             newRow.put(FinalOpenHelper.DESC_COLUMN, article.getDesc());
             db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
+            long newID = db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
+            article.setID(newID);
         });
 
         deleteFromFavButton.setOnClickListener(clicked -> {
