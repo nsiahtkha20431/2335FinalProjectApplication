@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lineSpacingExtra="20sp"
-        android:text="Menu"
+        android:text="@string/charging_popout_header"
         android:textAlignment="center"
         android:textColor="#121111"
         android:textSize="24sp" />

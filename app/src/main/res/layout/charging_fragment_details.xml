@@ -14,7 +14,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="66dp"
         android:layout_marginBottom="646dp"
-        android:text="Location Name:"
+        android:text="@string/charging_location_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="28dp"
-        android:text="Longitude:"
+        android:text="@string/charging_longitude_coord"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationName" />
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="28dp"
-        android:text="Latitude"
+        android:text="@string/charging_latitude_here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/longitudeText" />
 
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="28dp"
-        android:text="Phone Number:"
+        android:text="@string/charging_phone_number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/latitudeText" />
 
@@ -57,7 +57,7 @@
         android:layout_marginStart="134dp"
         android:layout_marginTop="448dp"
         android:layout_marginEnd="135dp"
-        android:text=" load directions in google maps"
+        android:text="@string/charging_directions_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,7 @@
         android:layout_marginStart="165dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="158dp"
-        android:text="back"
+        android:text="@string/charging_back_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,7 +83,7 @@
         android:layout_marginStart="127dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="127dp"
-        android:text="add to favourites"
+        android:text="@string/charging_favourites_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/directionsButton" />
