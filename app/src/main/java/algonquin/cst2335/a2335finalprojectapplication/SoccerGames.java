@@ -1,11 +1,9 @@
-package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class SoccerGames extends AppCompatActivity {
     ArticleListFragment articleFragment = new ArticleListFragment();

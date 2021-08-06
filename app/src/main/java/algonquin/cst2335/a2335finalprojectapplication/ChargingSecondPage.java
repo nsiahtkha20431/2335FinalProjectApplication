@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +9,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class ChargingSecondPage extends AppCompatActivity {
 

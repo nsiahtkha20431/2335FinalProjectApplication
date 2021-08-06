@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -17,20 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
-import algonquin.cst2335.a2335finalprojectapplication.R;
-import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
 
 
 public class ArticleListFragment extends Fragment {

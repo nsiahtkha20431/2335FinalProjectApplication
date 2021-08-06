@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,10 +18,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-
-import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
-import algonquin.cst2335.a2335finalprojectapplication.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

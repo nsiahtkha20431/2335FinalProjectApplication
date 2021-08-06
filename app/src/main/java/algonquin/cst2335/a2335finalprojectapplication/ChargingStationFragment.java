@@ -1,9 +1,8 @@
-package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,8 +33,6 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
-
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class ChargingStationFragment extends Fragment {
 

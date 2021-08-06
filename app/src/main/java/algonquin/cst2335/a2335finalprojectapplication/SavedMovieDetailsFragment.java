@@ -1,12 +1,9 @@
-package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,20 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.R;
-
-import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
 
 public class SavedMovieDetailsFragment extends Fragment {
 

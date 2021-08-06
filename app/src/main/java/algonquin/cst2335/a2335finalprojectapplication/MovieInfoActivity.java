@@ -1,20 +1,13 @@
-package algonquin.cst2335.a2335finalprojectapplication.MovieInfo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.icu.text.CaseMap;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -26,23 +19,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.Locale;
 
 import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingMainActivity;
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
-import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
-import algonquin.cst2335.a2335finalprojectapplication.R;
-import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
 
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
 

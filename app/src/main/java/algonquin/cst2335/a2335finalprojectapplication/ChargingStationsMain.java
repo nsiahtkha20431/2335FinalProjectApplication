@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,16 +7,9 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class ChargingStationsMain extends AppCompatActivity {
     private static Context context;
