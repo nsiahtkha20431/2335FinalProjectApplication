@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.OCTranspo;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,9 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 
 public class OCTranspoActivity extends AppCompatActivity {

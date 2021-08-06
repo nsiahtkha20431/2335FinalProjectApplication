@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class ChargingDetailsFragment extends Fragment {
     String chosenLocation;

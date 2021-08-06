@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class ArticleDetailsFragment extends Fragment {
     String chosenArticle;

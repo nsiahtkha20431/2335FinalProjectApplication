@@ -8,16 +8,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.widget.Button;
-import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingStationsMain;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
-import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingMainActivity;
-import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
-import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
-import algonquin.cst2335.a2335finalprojectapplication.MovieInfo.MovieInfoActivity;
+
 
 
 public class MainActivity extends AppCompatActivity {
@@ -66,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(nextPage);
                 break;
             case R.id.ic_electric:
-                nextPage = new Intent(MainActivity.this, ChargingMainActivity.class);
+                nextPage = new Intent(MainActivity.this, ChargingStationsMain.class);
                 startActivity(nextPage);
                 break;
             case R.id.ic_movie:
