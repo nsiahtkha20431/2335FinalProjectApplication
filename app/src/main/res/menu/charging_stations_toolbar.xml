@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/oc_transpo_activity"
+        android:icon="@drawable/ic_octranspo"
+        android:title="OC Transpo"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/soccer_activity"
+        android:icon="@drawable/ic_soccer"
+        android:title="Soccer Games"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/movie_activity"
+        android:icon="@drawable/ic_movie"
+        android:title="Movies"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/electric_help"
+        android:icon="@drawable/electric_question"
+        android:title="Help"
+        app:showAsAction="always" />
+</menu>

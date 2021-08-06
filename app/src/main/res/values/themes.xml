@@ -26,7 +26,10 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-            <item name="windowActionBar">false</item>
+
+        <!-- for the toolbar-->
+            <item name="windowActionBar">true</item>
+
             <item name="windowNoTitle">true</item>
     </style>
 </resources>
