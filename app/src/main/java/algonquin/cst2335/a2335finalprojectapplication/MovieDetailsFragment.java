@@ -1,8 +1,6 @@
 package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
@@ -25,30 +23,56 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Locale;
 
-import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
 
+import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
+/**Class that holds an application fragment providing details of the searched input movie from the MovieSearchFragment class.
+ * This page will provide all necessary details of the movie that was selected along with the image poster, with the option to either
+ * close the current fragment and return to the MovieSearchFragment or to save the movie to the local database.
+ * @author Raphael Leblanc
+ * @version 1.0
+ */
 public class MovieDetailsFragment extends Fragment {
 
+    /**This holds the text for the movie title. */
     TextView title;
+    /**This holds the text for the movie year. */
     TextView year;
+    /**This holds the text for the movie's rating. */
     TextView rating;
+    /**This holds the text for the movie's runtime. */
     TextView runtime;
+    /**This holds the text for the movie's actors. */
     TextView actors;
+    /**This holds the text for the movie's plot. */
     TextView plot;
+    /**This holds the text for the movie's poster. */
     ImageView poster;
+    /**This represents the button with the preset text "Save".
+     * This button allows to save the movie to the local database. */
     Button save;
+    /**This represents the button with the preset text "Delete".
+     * This button allows to exit from the current fragment back to the MovieSearchFragment. */
     Button close;
+    /**Declaration of MovieSearchFragment class to be used to change fragments or use internal functions.*/
     MovieSearchFragment searchFrag = new MovieSearchFragment();
+
+    /**This represents the MovieInfo class within the MovieSearchFragment class to be used as an object. */
     MovieSearchFragment.MovieInfo movieInfo;
+    /**This represents the loading progress window's dialog when downloading movie details (image) */
     private static ProgressDialog prog;
 
 
-
+    /** This function will allow information to be loaded within each component within the MovieDetailsFragment's layout,
+     * assign onClick functions to the buttons and set up toast messages when using the save button upon fragment creation.
+     *
+     * @param inflater Inflater used to inflate a layout to the container.
+     * @param container Container holding the specified layout.
+     * @param savedInstanceState
+     * @return Return view (detailsLayout)
+     */
     @Override
     public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View detailsLayout =inflater.inflate(R.layout.movie_details_layout, container, false);
-        SharedPreferences prefs = this.getActivity().getSharedPreferences("Data", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
 
         prog = new ProgressDialog(getContext());
         if (Locale.getDefault().getDisplayLanguage().equals("français")){
@@ -128,30 +152,54 @@ public class MovieDetailsFragment extends Fragment {
         return detailsLayout;
     }
 
+    /**This is a constructor to assign the MovieInfo object information from MovieSearchFragment to the class scope when called.
+     *
+     * @param movieInfo Object from MovieInfo class within MovieSearchFragment, providing movie details.
+     */
     public MovieDetailsFragment(MovieSearchFragment.MovieInfo movieInfo){
         this.movieInfo = movieInfo;
     }
 
-
+    /**This class extends from AsyncTask to allow the execution and download of specifically the image given from the HTTP request
+     * from the movie database as a URL. This class allows functions to represent what happens before, during and after the download.
+     *
+     * Types assigned to AsyncTask go for onPreExecute, doInBackground, onPostExecute, in that exact order.
+     */
     public static class DownloadImageTask extends AsyncTask<String, Integer, Bitmap> {
 
+        /**This ImageView represents a general ImageView that can be used to assign the Bitmap image from this class to. */
         private ImageView movieImage;
+        /**This Bitmap represents the image bitmap that is used to decode and download the image from the URL.
+         * Once completed, this Bitmap is used to be assigned to an ImageView to be used for display. */
         private static Bitmap image;
 
+        /** Constructor used to assign a value to an ImageView with the bitmap assigned within this class after download.*/
         public DownloadImageTask(ImageView movieImage) {
             this.movieImage = movieImage;
         }
 
+        /** This function returns the value of the bitmap within this class.
+         *
+         * @return Returns bitmap for the image downloaded.
+         */
         public static Bitmap getMovieBitmap(){
             return image;
         }
+
+        /**This function is always completed before the tasks done in this class, and will display the progress dialog.
+         *
+         */
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
             prog.show();
         }
 
-
+        /** This function will run in the background and is the main task for the download.
+         *
+         * @param url Takes the URL string from the movie details taken from the HTTP Request.
+         * @return Returns bitmap for the image downloaded.
+         */
         @Override //execute new thread:
         protected Bitmap doInBackground(String... url) {
             image = null;
@@ -165,6 +213,11 @@ public class MovieDetailsFragment extends Fragment {
             }
             return image;
         }
+
+        /** This function will execute after doInBackground is complete and will assign the bitmap to the ImageView.
+         *
+         * @param bitmap Takes the bitmap returned from doInBackground.
+         */
         @Override //runOnUI:
         protected void onPostExecute(Bitmap bitmap) {
             movieImage.setImageBitmap(bitmap);
