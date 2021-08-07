@@ -1,8 +1,9 @@
-package algonquin.cst2335.a2335finalprojectapplication;
+package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,36 +17,37 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 
 public class ArticleListFragment extends Fragment {
     ArticleAdapter adapter; //declaring an ArticleAdapter object, but not initializing yet
     ArrayList<String> articleTitlesList = new ArrayList<>(); //making an array to hold the titles of each article
+    String stringURL = "https://www.goal.com/en/feeds/news?fmt=rss";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View articlesListLayout = inflater.inflate(R.layout.article_recycler_layout, container, false);
-
         RecyclerView articlesRecyclerView = articlesListLayout.findViewById(R.id.myrecycler); //creating an instance of RecyclerView and attaching it to the XML tag
 
-
-        articleTitlesList.add("Article Title 1"); //adding temporary article titles for the array
-        articleTitlesList.add("Article Title 2");
-        articleTitlesList.add("Article Title 3");
-        articleTitlesList.add("Article Title 4");
-        articleTitlesList.add("Article Title 5");
-        articleTitlesList.add("Article Title 6");
-        articleTitlesList.add("Article Title 7");
-        articleTitlesList.add("Article Title 8");
-        articleTitlesList.add("Article Title 9");
-        articleTitlesList.add("Article Title 10");
-        articleTitlesList.add("Article Title 11");
-        articleTitlesList.add("Article Title 12");
-        articleTitlesList.add("Article Title 13");
-        articleTitlesList.add("Article Title 14");
-        articleTitlesList.add("Article Title 15");
+        Executor newThread = Executors.newSingleThreadExecutor();
+        newThread.execute(() -> {
+            fetchAndParseRSS();
+            getActivity().runOnUiThread( () -> {
+                articlesRecyclerView.getAdapter().notifyDataSetChanged();
+            });
+        });
 
         adapter = new ArticleAdapter(articleTitlesList, getContext()); //initializing the ArticleAdapter object and passing it the values of the array and the context (like that it comes from here)
 
@@ -55,6 +57,63 @@ public class ArticleListFragment extends Fragment {
         ratingAlertDialog(); //calling this function to get the AlertDialog running as soon as the app is opened
 
         return articlesListLayout;
+    }
+
+    public void fetchAndParseRSS () {
+        InputStream is = fetchRSS(this.stringURL);
+
+        try {
+            XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            XmlPullParser xpp = factory.newPullParser();
+            xpp.setInput(is, null);
+
+            articleTitlesList.clear();
+
+            String tag = null;
+            String title;
+            String imageLink;
+
+            while (xpp.next() != XmlPullParser.END_DOCUMENT) {
+                String name = xpp.getName();
+
+                switch (xpp.getEventType()) {
+                    case XmlPullParser.TEXT:
+                        tag = xpp.getText();
+                        break;
+                    case XmlPullParser.START_TAG:
+                        if (name.equals("thumbnail")) {
+                            tag = xpp.getText();
+                        }
+
+                    case XmlPullParser.END_TAG:
+                        if (name.equals("title")) {
+                            title = tag;
+                            articleTitlesList.add(title);
+                        } else if (name.equals("thumbnail")) {
+                        }
+
+                }
+            }
+
+        } catch (XmlPullParserException | IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public InputStream fetchRSS(String stringURL) {
+        try {
+            URL url = new URL(stringURL);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            int responseCode = urlConnection.getResponseCode();
+            if (responseCode == urlConnection.HTTP_OK) {
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                return in;
+            }
+        } catch (IOException ioe) {
+            Log.e("Connection Error", ioe.getMessage());
+        }
+        return null;
     }
 
     public void ratingAlertDialog() { //function for the rating AlertDialog
@@ -73,17 +132,17 @@ public class ArticleListFragment extends Fragment {
 
         linearLayout.addView(rating); //add RatingBar to linearLayout
 
-        builder.setTitle("Please rate our app!"); //setting title of the AlertDialog
+        builder.setTitle(getString(R.string.soccer_list_rating_title)); //setting title of the AlertDialog
         builder.setView(linearLayout); //adding the LinearLayout view to the AlertDialog
 
         SharedPreferences prefs = SoccerGames.getAppContext().getSharedPreferences("MyData", Context.MODE_PRIVATE); //creating a SharedPreferences object
         float ratingInt = prefs.getFloat("numStars", rating.getRating());
         rating.setRating(ratingInt);
 
-        builder.setPositiveButton("Done", (dialog, cl) -> {
+        builder.setPositiveButton(getString(R.string.soccer_list_rating_done_button), (dialog, cl) -> {
             SharedPreferences.Editor editor = prefs.edit();
-            float ratingGivenByuser = rating.getProgress();
-            editor.putFloat("numStars", ratingGivenByuser); //put value
+            float ratingGivenByUser = rating.getProgress();
+            editor.putFloat("numStars", ratingGivenByUser); //put value
             editor.apply(); //commits the changes to the SharedPreferences to the editor
         });
 
@@ -108,6 +167,7 @@ public class ArticleListFragment extends Fragment {
 
         public ImageView articleThumb; //declaring a variable to hold the thumbnail image for each article in the list
         public TextView articleTitle; //declaring a variable to hold the article title for each article in the list
+        int position;
 
         public ArticleViewHolder(View itemView) {
             super(itemView); //getting the super's View
@@ -117,11 +177,16 @@ public class ArticleListFragment extends Fragment {
 
             itemView.setOnClickListener(click -> {
                 int position = getAbsoluteAdapterPosition();
-                Toast.makeText(getContext(), "You clicked on " + articleTitlesList.get(position), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.soccer_list_u_clicked_on) + " " + articleTitlesList.get(position), Toast.LENGTH_SHORT).show();
 
                 SoccerGames parentActivity = (SoccerGames)getContext();
-                parentActivity.userClickedMessage(articleTitlesList.get(position), position);
+                parentActivity.userClickedTitle(articleTitlesList.get(position), position);
             });
+        }
+
+        //this will be needed to delete rows from Favorites
+        public void setPosition(int p) {
+            this.position = p;
         }
     }
 
@@ -148,7 +213,7 @@ public class ArticleListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ArticleViewHolder viewHolder, int position) {
-            viewHolder.articleTitle.setText(array.get(position).toString()); //how do i set this from that link of just xml code?
+            viewHolder.articleTitle.setText(array.get(position)); //how do i set this from that link of just xml code?
 //          viewHolder.articleThumb ----> this is an image (?)
         }
 
@@ -160,21 +225,49 @@ public class ArticleListFragment extends Fragment {
 
     //this class is similar to the ChatMessage class in the RecyclerView lab (week 5) - used to store and get the information for each article to be displayed in the RecyclerView
     //not a ViewHolder or an Adapter
-//    private class ArticleInfo {
-//        String title;
-//        String datePublished;
-//
-//        public ArticleInfo (String title, String datePublished) {
-//            this.title = title;
-//            this.datePublished = datePublished;
-//        }
-//
-//        public String getTitle() {
-//            return title;
-//        }
-//
-//        public String getDatePublished() {
-//            return datePublished;
-//        }
-//    }
+    public static class Article {
+        String title;
+        String datePublished;
+        String url;
+        String desc;
+        long id;
+
+        public Article(String title, String datePublished, String url, String desc) {
+            this.title = title;
+            this.datePublished = datePublished;
+            this.url = url;
+            this.desc = desc;
+        }
+
+        public Article(String title, String datePublished, String url, String desc, long id) {
+            this.title = title;
+            this.datePublished = datePublished;
+            this.url = url;
+            this.desc = desc;
+            setID(id);
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getDatePublished() {
+            return datePublished;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public void setID(long id) {
+            this.id = id;
+        }
+
+        public long getID() { return this.id; }
+    }
 }

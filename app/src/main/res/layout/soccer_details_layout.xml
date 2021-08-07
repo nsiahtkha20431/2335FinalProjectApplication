@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,15 +8,34 @@
     android:background="@color/white"
     android:id="@+id/fragmentHolder">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="165dp"
+        android:layout_height="157dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/temp" />
+
     <TextView
         android:id="@+id/titleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="224dp"
         android:text="Title goes here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dateView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Date view"
+        app:layout_constraintStart_toStartOf="@+id/titleView"
+        app:layout_constraintTop_toBottomOf="@+id/titleView" />
 
     <TextView
         android:id="@+id/urlView"
@@ -23,8 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="URL goes here"
-        app:layout_constraintStart_toStartOf="@+id/titleView"
-        app:layout_constraintTop_toBottomOf="@+id/titleView" />
+        app:layout_constraintStart_toStartOf="@+id/dateView"
+        app:layout_constraintTop_toBottomOf="@+id/dateView" />
 
     <TextView
         android:id="@+id/descriptionView"
@@ -42,7 +62,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="156dp"
-        android:text="Back"
+        android:text="@string/soccer_details_back_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -55,7 +75,7 @@
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="96dp"
-        android:text="Add to favorites"
+        android:text="@string/soccer_details_add_to_fav_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -68,7 +88,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="32dp"
-        android:text="Delete from favorites"
+        android:text="@string/soccer_details_delete_from_fav_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
