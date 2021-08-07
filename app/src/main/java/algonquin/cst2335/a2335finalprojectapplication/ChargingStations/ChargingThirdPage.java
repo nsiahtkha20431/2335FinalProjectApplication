@@ -21,13 +21,16 @@ public class ChargingThirdPage extends AppCompatActivity {
         Button backButton = findViewById(R.id.stationBackButton);
         Button loadDirections = findViewById(R.id.directionsButton);
 
+        /**
+         * onClickListener to send the user back to the previous page
+         */
         backButton.setOnClickListener(clk -> {
             Intent goBackToPrevious = new Intent(ChargingThirdPage.this, ChargingSecondPage.class);
             startActivity(goBackToPrevious);
         });
 
         loadDirections.setOnClickListener(click -> {
-
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW);
         });
 
     }

@@ -2,30 +2,27 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chargingFragmentRoom"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:id="@+id/chargingFragmentRoom">
+    android:background="@color/white">
 
     <TextView
         android:id="@+id/locationName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="66dp"
-        android:layout_marginBottom="646dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="141dp"
         android:text="@string/charging_location_name"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/longitudeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="26dp"
         android:text="@string/charging_longitude_coord"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/locationName" />
@@ -34,9 +31,9 @@
         android:id="@+id/latitudeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
-        android:text="@string/charging_latitude_here"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="26dp"
+        android:text="@string/charging_longitude_coord"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/longitudeText" />
 
@@ -44,8 +41,8 @@
         android:id="@+id/phoneText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="26dp"
         android:text="@string/charging_phone_number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/latitudeText" />
@@ -55,36 +52,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="134dp"
-        android:layout_marginTop="448dp"
-        android:layout_marginEnd="135dp"
+        android:layout_marginTop="33dp"
         android:text="@string/charging_directions_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/favouritesButton" />
 
     <Button
         android:id="@+id/stationBackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="158dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="436dp"
+        android:layout_marginEnd="50dp"
         android:text="@string/charging_back_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/favouritesButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/favouritesButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="127dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="127dp"
+        android:layout_marginTop="33dp"
         android:text="@string/charging_favourites_button"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/directionsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/stationBackButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,6 @@
 package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,7 +32,7 @@ public class ChargingSecondPage extends AppCompatActivity {
                     .setNegativeButton("No", (dialog, cl) -> {
                     })
                     .setPositiveButton("Yes", (dialog, cl) -> {
-                        Intent previousPage = new Intent(ChargingSecondPage.this, ChargingStationsMain.class);
+                        Intent previousPage = new Intent(ChargingSecondPage.this, ChargingStationsFirstPage.class);
                         startActivity(previousPage);
                     })
                     .show();
