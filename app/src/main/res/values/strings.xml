@@ -87,9 +87,53 @@
     <string name="charging_go_button">Go</string>
     <string name="charging_popout_header">Menu</string>
     <string name="charging_check_another_button">Check Another Location</string>
-    <string name="charging_help_dialog">Please type in a latitude and longitude value and hit go. You will be redirected to a page that will
-    show you a list of results near you. Select an item from the list and you will see details about that location.
-        You can then click the directions button to get directions in Google Maps, or click 'Add to Favourites' to add this location to your favourites.</string>
+    <string name="author_text">Created by: Aparna Tiwari Emma McArthur Nishat Khan Raphael Leblanc</string>
+    <string name="oct_header_text">OCTranspo Stop Selector, Emma McArthur, Version 1.0</string>
+    <string name="add_stop_hint">Enter Stop Number</string>
+    <string name="refresh_button">Refresh</string>
+    <string name="destination_label">Destination</string>
+    <string name="undo">UNDO</string>
+    <string name="snackbar_start">Bus Stop #</string>
+    <string name="snackbar_added">has been added.</string>
+    <string name="snackbar_deleted">has been deleted.</string>
+    <string name="route_label">Route</string>
+    <string name="rt_label">Route:</string>
+    <string name="stop_label">Stop:</string>
+    <string name="dest_label">Destination:</string>
+    <string name="current_position">Current Position:</string>
+    <string name="speed">km/h</string>
+    <string name="arrival_label">Arrival Time:</string>
+    <string name="start_label">Start Time:</string>
+    <string name="next_trips_label">Next Trips</string>
+    <string name="trips_arrival_label">Arriving</string>
+    <string name="trips_start_label">Start Time</string>
+    <string name="trips_age_label">Updated</string>
+    <string name="trips_last_label">Last Trip?</string>
+    <string name="no_trips">No trips to display</string>
+    <string name="menu_add_stop">Add Stop</string>
+    <string name="menu_help">Help</string>
+    <string name="help">OC Transpo Stop Selector displays live stop and route data from the OCTranspo server.  Select a stop number to display incoming bus routes.   Select a route number to display route details and upcoming trips.   To add a stop to your list select the plus sign from the toolbar or \'Add Stop\' from the navigation menu.</string>
+    <string name="menu_close">Exit</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="oct_api_error">API Error: Please try again.</string>
+    <string name="oct_stop_error">Error: Invalid stop number.</string>
+    <string name="oct_default_error">Error: Please try again.</string>
+    <string name="oct_alert_title">Attention</string>
+    <string name="oct_alert_message">Please enter a stop number to add to your list.</string>
+    <string name="oct_loading_title">Loading</string>
+    <string name="oct_stop_loading_message">Loading stop data...</string>
+    <string name="oct_route_loading_message">Loading route data...</string>
+    <string name="movie_close_button">Close</string>
+    <string name="movie_save_button">Save</string>
+    <string name="movie_enter_title">Enter Movie Title:</string>
+    <string name="movie_title_hint">Enter movie title here..</string>
+    <string name="movie_find_button">Find</string>
+    <string name="movie_delete_button">Delete</string>
+    <string name="search_movies">Search Movies</string>
+    <string name="saved_movies">Saved Movies</string>
+    <string name="movie_nav_header">Movie Information  Author: Raphael Leblanc  Version: 1.0</string>
+    <string name="toolbar_help">Help</string>
 
 
 </resources>

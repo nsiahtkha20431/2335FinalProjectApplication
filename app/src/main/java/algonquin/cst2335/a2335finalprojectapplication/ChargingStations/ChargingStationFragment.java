@@ -1,6 +1,7 @@
 package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,10 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class ChargingStationFragment extends Fragment {
 
+    /**
+     * Declaring my adapter object to be used later on in the code as well as
+     * declaring the ArrayList that will be populated parsing the XML
+     */
     ChargingStationAdapter myAdapter;
     ArrayList<String> stationList = new ArrayList<>(); //something to hold values
     String stringURL;
@@ -54,22 +59,34 @@ public class ChargingStationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View chargingList = inflater.inflate(R.layout.charging_recycler_page, container, false);
+        RecyclerView chargingRecyclerView = chargingList.findViewById(R.id.chargingRecyclerView);
+        myAdapter = new ChargingStationAdapter(stationList, getContext());
+        chargingRecyclerView.setHasFixedSize(true);
+        chargingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        chargingRecyclerView.setAdapter(myAdapter);
 
 
-//THIS IS THE PART OF THE CODE THAT'S ACTUALLY PARSING THE XML, WORKS WHEN YOU CLICK ON RESUME PROGRAM
+
+        /**
+         * this is the part of the code that will parse through the xml and get the values that we're looking for
+         */
         Executor newThread = Executors.newSingleThreadExecutor();
         newThread.execute(() -> {
             try {
-                //create the stringURL variable
+                /**
+                 * we already have the string variable initialized, but we're giving it a value now
+                 * the URL encoder removes any spaces in the string
+                 * UTF8 means convert it to a string using 8 but characters instead of 16 or 32 bit ones
+                 */
                 stringURL = "https://api.openchargemap.io/v3/poi/?output=xml&key=21ccddce-bf3f-438c-ac5a-cedb5a641515&latitude="
-                        //the URL encoder removes any spaces in the string
-                        //UTF8 means convert it to a string using 8 but characters instead of 16 or 32 bit ones
                         + URLEncoder.encode(latitude, "UTF-8")
                         + "&longitude="
                         + URLEncoder.encode(longitude, "UTF-8")
                         + "&maxresults=5";
 
-                //now we have to create the connection
+                /**
+                 * Creating a connection to the xml
+                 */
                 URL url = new URL(stringURL);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 InputStream in = new BufferedInputStream(urlConnection.getInputStream());
@@ -86,7 +103,7 @@ public class ChargingStationFragment extends Fragment {
                             if(xpp.getName().equals("LocationTitle")){
                                 xpp.next();
                                 locationTitle = xpp.getText();
-                                //stationList.add(locationTitle);
+                                stationList.add(locationTitle);
                             } else if(xpp.getName().equals("Latitude")){
                                 xpp.next();
                                 latitude = xpp.getText();
@@ -101,7 +118,6 @@ public class ChargingStationFragment extends Fragment {
                                 //stationList.add(contactPhone);
                             }
                             break;
-
 
                     }
 
@@ -119,23 +135,11 @@ public class ChargingStationFragment extends Fragment {
             } catch (XmlPullParserException e) {
                 e.printStackTrace();
             }
+
+            getActivity().runOnUiThread(( ) -> {
+                myAdapter.notifyDataSetChanged();
+            });
         });
-
-//        System.out.println(stringURL + locationTitle + latitude + longitude + contactPhone);
-        //adding temp values to my recycler
-        stationList.add("Station 1");
-        stationList.add("Station 2");
-        stationList.add("Station 3");
-        stationList.add("Station 4");
-        stationList.add("Station 5");
-
-
-        myAdapter = new ChargingStationAdapter(stationList, getContext());
-        RecyclerView chargingRecyclerView = chargingList.findViewById(R.id.chargingRecyclerView);
-        chargingRecyclerView.setHasFixedSize(true);
-        chargingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        chargingRecyclerView.setAdapter(myAdapter);
-
 
         return chargingList;
     }
@@ -146,12 +150,17 @@ public class ChargingStationFragment extends Fragment {
 
 
         public StationsListHolder(View itemView) {
-            //stores the itemView in a public member that can be used to access the context from any viewHolder instance
+            /**stores the itemView in a public member that can be used to access the context from any viewHolder instance
+             *
+             */
             super(itemView);
 
             stationName = itemView.findViewById(R.id.stationName); //initializing the variables
             plugImage = itemView.findViewById(R.id.plugImage);//initializing the variables
 
+            /**
+             * onClickListener that will display a toast when something is clicked on
+             */
             itemView.setOnClickListener(click -> {
                         int position = getAbsoluteAdapterPosition();
                         ChargingSecondPage parentActivity = (ChargingSecondPage) getContext();
@@ -174,16 +183,20 @@ public class ChargingStationFragment extends Fragment {
         Context context;
         ArrayList<String> myArray; //any array
 
+        /**
+         * just a simple method to set "this" as the array and context
+         * @param myArray
+         * @param context
+         */
         public ChargingStationAdapter(ArrayList myArray, Context context) {
             this.myArray = myArray;
             this.context = context; //setting "this" as the context for this instance of ChargingStationAdapter
         }
 
+
         @Override
         public StationsListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = getLayoutInflater();
-            //taking the loaded row and inflating it (takes layout xml files and converts into a View object)
-            //View myChargingRows = inflater.inflate(R.layout.charging_recycler_row_layout, parent, false);
            View myChargingRows = LayoutInflater.from(context).inflate(R.layout.charging_recycler_row_layout, parent,false);
             return new StationsListHolder(myChargingRows);
         }
