@@ -1,5 +1,6 @@
 package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -59,7 +60,15 @@ public class SoccerGames extends AppCompatActivity {
                 break;
 
             case R.id.fav_icon:
-                getSupportFragmentManager().beginTransaction().replace(R.id.favFrag, favFrag, "tag").addToBackStack(null).commit();
+
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                    getSupportFragmentManager().beginTransaction().remove(favFrag).commit();
+                } else {
+                    item.setChecked(true);
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, favFrag).commit();
+                }
+
                 break;
         }
 
@@ -71,6 +80,11 @@ public class SoccerGames extends AppCompatActivity {
     }
 
     public void userClickedTitle(String article, int position) {
+        ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
+    }
+
+    public void userClickedFavTitle(ArticleListFragment.Article article, int position) {
         ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
     }
