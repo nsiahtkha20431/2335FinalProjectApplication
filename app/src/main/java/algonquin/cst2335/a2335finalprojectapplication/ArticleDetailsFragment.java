@@ -37,6 +37,7 @@ import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.db;
 
 public class ArticleDetailsFragment extends Fragment {
     String chosenArticle;
+    ArticleListFragment.Article chosenFavArticle;
     int chosenPosition;
 
     String stringURL = "https://www.goal.com/en/feeds/news?fmt=rss&mode=xml";
@@ -49,6 +50,11 @@ public class ArticleDetailsFragment extends Fragment {
 
     public ArticleDetailsFragment(String article, int position) {
         chosenArticle = article;
+        chosenPosition = position;
+    }
+
+    public ArticleDetailsFragment(ArticleListFragment.Article article, int position) {
+        chosenFavArticle = article;
         chosenPosition = position;
     }
 
@@ -65,9 +71,6 @@ public class ArticleDetailsFragment extends Fragment {
         Button addToFavButton = articlesDetailsLayout.findViewById(R.id.addToFavButton);
         Button deleteFromFavButton = articlesDetailsLayout.findViewById(R.id.deleteFromFavButton);
         Button backButton = articlesDetailsLayout.findViewById(R.id.backButton);
-
-        Toolbar detailsToolbar = articlesDetailsLayout.findViewById(R.id.details_toolbar);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(detailsToolbar);
 
 
 //        titleView.setText(getString(R.string.article_is) + " " + chosenArticle);
@@ -97,69 +100,18 @@ public class ArticleDetailsFragment extends Fragment {
             newRow.put(FinalOpenHelper.DATE_COLUMN, article.getDatePublished());
             newRow.put(FinalOpenHelper.URL_COLUMN, article.getUrl());
             newRow.put(FinalOpenHelper.DESC_COLUMN, article.getDesc());
-            db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
             long newID = db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
             article.setID(newID);
         });
 
-        deleteFromFavButton.setOnClickListener(clicked -> {
+//        deleteFromFavButton.setOnClickListener(clicked -> {
 //            SoccerGames parentActivity = (SoccerGames)getContext();
 //            parentActivity.notifyArticleDeleted(chosenArticle, chosenPosition);
-
-            Snackbar.make(delete, "You deleted " + chosenArticle, Snackbar.LENGTH_SHORT)
-                    .setAction("UNDO", click -> { }).show();
-
-        });
-
-//        Executor newThread = Executors.newSingleThreadExecutor();
-//        newThread.execute( () -> {
 //
-//            try {
+//            Snackbar.make(deleteFromFavButton, getString(R.string.soccer_details_snackbar_udeleted) + " " + chosenArticle, Snackbar.LENGTH_SHORT)
+//                    .setAction(getString(R.string.soccer_details_snackbar_undo), click -> { }).show();
 //
-//                URL url = new URL(stringURL);
-//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-//
-//                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-//                factory.setNamespaceAware(false);
-//                XmlPullParser xpp = factory.newPullParser();
-//                xpp.setInput(in,"UTF-8");
-//
-//                while (xpp.next() != XmlPullParser.END_DOCUMENT) {
-//                    String whatIsIt = String.valueOf(xpp.next());
-//                    switch (xpp.getEventType()) {
-//
-//                        case XmlPullParser.START_TAG:
-//
-//                            if (xpp.getEventType() == XmlPullParser.TEXT) {
-//
-//                                String contents = xpp.getName();
-//
-////                                if (contents.equals("pubDate")) {
-////                                    titleString = xpp.getText();
-////                                }
-//                            }
-//
-//                            break;
-//                        case XmlPullParser.END_TAG:
-//                            break;
-//
-//                        case XmlPullParser.TEXT:
-//                            String hello = null;
-//                            //logic to get the text out of the tag
-//                            break;
-//                    }
-//                }
-//                getActivity().runOnUiThread( () -> {
-//                   TextView title = getActivity().findViewById(R.id.titleView);
-//                   title.setText(titleString);
-//                });
-//
-//            } catch (IOException | XmlPullParserException e) {
-//                e.printStackTrace();
-//            }
 //        });
-
         return articlesDetailsLayout;
     }
 
@@ -229,20 +181,4 @@ public class ArticleDetailsFragment extends Fragment {
         }
         return null;
     }
-
-//    private String readTitle(XmlPullParser xpp) throws IOException, XmlPullParserException {
-//        xpp.require(XmlPullParser.START_TAG, null, "title");
-//        String title = readText(xpp);
-//        xpp.require(XmlPullParser.END_TAG, null, "title");
-//        return title;
-//    }
-//
-//    private String readText(XmlPullParser xpp) throws IOException, XmlPullParserException {
-//        String result = "";
-//        if (xpp.next() == XmlPullParser.TEXT) {
-//            result = xpp.getText();
-//            xpp.nextTag();
-//        }
-//        return result;
-//    }
 }

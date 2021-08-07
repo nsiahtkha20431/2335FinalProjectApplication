@@ -8,20 +8,12 @@
     android:background="@color/white"
     android:id="@+id/fragmentHolder">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/details_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/teal_200"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="165dp"
         android:layout_height="157dp"
         android:layout_marginStart="120dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/temp" />
@@ -31,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="276dp"
+        android:layout_marginTop="224dp"
         android:text="Title goes here"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

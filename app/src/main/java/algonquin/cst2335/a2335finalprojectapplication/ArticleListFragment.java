@@ -64,14 +64,15 @@ public class ArticleListFragment extends Fragment {
 
         try {
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
             XmlPullParser xpp = factory.newPullParser();
-
             xpp.setInput(is, null);
 
             articleTitlesList.clear();
 
             String tag = null;
             String title;
+            String imageLink;
 
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String name = xpp.getName();
@@ -80,12 +81,18 @@ public class ArticleListFragment extends Fragment {
                     case XmlPullParser.TEXT:
                         tag = xpp.getText();
                         break;
+                    case XmlPullParser.START_TAG:
+                        if (name.equals("thumbnail")) {
+                            tag = xpp.getText();
+                        }
 
                     case XmlPullParser.END_TAG:
                         if (name.equals("title")) {
                             title = tag;
                             articleTitlesList.add(title);
+                        } else if (name.equals("thumbnail")) {
                         }
+
                 }
             }
 
@@ -160,6 +167,7 @@ public class ArticleListFragment extends Fragment {
 
         public ImageView articleThumb; //declaring a variable to hold the thumbnail image for each article in the list
         public TextView articleTitle; //declaring a variable to hold the article title for each article in the list
+        int position;
 
         public ArticleViewHolder(View itemView) {
             super(itemView); //getting the super's View
@@ -174,6 +182,11 @@ public class ArticleListFragment extends Fragment {
                 SoccerGames parentActivity = (SoccerGames)getContext();
                 parentActivity.userClickedTitle(articleTitlesList.get(position), position);
             });
+        }
+
+        //this will be needed to delete rows from Favorites
+        public void setPosition(int p) {
+            this.position = p;
         }
     }
 
@@ -200,7 +213,7 @@ public class ArticleListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ArticleViewHolder viewHolder, int position) {
-            viewHolder.articleTitle.setText(array.get(position).toString()); //how do i set this from that link of just xml code?
+            viewHolder.articleTitle.setText(array.get(position)); //how do i set this from that link of just xml code?
 //          viewHolder.articleThumb ----> this is an image (?)
         }
 
@@ -220,6 +233,13 @@ public class ArticleListFragment extends Fragment {
         long id;
 
         public Article(String title, String datePublished, String url, String desc) {
+            this.title = title;
+            this.datePublished = datePublished;
+            this.url = url;
+            this.desc = desc;
+        }
+
+        public Article(String title, String datePublished, String url, String desc, long id) {
             this.title = title;
             this.datePublished = datePublished;
             this.url = url;
@@ -245,7 +265,9 @@ public class ArticleListFragment extends Fragment {
         }
 
         public void setID(long id) {
-            id = 1;
+            this.id = id;
         }
+
+        public long getID() { return this.id; }
     }
 }
