@@ -26,6 +26,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Locale;
 
+import algonquin.cst2335.a2335finalprojectapplication.ChargingStationsMain;
+import algonquin.cst2335.a2335finalprojectapplication.OCTranspoActivity;
+import algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
+
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.opener;
 /**Class that holds an application page providing a tool bar and a navigation drawer to browse through options and between other internal applications
  * on the app, as well as a fragment room to display each page below the toolbar.
@@ -86,6 +90,7 @@ public class MovieInfoActivity extends AppCompatActivity {
                     break;
                 case R.id.ic_electric:
                     Intent elecPage = new Intent(getApplicationContext(), ChargingStationsMain.class);
+
                     startActivity(elecPage);
 
 

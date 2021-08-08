@@ -52,7 +52,8 @@ public class ArticleDetailsFragment extends Fragment {
 //            parentActivity.notifyArticleDeleted(chosenArticle, chosenPosition);
 
             Snackbar.make(delete, "You deleted " + chosenArticle, Snackbar.LENGTH_SHORT)
-                    .setAction("UNDO", click -> { }).show();
+                    .setAction("UNDO", click -> {
+                    }).show();
 
         });
 

@@ -1,18 +1,19 @@
 package algonquin.cst2335.a2335finalprojectapplication;
 
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import com.google.android.material.navigation.NavigationView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigation = findViewById(R.id.nav_view);
-        navigation.setNavigationItemSelectedListener( (item) -> {
+        navigation.setNavigationItemSelectedListener((item) -> {
             onOptionsItemSelected(item);
             drawer.closeDrawer(GravityCompat.START);
             return false;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent nextPage;
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.ic_ocTranspo:
                 nextPage = new Intent(MainActivity.this, OCTranspoActivity.class);
                 startActivity(nextPage);
@@ -65,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(nextPage);
                 break;
             case R.id.ic_movie:
-                nextPage = new Intent( MainActivity.this, MovieInfoActivity.class);
+                nextPage = new Intent(MainActivity.this, MovieInfoActivity.class);
                 startActivity(nextPage);
                 break;
             case R.id.ic_soccer:
-                nextPage = new Intent( MainActivity.this, SoccerGames.class);
+                nextPage = new Intent(MainActivity.this, SoccerGames.class);
                 startActivity(nextPage);
                 break;
         }
