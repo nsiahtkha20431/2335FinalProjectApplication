@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class FinalOpenHelper extends SQLiteOpenHelper {
 
     public static final String NAME = "FinalProjectDatabase";
-    public static final int VERSION = 2;
+    public static final int VERSION = 4;
     //oc transpo
     public static final String OCTRANSPO_TABLE_NAME = "BusStops";
     public static final String OCT_COL_ID = "ID";
