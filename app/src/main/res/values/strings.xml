@@ -74,14 +74,11 @@
 
     <!-- Electric Car Charging -->
     <string name="electric_car_button">Electric Car Charging Stations</string>
-    <string name="charging_location_name">Location Name</string>
-    <string name="charging_latitude_coord">Longitude</string>
-    <string name="charging_longitude_coord">Latitude</string>
+
     <string name="charging_phone_number">Phone Number</string>
     <string name="charging_location_name">Location Name :</string>
     <string name="charging_latitude_coord">Latitude:</string>
     <string name="charging_longitude_coord">Longitude:</string>
-    <string name="charging_phone_number">Phone Number:</string>
     <string name="charging_directions_button">Load Directions</string>
     <string name="charging_favourites_button">Add to Favourites</string>
     <string name="charging_back_button">Back</string>
