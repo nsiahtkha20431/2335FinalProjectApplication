@@ -35,12 +35,41 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+/**
+ * Displays either the Add Stop layout or Stop Details layout depending on the value of stopNo.
+ * Add Stop allows users to search for and add new bus stops to the database to be displayed in
+ * StopListFragment.
+ * Stop Details displays the routes that access the stop number in a RecyclerView. The routes can
+ * be selected to display trip details.
+ *
+ * Written for CST2335 Mobile Graphical Interface Programming Final Project
+ * Algonquin College
+ * August 8th, 2021
+ *
+ * @author Emma McArthur
+ */
+
 public class StopDetailsFragment extends Fragment {
 
+    /**
+     * Stop Number to display
+     */
     private int stopNo;
+
+    /**
+     * Stores parent activity context
+     */
     private OCTranspoActivity parent;
 
+    /**
+     * No argument constructor sets stopNo to -1, triggering the Add Stop Layout
+     */
     public StopDetailsFragment() { this.stopNo = -1; }
+
+    /**
+     * Constructor sets the stopNo, triggering the Stop Details Layout.
+     * @param stopNo stop number to be displayed
+     */
     public StopDetailsFragment(int stopNo) {
         this.stopNo = stopNo;
     }
@@ -124,6 +153,7 @@ public class StopDetailsFragment extends Fragment {
             // Close Add Stop fragment
             Button closeFrag = detailsView.findViewById(R.id.addStopButtonClose);
             closeFrag.setOnClickListener(clk -> getParentFragmentManager().popBackStackImmediate());
+
         } else { // Otherwise inflate the Stop Details layout for the selected stop
             //inflate stop detail layout
             detailsView = inflater.inflate(R.layout.stop_details_layout, container, false);
@@ -147,7 +177,7 @@ public class StopDetailsFragment extends Fragment {
                         String text = (new BufferedReader(
                                 new InputStreamReader(in, StandardCharsets.UTF_8)))
                                 .lines().collect(Collectors.joining("\n"));
-
+                        // Populate array with route data
                         JSONObject stopData = new JSONObject(text).getJSONObject("GetRouteSummaryForStopResult");
                         String stopDesc = stopData.getString("StopDescription");
                         String stop = stopData.getString("StopNo");
@@ -170,13 +200,11 @@ public class StopDetailsFragment extends Fragment {
                             }
 
                         }
-                        // Populate array with route data
-
                         getActivity().runOnUiThread(() -> {
                             // Set up recycler view with route array
                             RecyclerView routeList = detailsView.findViewById(R.id.routeRecycler);
                             routeList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-                            MyAdapter adptr = new MyAdapter(routes, getContext());
+                            StopDetailsAdapter adptr = new StopDetailsAdapter(routes, getContext());
                             routeList.setAdapter(adptr);
                             // Add data to fields
                             stopText.setText(stop);
@@ -205,25 +233,40 @@ public class StopDetailsFragment extends Fragment {
         return detailsView;
     }
 
+    /**
+     * Custom RecyclerView Adapter object for StopDetailsFragment. Loads custom ViewHolders
+     * (RouteViewHolders) from array of route data to display.
+     */
+    protected class StopDetailsAdapter extends RecyclerView.Adapter<RouteViewHolder> {
 
-    protected class MyAdapter extends RecyclerView.Adapter<StopDetailsFragment.MyViewHolder> {
-
+        /**
+         * Holds route data to be displayed
+         */
         private ArrayList<ArrayList<String>> routeData;
+
+        /**
+         * Holds parent activity context
+         */
         private Context ctxt;
 
-        public MyAdapter(ArrayList<ArrayList<String>> routeData, Context context) {
+        /**
+         * Creates new StopDetailsAdapter with initialized values
+         * @param routeData
+         * @param context
+         */
+        public StopDetailsAdapter(ArrayList<ArrayList<String>> routeData, Context context) {
             this.routeData = routeData;
             this.ctxt = context;
         }
 
         @Override
-        public StopDetailsFragment.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RouteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(ctxt).inflate(R.layout.oct_list_item, parent, false);
-            return new StopDetailsFragment.MyViewHolder(view);
+            return new RouteViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(StopDetailsFragment.MyViewHolder holder, int position) {
+        public void onBindViewHolder(RouteViewHolder holder, int position) {
             if (position < routeData.size()) {
                 holder.routeNumber.setText(routeData.get(position).get(0));
                 holder.routeDescription.setText(routeData.get(position).get(1));
@@ -236,12 +279,26 @@ public class StopDetailsFragment extends Fragment {
         }
     }
 
-    protected class MyViewHolder extends RecyclerView.ViewHolder {
-
+    /**
+     * Custom ViewHolder for StopDetailsFragment. Holds route numbers and descriptions.
+     * When clicked calls routeSelected() method from OCTranspoActivity.
+     */
+    protected class RouteViewHolder extends RecyclerView.ViewHolder {
+        /**
+         * TextView that displays route number
+         */
         public TextView routeNumber;
+
+        /**
+         * TextView that displays route description
+         */
         public TextView routeDescription;
 
-        public MyViewHolder(View view) {
+        /**
+         * Creates new RouteViewHolder with initialized values
+         * @param view
+         */
+        public RouteViewHolder(View view) {
             super(view);
             routeNumber = view.findViewById(R.id.listNumber);
             routeDescription = view.findViewById(R.id.listDescription);

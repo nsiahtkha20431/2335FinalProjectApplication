@@ -16,10 +16,31 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+/**
+ * OCTranspoActivity allows users to track OCTranspo Bus Routes by Stop Number.
+ * Stop numbers and descriptions are saved in the application database and displayed in a RecyclerView.
+ * When a stop is selected from the list, the routes that use it are displayed in a RecyclerView.
+ * When a route is selected from the list the details are displayed, including the current trips location
+ * and expected arrival time as well the arrival times and details of the next two trips.
+ *
+ * Written for CST2335 Mobile Graphical Interface Programming Final Project
+ * Algonquin College
+ * August 8th, 2021
+ *
+ * @author Emma McArthur
+ */
 
 public class OCTranspoActivity extends AppCompatActivity {
 
-    SharedPreferences prefs;
+    /**
+     * Shared preferences object is used to store the last searched stop number and deleted stops
+     */
+    private SharedPreferences prefs;
+
+    /**
+     * API details to access OCTranspo Data Server.
+     * OCTranspo Developer Documentation: https://www.octranspo.com/en/plan-your-trip/travel-tools/developers/dev-doc
+     */
     private String appId = "016a3846";
     private String apiKey = "688558ead5b36ba6318c11207ea85d0d";
 
@@ -78,6 +99,11 @@ public class OCTranspoActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Adds stop number and description to SQLiteDatabase OCTranspo Table using ContentValues Object.
+     * @param stop the stop number to be stored.
+     * @param description the stop description to be stored.
+     */
     public void addStop(String stop, String description) {
         ContentValues newStop = new ContentValues();
         String message = getResources().getString(R.string.snackbar_start)
@@ -91,11 +117,20 @@ public class OCTranspoActivity extends AppCompatActivity {
                 }).show();
     }
 
+    /**
+     * Inflates new StopDetailsFragment
+     * @param stopNo the stop number to display details for
+     */
     public void stopSelected(int stopNo) {
         StopDetailsFragment newFrag = new StopDetailsFragment(stopNo);
         getSupportFragmentManager().beginTransaction().replace(R.id.listFrag, newFrag, "detail").addToBackStack(null).commit();
     }
 
+    /**
+     * Deletes stop from SQLiteDatabase, adding the details to Shared Preferences to be easily re-added.
+     * @param stopNo the stop number to be deleted from the database and stored in Shared Preferences
+     * @param description the stop description to be stored in Shared Preferences
+     */
     public void deleteStop(int stopNo, String description) {
         String where = FinalOpenHelper.OCT_COL_NO + " = " + stopNo;
         String message = getResources().getString(R.string.snackbar_start)
@@ -110,6 +145,9 @@ public class OCTranspoActivity extends AppCompatActivity {
         getSupportFragmentManager().findFragmentByTag("list").onResume();
     }
 
+    /**
+     * Re-adds the most recently deleted stop from Shared Preferences and reloads the StopListFragment
+     */
     public void undoDelete() {
         String stop = prefs.getString("deleted_stop", "");
         String stopDesc = prefs.getString("deleted_stop_desc", "");
@@ -117,15 +155,28 @@ public class OCTranspoActivity extends AppCompatActivity {
         getSupportFragmentManager().findFragmentByTag("list").onResume();
     }
 
+    /**
+     * Inflates new RouteDetailsFragment.
+     * @param stop stop number to show route details for
+     * @param route route number to show route details for
+     */
     public void routeSelected(int stop, int route) {
         RouteDetailsFragment newFrag = new RouteDetailsFragment(stop, route);
         getSupportFragmentManager().beginTransaction().replace(R.id.listFrag, newFrag, "rdetail").addToBackStack(null).commit();
     }
 
+    /**
+     * Returns API App ID value
+     * @return API App ID value
+     */
     public String getAppId() {
         return appId;
     }
 
+    /**
+     * Returns API Key value
+     * @return API Key value
+     */
     public String getApiKey() {
         return apiKey;
     }
