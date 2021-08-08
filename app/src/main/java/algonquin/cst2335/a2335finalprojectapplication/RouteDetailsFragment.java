@@ -32,12 +32,38 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+/**
+ * Displays trip details for the selected route from the OCTranspo Server.
+ * Written for CST2335 Mobile Graphical Interface Programming Final Project
+ * Algonquin College
+ * August 8th, 2021
+ *
+ * @author Emma McArthur
+ */
+
+
 public class RouteDetailsFragment extends Fragment {
 
+    /**
+     * Stop number to display trip data for
+     */
     private int stop;
+
+    /**
+     * Route number to display trip data for
+     */
     private int route;
+
+    /**
+     * Holds the completed url to access server data for route and stop numbers.
+     */
     private String routeUrl;
 
+    /**
+     * Creates new fragment with stop and route initialized.
+     * @param stop bus stop number to show trip data for
+     * @param route bus route number to show trip data for
+     */
     public RouteDetailsFragment(int stop, int route) {
         this.stop = stop;
         this.route = route;
