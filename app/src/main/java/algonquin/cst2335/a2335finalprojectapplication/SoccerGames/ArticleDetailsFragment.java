@@ -1,6 +1,8 @@
 package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
 import android.content.ContentValues;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,7 +39,7 @@ import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.db;
 
 /**
  * This class is the main Details fragment that is opened any time an article from the main RecyclerView is clicked. It displays the detials of each article and allows users to add the article to their Favorites list
- * @author Nisht Khan
+ * @author Nishat Khan
  * @version 1.0
  */
 public class ArticleDetailsFragment extends Fragment {
@@ -103,6 +105,7 @@ public class ArticleDetailsFragment extends Fragment {
         TextView descriptionView = articlesDetailsLayout.findViewById(R.id.descriptionView);
         Button addToFavButton = articlesDetailsLayout.findViewById(R.id.addToFavButton);
         Button backButton = articlesDetailsLayout.findViewById(R.id.backButton);
+        Button browserButton = articlesDetailsLayout.findViewById(R.id.brosweButton);
 
 
         descriptionView.setText(getString(R.string.description_is));
@@ -134,6 +137,14 @@ public class ArticleDetailsFragment extends Fragment {
             long newID = db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
             article.setID(newID);
         });
+
+        browserButton.setOnClickListener( (clicked) -> {
+            Uri openInBrowser = Uri.parse(linkString);
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, openInBrowser);
+//            browserIntent.setPackage("com.google.android.apps.maps");
+            startActivity(browserIntent);
+        });
+
         return articlesDetailsLayout;
     }
 
