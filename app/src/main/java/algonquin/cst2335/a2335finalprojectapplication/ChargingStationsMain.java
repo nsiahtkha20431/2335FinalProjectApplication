@@ -22,11 +22,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
-import algonquin.cst2335.a2335finalprojectapplication.MovieInfoActivity;
-import algonquin.cst2335.a2335finalprojectapplication.OCTranspoActivity;
-import algonquin.cst2335.a2335finalprojectapplication.R;
-import algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
-
 public class ChargingStationsMain extends AppCompatActivity {
     private static Context context;
     SharedPreferences prefs;
