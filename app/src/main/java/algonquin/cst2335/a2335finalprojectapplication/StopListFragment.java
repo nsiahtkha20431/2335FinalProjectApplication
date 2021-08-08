@@ -14,10 +14,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+/**
+ * Displays stop numbers and descriptions stored in SQLite Database in a RecyclerView.
+ *
+ * Written for CST2335 Mobile Graphical Interface Programming Final Project
+ * Algonquin College
+ * August 8th, 2021
+ *
+ * @author Emma McArthur
+ */
+
 public class StopListFragment extends Fragment {
 
+    /**
+     * ArrayList of Bus Stop numbers and descriptions to be displayed in the RecyclerView.
+     */
     private ArrayList<ArrayList<String>> busStops;
-    private StopListFragment.MyAdapter adptr;
+
+    /**
+     * Custom RecyclerView Adapter object to load stops.
+     */
+    private StopListAdapter adptr;
+
+    /**
+     * RecyclerView to display stops from database.
+     */
     private RecyclerView stopList;
 
     @Override
@@ -26,11 +47,14 @@ public class StopListFragment extends Fragment {
         stopList = stopListLayout.findViewById(R.id.stopRecycler);
         initializeArray();
         stopList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        adptr = new StopListFragment.MyAdapter(busStops, getContext());
+        adptr = new StopListAdapter(busStops, getContext());
         stopList.setAdapter(adptr);
         return stopListLayout;
     }
 
+    /**
+     * Adds stop data from database to busStops array to be loaded in the RecyclerView.
+     */
     private void initializeArray() {
         busStops = new ArrayList<>();
         Cursor results = MainActivity.db.rawQuery("Select * from " + FinalOpenHelper.OCTRANSPO_TABLE_NAME + ";", null);
@@ -53,30 +77,49 @@ public class StopListFragment extends Fragment {
         updateList();
     }
 
+    /**
+     * Reloads stop data from database into RecyclerView.
+     */
     private void updateList() {
         initializeArray();
-        adptr = new StopListFragment.MyAdapter(busStops, getContext());
+        adptr = new StopListAdapter(busStops, getContext());
         stopList.setAdapter(adptr);
     }
 
-    protected class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+    /**
+     * Custom RecyclerView Adapter for StopListFragment. Loads custom ViewHolders (StopViewHolder) from
+     * array of bus stop data to display.
+     */
+    protected class StopListAdapter extends RecyclerView.Adapter<StopViewHolder> {
 
+        /**
+         * Holds bus stop data to be displayed in RecyclerView
+         */
         private ArrayList<ArrayList<String>> busData;
+
+        /**
+         * Holds context from parent activity for LayoutInflater
+         */
         private Context ctxt;
 
-        public MyAdapter(ArrayList<ArrayList<String>> busStops, Context context) {
+        /**
+         * Creates new StopListAdapter with initialized values
+         * @param busStops Bus Stop Data to be displayed
+         * @param context parent activity context
+         */
+        public StopListAdapter(ArrayList<ArrayList<String>> busStops, Context context) {
             busData = busStops;
             ctxt = context;
         }
 
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public StopViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(ctxt).inflate(R.layout.oct_list_item, parent, false);
-            return new MyViewHolder(view);
+            return new StopViewHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position) {
+        public void onBindViewHolder(StopViewHolder holder, int position) {
             if (position < busData.size()) {
                 holder.stopNumber.setText(busData.get(position).get(0));
                 holder.stopDescription.setText(busData.get(position).get(1));
@@ -89,17 +132,30 @@ public class StopListFragment extends Fragment {
         }
     }
 
-    protected class MyViewHolder extends RecyclerView.ViewHolder {
+    /**
+     * Custom ViewHolder for StopListFragment. Holds stop number and description from stored stops in
+     * SQLiteDatabase. When clicked calls stopSelected() method from OCTranspoActivity.
+     */
+    protected class StopViewHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * TextView that displays bus stop number
+         */
         public TextView stopNumber;
-        public TextView stopDescription;
-        private int position;
 
-        public MyViewHolder(View view) {
+        /**
+         * TextView that displays bus stop description
+         */
+        public TextView stopDescription;
+
+        /**
+         * Creates new StopViewHolder with initialized values
+         * @param view
+         */
+        public StopViewHolder(View view) {
             super(view);
             stopNumber = view.findViewById(R.id.listNumber);
             stopDescription = view.findViewById(R.id.listDescription);
-            position = getAbsoluteAdapterPosition();
 
             view.setOnClickListener( clk -> {
                 int stopNo = Integer.parseInt(stopNumber.getText().toString());
