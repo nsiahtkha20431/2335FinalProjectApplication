@@ -38,6 +38,7 @@
     <string name="chargingIntent">Charging Stations</string>
     <string name="OCTranspoIntent">OCTranspo</string>
     <string name="MovieIntent">Movie Info</string>
+    <string name="browser_button">Open in browser</string>
 
 
 </resources>
