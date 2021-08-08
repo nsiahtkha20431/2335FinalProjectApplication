@@ -36,7 +36,7 @@ public class ChargingSecondPage extends AppCompatActivity {
                     .setTitle("Go back")
                     .setMessage("Are you sure you want to enter another location?")
                     .setPositiveButton("Yes", (dialog, cl) -> {
-                        Intent previousPage = new Intent(ChargingSecondPage.this, ChargingStationsFirstPage.class);
+                        Intent previousPage = new Intent(ChargingSecondPage.this, ChargingStationsMain.class);
                         startActivity(previousPage);
                     })
                     .setNegativeButton("No", (dialog, cl) -> {
