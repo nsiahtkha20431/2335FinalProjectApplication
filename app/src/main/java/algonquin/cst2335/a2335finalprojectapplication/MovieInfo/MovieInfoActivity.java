@@ -37,7 +37,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingMainActivity;
+
+import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingStationsFirstPage;
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
 import algonquin.cst2335.a2335finalprojectapplication.MainActivity;
 import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
@@ -88,7 +89,7 @@ public class MovieInfoActivity extends AppCompatActivity {
 
                     break;
                 case R.id.ic_electric:
-                    Intent elecPage = new Intent(getApplicationContext(), ChargingMainActivity.class);
+                    Intent elecPage = new Intent(getApplicationContext(), ChargingStationsFirstPage.class);
                     startActivity(elecPage);
 
 
@@ -178,7 +179,7 @@ public class MovieInfoActivity extends AppCompatActivity {
 
                         break;
                     case R.id.ic_electric:
-                        Intent elecPage = new Intent(getApplicationContext(), ChargingMainActivity.class);
+                        Intent elecPage = new Intent(getApplicationContext(), ChargingStationsFirstPage.class);
                         startActivity(elecPage);
 
 
