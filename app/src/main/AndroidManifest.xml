@@ -16,6 +16,7 @@
             android:name=".MovieInfoActivity"
             android:theme="@style/MovieTheme"></activity>
         <activity android:name=".SoccerGames"></activity>
+        <activity android:name=".ChargingStationsMain"></activity>
         <activity android:name=".ChargingSecondPage"></activity>
         <activity android:name=".ChargingThirdPage"></activity>
 
