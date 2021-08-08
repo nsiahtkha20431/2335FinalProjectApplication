@@ -28,4 +28,9 @@
     <string name="oc_transpo_button">OCTranspo</string>
     <string name="main_header">Bienvenue au Projet Finale de Aparna, Emma, Nishat et Raphael!</string>
     <string name="date_is">"Date: "</string>
+    <string name="u_deleted">Vous avez supprimé l\'article #</string>
+    <string name="delete_yes_option">Oui</string>
+    <string name="delete_no_option">Non</string>
+    <string name="delete_title">Supprimer l\'article des favoris</string>
+    <string name="do_u_delete">Voulez-vous supprimer l\'article :</string>
 </resources>

@@ -35,29 +35,64 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.db;
 
+/**
+ * This class is the main Details fragment that is opened any time an article from the main RecyclerView is clicked. It displays the detials of each article and allows users to add the article to their Favorites list
+ * @author Nisht Khan
+ * @version 1.0
+ */
 public class ArticleDetailsFragment extends Fragment {
+
+    /** The String-type article title that was selected */
     String chosenArticle;
+
+    /** The Article-type article that was selected */
     ArticleListFragment.Article chosenFavArticle;
+
+    /** The position of the chosen article */
     int chosenPosition;
 
+    /** The String url of the RSS feed to be parsed */
     String stringURL = "https://www.goal.com/en/feeds/news?fmt=rss&mode=xml";
 
-    String titleString = null;
+    /** The url to be displayed in the Details fragment */;
     String linkString = null;
+
+    /** The description to be displayed in the Details fragment */
     String description = null;
+
+    /** The date to be displayed in the Detials fragment */
     String pubDate = null;
+
+    /** The image thumbnail to be displayed in the Details fragment */
     ImageView thumbnail = null;
 
+    /**
+     * The first constructor for this class that takes the article title as a String and the position
+     * @param article The String article title
+     * @param position The position of the article
+     */
     public ArticleDetailsFragment(String article, int position) {
         chosenArticle = article;
         chosenPosition = position;
     }
 
+    /**
+     * The second constructor for this class that takes the article when it is an Article object and the position
+     * @param article The Article object
+     * @param position The position
+     */
     public ArticleDetailsFragment(ArticleListFragment.Article article, int position) {
         chosenFavArticle = article;
         chosenPosition = position;
     }
 
+    /**
+     * The onCreateView for this fragment. Inflates the View, sets all the TextViews and Buttons, creates a new thread to parse all the information from the RSS feed and displays it, tells the app what to do when the buttons are clicked
+     * @param inflater The layout that we want to inflate in this fragment
+     * @param container The parent view that this fragment is attached to
+     * @param savedInstanceState The previous saved state
+     * @return Returns the Fragment view with the details displayed
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View articlesDetailsLayout = inflater.inflate(R.layout.soccer_details_layout, container, false);
@@ -67,11 +102,9 @@ public class ArticleDetailsFragment extends Fragment {
         TextView urlView = articlesDetailsLayout.findViewById(R.id.urlView);
         TextView descriptionView = articlesDetailsLayout.findViewById(R.id.descriptionView);
         Button addToFavButton = articlesDetailsLayout.findViewById(R.id.addToFavButton);
-        Button deleteFromFavButton = articlesDetailsLayout.findViewById(R.id.deleteFromFavButton);
         Button backButton = articlesDetailsLayout.findViewById(R.id.backButton);
 
 
-//        titleView.setText(getString(R.string.article_is) + " " + chosenArticle);
         descriptionView.setText(getString(R.string.description_is));
         urlView.setText(getString(R.string.url_is));
 
@@ -101,25 +134,12 @@ public class ArticleDetailsFragment extends Fragment {
             long newID = db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
             article.setID(newID);
         });
-
-//        deleteFromFavButton.setOnClickListener(clicked -> {
-//            SoccerGames parentActivity = (SoccerGames)getContext();
-//            parentActivity.notifyArticleDeleted(chosenArticle, chosenPosition);
-//
-//            Snackbar.make(deleteFromFavButton, getString(R.string.soccer_details_snackbar_udeleted) + " " + chosenArticle, Snackbar.LENGTH_SHORT)
-//                    .setAction(getString(R.string.soccer_details_snackbar_undo), click -> { }).show();
-//
-//        });
         return articlesDetailsLayout;
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-//        MenuInflater menuInflater = ((AppCompatActivity)getActivity()).getMenuInflater();
-//        menuInflater.inflate(R.menu.soccer_details_menu, menu);
-//        return super.onCreateOptionsMenu(menu, menuInflater);
-//    }
-
+    /**
+     * This function creates the InputStream object from the results of the fetchRSS method, the XmlPullParser object and parses the RSS feed
+     */
     public void fetchAndParseRSS () {
         InputStream is = fetchRSS(this.stringURL);
 
@@ -165,6 +185,11 @@ public class ArticleDetailsFragment extends Fragment {
         }
     }
 
+    /**
+     * This function gets the Input Stream
+     * @param stringURL The url of the RSS feed we want to parse
+     * @return Returns the InputStream to parse
+     */
     public InputStream fetchRSS(String stringURL) {
         try {
             URL url = new URL(stringURL);

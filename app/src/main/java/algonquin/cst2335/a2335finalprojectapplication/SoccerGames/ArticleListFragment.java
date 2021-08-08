@@ -34,12 +34,29 @@ import java.util.concurrent.Executors;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
 
-
+/**
+ * This class is the main RecyclerView that displays all the parsed article titles in a list to scroll through
+ * @author Nishat Khan
+ * @version 1.0
+ */
 public class ArticleListFragment extends Fragment {
+
+    /** The Adapter for the RecyclerView in this class */
     ArticleAdapter adapter; //declaring an ArticleAdapter object, but not initializing yet
+
+    /** The ArrayList to hold the article titles in an array to display and to use in the database */
     ArrayList<String> articleTitlesList = new ArrayList<>(); //making an array to hold the titles of each article
+
+    /** The URL of the RSS feed that will need to be parsed to get the article information */
     String stringURL = "https://www.goal.com/en/feeds/news?fmt=rss";
 
+    /**
+     * This is the onCreateView function for this class. It inflates the View and creates the RecyclerView object, creates a new thread to parse the RSS feed, instantiates the Adapter object and creates the AlertDialog to ask for a rating immediately when the app is opened.
+     * @param inflater The layout that we want to inflate in this fragment
+     * @param container The parent view that this fragment is attached to
+     * @param savedInstanceState The previous saved state
+     * @return Returns the Fragment view with the RecyclerView
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View articlesListLayout = inflater.inflate(R.layout.article_recycler_layout, container, false);
@@ -63,6 +80,9 @@ public class ArticleListFragment extends Fragment {
         return articlesListLayout;
     }
 
+    /**
+     * This function parses the RSS feed in order to display the titles of each article in the RecyclerView
+     */
     public void fetchAndParseRSS () {
         InputStream is = fetchRSS(this.stringURL);
 
@@ -85,16 +105,11 @@ public class ArticleListFragment extends Fragment {
                     case XmlPullParser.TEXT:
                         tag = xpp.getText();
                         break;
-                    case XmlPullParser.START_TAG:
-                        if (name.equals("thumbnail")) {
-                            tag = xpp.getText();
-                        }
 
                     case XmlPullParser.END_TAG:
                         if (name.equals("title")) {
                             title = tag;
                             articleTitlesList.add(title);
-                        } else if (name.equals("thumbnail")) {
                         }
 
                 }
@@ -105,6 +120,11 @@ public class ArticleListFragment extends Fragment {
         }
     }
 
+    /**
+     * This function creates the HTTPUrlConnection and InputStream in order to parse the RSS feed
+     * @param stringURL The URL that we are trying to connect to
+     * @return Returns the InputStream for this URL
+     */
     public InputStream fetchRSS(String stringURL) {
         try {
             URL url = new URL(stringURL);
@@ -120,6 +140,9 @@ public class ArticleListFragment extends Fragment {
         return null;
     }
 
+    /**
+     * This function creates the AlertDialog to ask for a star-rating of the app each time the Soccer Articles API is opened from the Main Activity
+     */
     public void ratingAlertDialog() { //function for the rating AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext()); //making an AlertDialog object called builder
 
@@ -153,26 +176,21 @@ public class ArticleListFragment extends Fragment {
         builder.create().show();
     }
 
-    //not currently being called in the code
-    public void notifyArticleDeleted(String chosenArticle, int chosenPosition) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Danger!")
-                .setMessage("Do you want to delete the article " + articleTitlesList.get(chosenPosition))
-                .setNegativeButton("Cancel", (dialog, cl) -> { })
-                .setPositiveButton("Delete", (dialog, cl) -> {
-                    String removedArticle = articleTitlesList.get(chosenPosition);
-                    articleTitlesList.remove(chosenPosition);
-                    adapter.notifyItemRemoved(chosenPosition);
-                }).create().show();
-    }
-
-    //ViewHolder for this RecyclerView - this represents one element of the list and how it will look like
+    /**
+     * This class is the ViewHolder for this RecyclerView, which takes the individual Views for each row in the list and displays them. It also creates a Toast when a row is clicked and opens the Details Fragment
+     */
     private class ArticleViewHolder extends RecyclerView.ViewHolder{
 
+        /** This holds the ImageView of the thumbnail image for the article */
         public ImageView articleThumb; //declaring a variable to hold the thumbnail image for each article in the list
-        public TextView articleTitle; //declaring a variable to hold the article title for each article in the list
-        int position;
 
+        /** This holds the TextView object for the article title */
+        public TextView articleTitle; //declaring a variable to hold the article title for each article in the list
+
+        /**
+         * This is the constructor for this class that creates the row views
+         * @param itemView The View of the row to display
+         */
         public ArticleViewHolder(View itemView) {
             super(itemView); //getting the super's View
 
@@ -187,40 +205,56 @@ public class ArticleListFragment extends Fragment {
                 parentActivity.userClickedTitle(articleTitlesList.get(position), position);
             });
         }
-
-        //this will be needed to delete rows from Favorites
-        public void setPosition(int p) {
-            this.position = p;
-        }
     }
 
-    //Adapter for this RecyclerView - Adapter is like the middle man for what the user sees and how the application gets and displays data
-    //adapts a collection of objects for display
-    //tells the list how to build the items
+    /**
+     * The Adapter class for this RecyclerView. Adapts a collection of objects to display and tells the list how to build the items
+     */
     private class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
-        ArrayList<String> array; //declaring an array to use for an ArticleAdapter object
-        Context context; //declaring a context variable to get the context
 
+        /** The ArrayList to use for an ArticleAdapter object */
+        ArrayList<String> array;
+
+        /** The context variable to use to get the context */
+        Context context;
+
+        /**
+         * The constructor for this class. Creates an adapter object.
+         * @param array The array of the article titles to display
+         * @param context The context of this adapter object
+         */
         public ArticleAdapter(ArrayList array, Context context) { //constructor for this class
             this.array = array; //setting the articleTitlesList as the array for this instance of ArticleAdapter
             this.context = context; //setting 'this' as the context for this instance of ArticleAdapter
         }
 
-
+        /**
+         * The onCreateViewHolder for this Adapter
+         * @param parent The parent View
+         * @param viewType The int view type
+         * @return Returns The ViewHolder of this loaded row
+         */
         @Override
         public ArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//          LayoutInflater inflater = getLayoutInflater();
             View loadedRow = LayoutInflater.from(context).inflate(R.layout.article_row_layout, parent, false); //taking the loaded row and inflating it (takes layout xml files and converts into a View object)
 
             return new ArticleViewHolder(loadedRow); //returning the loaded row, now an ArticleViewHolder object
         }
 
+        /**
+         * The function to bind the view
+         * @param viewHolder The ViewHolder
+         * @param position The position for this row
+         */
         @Override
         public void onBindViewHolder(ArticleViewHolder viewHolder, int position) {
-            viewHolder.articleTitle.setText(array.get(position)); //how do i set this from that link of just xml code?
-//          viewHolder.articleThumb ----> this is an image (?)
+            viewHolder.articleTitle.setText(array.get(position));
         }
 
+        /**
+         * The function to get the amount of items in this list
+         * @return Returns the number of items in this list
+         */
         @Override
         public int getItemCount() {
             return array.size(); //returns the number of rows in the RecyclerView
@@ -229,13 +263,34 @@ public class ArticleListFragment extends Fragment {
 
     //this class is similar to the ChatMessage class in the RecyclerView lab (week 5) - used to store and get the information for each article to be displayed in the RecyclerView
     //not a ViewHolder or an Adapter
+
+    /**
+     * This class is meant to hold information about each article that is parsed in order to display it in the List and in the Details Fragment
+     */
     public static class Article {
+
+        /** The String title of the article */
         String title;
+
+        /** The String date of when the article was published */
         String datePublished;
+
+        /** The String url of this article */
         String url;
+
+        /** The String description of this article */
         String desc;
+
+        /** The id of this article */
         long id;
 
+        /**
+         * The main constructor for this class
+         * @param title Title of this article
+         * @param datePublished Date this article was published
+         * @param url The url of this article
+         * @param desc The description of this article
+         */
         public Article(String title, String datePublished, String url, String desc) {
             this.title = title;
             this.datePublished = datePublished;
@@ -243,6 +298,14 @@ public class ArticleListFragment extends Fragment {
             this.desc = desc;
         }
 
+        /**
+         * Second constructor for this class that takes everything that the first contructor takes including the id
+         * @param title Title of this article
+         * @param datePublished Date this article was published
+         * @param url The url of this article
+         * @param desc The description of this article
+         * @param id The id of this article
+         */
         public Article(String title, String datePublished, String url, String desc, long id) {
             this.title = title;
             this.datePublished = datePublished;
@@ -251,27 +314,51 @@ public class ArticleListFragment extends Fragment {
             setID(id);
         }
 
+        /**
+         * Getter for the title of this article
+         * @return Returns the title of this article
+         */
         public String getTitle() {
             return title;
         }
 
+        /**
+         * Getter for the date of this article
+         * @return Returns the date this article was published
+         */
         public String getDatePublished() {
             return datePublished;
         }
 
+        /**
+         * Getter for the url of this article
+         * @return Returns the url of this article
+         */
         public String getUrl() {
             return url;
         }
 
-
+        /**
+         * Getter for the description of this article
+         * @return Returns the description of this article
+         */
         public String getDesc() {
             return desc;
         }
 
+        /**
+         * Getter for the id of this article
+         * @return Returns the id of this article
+         */
+        public long getID() {
+            return this.id;
+        }
+
+        /**
+         * Setter for the id of this article
+         */
         public void setID(long id) {
             this.id = id;
         }
-
-        public long getID() { return this.id; }
     }
 }
