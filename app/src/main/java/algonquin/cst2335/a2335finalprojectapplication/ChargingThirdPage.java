@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 public class ChargingThirdPage extends AppCompatActivity {
 
