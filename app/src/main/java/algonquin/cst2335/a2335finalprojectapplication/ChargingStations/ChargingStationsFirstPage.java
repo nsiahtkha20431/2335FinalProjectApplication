@@ -9,8 +9,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
@@ -22,6 +20,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import algonquin.cst2335.a2335finalprojectapplication.MovieInfo.MovieInfoActivity;
 import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
@@ -33,10 +32,20 @@ public class ChargingStationsFirstPage extends AppCompatActivity {
     SharedPreferences prefs;
 
     /**
+     * The purpose of this method is to get the context and return it
+     *
+     * @return
+     */
+    public static Context getAppContext() {
+        return ChargingStationsFirstPage.context;
+    }
+
+    /**
      * This is the onCreate function where we initialize the activity.
      * In the onCreate function, we set the contentView to look at the landing page and we provide intents
      * The intent sends the user from the main page to the second page where they will see their list of stops
      * Shared preferences allow the app to store data so that it can be retrieved the next time the user uses the app
+     *
      * @param savedInstanceState
      */
     @Override
@@ -46,25 +55,46 @@ public class ChargingStationsFirstPage extends AppCompatActivity {
          *
          */
         setContentView(R.layout.charging_landing_page);
-        Toast.makeText(this, "Welcome to Charging Stations!", Toast.LENGTH_LONG).show();
+//       Toast toast = Toast.makeText(this, "Welcome to Charging Stations!", Toast.LENGTH_LONG);
+//       toast.show();
 
         /**find the various widgets on the page
          *
          */
         EditText latEditText = findViewById(R.id.latitudeEditText);
+        EditText longitudeEditText = findViewById(R.id.longitudeEditText);
         Button goButton = findViewById(R.id.goButton);
+
+        /**
+         * Make a snackbar that displays when the page loads
+         */
+        Snackbar.make(goButton, "Welcome to Charging Stations! Enter a latitude and longitude to begin.", Snackbar.LENGTH_LONG).show();
+
 
         /**shared preferences store data to be used at a later time
          *
          */
         prefs = getSharedPreferences("MyData", Context.MODE_PRIVATE);
-        prefs.getString("MyData","");
-        String lat = prefs.getString("Latitude","");
-        latEditText.setText(lat);
+        prefs.getString("MyData", "");
+        String latitude = prefs.getString("Latitude", "");
+        String longitude = prefs.getString("Longitude", "");
+        latEditText.setText(latitude);
+        longitudeEditText.setText(longitude);
 
 
-
-
+        /**to go from this page to the second page
+         *
+         */
+        goButton.setOnClickListener(click -> {
+            Intent chargingSecondPage = new Intent(ChargingStationsFirstPage.this, ChargingSecondPage.class);
+            chargingSecondPage.putExtra("Latitude", latEditText.getText().toString());
+            chargingSecondPage.putExtra("Longitude", longitudeEditText.getText().toString());
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("Latitude", latEditText.getText().toString());
+            editor.putString("Longitude", longitudeEditText.getText().toString());
+            editor.apply();
+            startActivity(chargingSecondPage);
+        });
 
         /**finding the toolbar and then setting the toolbar
          *
@@ -81,7 +111,7 @@ public class ChargingStationsFirstPage extends AppCompatActivity {
          *
          */
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, myToolbar, R.string.open, R.string.close);
-        /**these two lines of code make the button and popout menu sync so that it can open and close correctly
+        /**these two lines of code make the button and pop-out menu sync so that it can open and close correctly
          *
          */
         drawer.addDrawerListener(toggle);
@@ -95,30 +125,6 @@ public class ChargingStationsFirstPage extends AppCompatActivity {
             return false;
         });
 
-        /**clicking this button will start a new thread
-         *to go from the first page to the second page and then create an alert dialog that tells the user that their information is being loaded
-         */
-        goButton.setOnClickListener(click -> {
-
-            /**to go from this page to the second page
-             *
-             */
-            Intent chargingSecondPage = new Intent(ChargingStationsFirstPage.this, ChargingSecondPage.class);
-            chargingSecondPage.putExtra("LongitudeAndLatitude", latEditText.getText().toString());
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("DataValues", latEditText.getText().toString());
-            editor.apply();
-            startActivity(chargingSecondPage);
-
-            /**display an alert that tells the user that their information is being loaded
-             *
-             */
-            AlertDialog dialog = new AlertDialog.Builder(ChargingStationsFirstPage.this)
-                    .setTitle("Getting Charging Stations")
-                    .setMessage("We're looking for your charging stations. Hang tight!")
-                    .setView(new ProgressBar(ChargingStationsFirstPage.this))
-                    .show();
-        });
     }
 
     @Override
@@ -135,11 +141,12 @@ public class ChargingStationsFirstPage extends AppCompatActivity {
     /**
      * The purpose of this method is to direct the program when a user selects an item from the menu
      * It will give instructions on how and what to do if a certain option is selected
+     *
      * @param item
      * @return
      */
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.oc_transpo_activity:
                 Intent ocTranspoActivity = new Intent(ChargingStationsFirstPage.this, OCTranspoActivity.class);
                 startActivity(ocTranspoActivity);
@@ -162,14 +169,6 @@ public class ChargingStationsFirstPage extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * The purpose of this method is to get the context and return it
-     * @return
-     */
-    public static Context getAppContext() {
-        return ChargingStationsFirstPage.context;
     }
 
     public void userClickedMessage(String location, int position) {

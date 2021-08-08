@@ -1,18 +1,17 @@
 package algonquin.cst2335.a2335finalprojectapplication.ChargingStations;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,14 +45,15 @@ public class ChargingStationFragment extends Fragment {
      * declaring the ArrayList that will be populated parsing the XML
      */
     ChargingStationAdapter myAdapter;
-    ArrayList<String> stationList = new ArrayList<>(); //something to hold values
+    ArrayList<ChargingStation> stationList = new ArrayList<>(); //something to hold values
     String stringURL;
-    String locationTitle;
+    String latitude;
+    String longitude;
 
-    String latitude = "45.4215";
-    String longitude = "-75.6972";
-    String contactPhone;
-
+    public ChargingStationFragment(String latitude, String longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -61,17 +61,35 @@ public class ChargingStationFragment extends Fragment {
         View chargingList = inflater.inflate(R.layout.charging_recycler_page, container, false);
         RecyclerView chargingRecyclerView = chargingList.findViewById(R.id.chargingRecyclerView);
         myAdapter = new ChargingStationAdapter(stationList, getContext());
+
+
         chargingRecyclerView.setHasFixedSize(true);
         chargingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         chargingRecyclerView.setAdapter(myAdapter);
 
+        /**display an alert that tells the user that their information is being loaded
+         *
+         */
+        AlertDialog dialog = new AlertDialog.Builder(this.getActivity())
+                .setTitle("Getting Charging Stations")
+                .setMessage("We're looking for your charging stations. Hang tight!")
+                .setView(new ProgressBar(this.getActivity()))
+                .show();
 
+        /**
+         * Recieving data from the first page into this fragment
+         */
+        if (getArguments() != null) {
+            String latitudeInfo = getArguments().getString("latitude");
+            String longitudeInfo = getArguments().getString("longitude");
+        }
 
         /**
          * this is the part of the code that will parse through the xml and get the values that we're looking for
          */
         Executor newThread = Executors.newSingleThreadExecutor();
         newThread.execute(() -> {
+
             try {
                 /**
                  * we already have the string variable initialized, but we're giving it a value now
@@ -82,7 +100,7 @@ public class ChargingStationFragment extends Fragment {
                         + URLEncoder.encode(latitude, "UTF-8")
                         + "&longitude="
                         + URLEncoder.encode(longitude, "UTF-8")
-                        + "&maxresults=5";
+                        + "&maxresults=10";
 
                 /**
                  * Creating a connection to the xml
@@ -97,37 +115,40 @@ public class ChargingStationFragment extends Fragment {
                 xpp.setInput(in, "UTF-8");
 
                 //stationList.clear();
+                String locationTitle = "";
+                String searchedLat = "";
+                String searchedLong = "";
+                String contactPhone = "";
+
                 while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                     switch (xpp.getEventType()) {
                         case XmlPullParser.START_TAG:
-                            if(xpp.getName().equals("LocationTitle")){
+                            if (xpp.getName().equals("LocationTitle")) {
                                 xpp.next();
                                 locationTitle = xpp.getText();
-                                stationList.add(locationTitle);
-                            } else if(xpp.getName().equals("Latitude")){
+                                //stationList.add(locationTitle);
+                            } else if (xpp.getName().equals("Latitude")) {
                                 xpp.next();
-                                latitude = xpp.getText();
-                                //stationList.add(latitude);
-                            } else if(xpp.getName().equals("Longitude")){
+                                searchedLat = xpp.getText();
+                            } else if (xpp.getName().equals("Longitude")) {
                                 xpp.next();
-                                longitude = xpp.getText();
-                                //stationList.add(longitude);
-                            }else if(xpp.getName().equals("ContactTelephone1")){
+                                searchedLong = xpp.getText();
+                            } else if (xpp.getName().equals("ContactTelephone1")) {
                                 xpp.next();
                                 contactPhone = xpp.getText();
-                                //stationList.add(contactPhone);
+                                ChargingStation station = new ChargingStation(locationTitle, searchedLat, searchedLong, contactPhone);
+                                stationList.add(station);
+//                                Intent intent = new Intent(getActivity().getBaseContext(), ChargingThirdPage.class);
+//                                intent.putExtra("StationName",locationTitle);
+//                                intent.putExtra("LatitudeHere",searchedLat);
+//                                intent.putExtra("LongitudeHere",searchedLong);
+//                                intent.putExtra("PhoneNumberHere",contactPhone);
                             }
                             break;
-
                     }
-
                 }
-                int i=0;
-
                 String text = (new BufferedReader(
                         new InputStreamReader(in, StandardCharsets.UTF_8))).lines().collect(Collectors.joining("\n"));
-
-
             } catch (UnsupportedEncodingException | MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -136,8 +157,12 @@ public class ChargingStationFragment extends Fragment {
                 e.printStackTrace();
             }
 
-            getActivity().runOnUiThread(( ) -> {
+            /**
+             * make the activity run async and also hide the dialog when all the information is loaded into the list
+             */
+            getActivity().runOnUiThread(() -> {
                 myAdapter.notifyDataSetChanged();
+                dialog.hide();
             });
         });
 
@@ -151,7 +176,6 @@ public class ChargingStationFragment extends Fragment {
 
         public StationsListHolder(View itemView) {
             /**stores the itemView in a public member that can be used to access the context from any viewHolder instance
-             *
              */
             super(itemView);
 
@@ -164,14 +188,12 @@ public class ChargingStationFragment extends Fragment {
             itemView.setOnClickListener(click -> {
                         int position = getAbsoluteAdapterPosition();
                         ChargingSecondPage parentActivity = (ChargingSecondPage) getContext();
-                        Toast.makeText(getContext(),"You clicked on" + stationList.get(position), Toast.LENGTH_SHORT).show(); //shows us a toast with what was clicked
+                        //Toast.makeText(getContext(), "You clicked on" + stationList.get(position), Toast.LENGTH_SHORT).show(); //shows us a toast with what was clicked
                         parentActivity.userClickedMessage(stationList.get(position), position);
                     }
-
             );
         }
-
-        }
+    }
 
     /**
      * This is the adapter for the recycler view
@@ -181,29 +203,39 @@ public class ChargingStationFragment extends Fragment {
      */
     private class ChargingStationAdapter extends RecyclerView.Adapter<StationsListHolder> {
         Context context;
-        ArrayList<String> myArray; //any array
+        ArrayList<ChargingStation> myArray; //any array
 
         /**
          * just a simple method to set "this" as the array and context
+         *
          * @param myArray
          * @param context
          */
-        public ChargingStationAdapter(ArrayList myArray, Context context) {
+        public ChargingStationAdapter(ArrayList<ChargingStation> myArray, Context context) {
             this.myArray = myArray;
             this.context = context; //setting "this" as the context for this instance of ChargingStationAdapter
         }
 
 
         @Override
+        /**
+         * Called when RecyclerView needs a new {@link RecyclerView.ViewHolder} of the given type to represent
+         * an item.
+         */
         public StationsListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = getLayoutInflater();
-           View myChargingRows = LayoutInflater.from(context).inflate(R.layout.charging_recycler_row_layout, parent,false);
+            View myChargingRows = LayoutInflater.from(context).inflate(R.layout.charging_recycler_row_layout, parent, false);
             return new StationsListHolder(myChargingRows);
         }
 
+        /**
+         * Called by RecyclerView to display the data at the specified position. This method should
+         * update the contents of the {@link RecyclerView.ViewHolder#itemView} to reflect the item at the given
+         * position.
+         */
         @Override
         public void onBindViewHolder(StationsListHolder holder, int position) {
-            holder.stationName.setText(myArray.get(position));
+            holder.stationName.setText(myArray.get(position).getLocationTitle());
         }
 
         @Override
@@ -215,9 +247,36 @@ public class ChargingStationFragment extends Fragment {
         }
     }
 
+    class ChargingStation {
+        String locationTitle;
+        String longitude;
+        String latitude;
+        String contactPhone;
+
+        public ChargingStation(String locationTitle, String latitude, String longitude, String contactPhone) {
+            this.locationTitle = locationTitle;
+            this.longitude = longitude;
+            this.latitude = latitude;
+            this.contactPhone = contactPhone;
+        }
+
+        String getLocationTitle() {
+            return this.locationTitle;
+        }
+
+        String getLongitude() {
+            return this.longitude;
+        }
+
+        String getLatitude() {
+            return this.latitude;
+        }
+
+        String getContactPhone() {
+            return this.contactPhone;
+        }
+
     }
 
-
-
-
+}
 
