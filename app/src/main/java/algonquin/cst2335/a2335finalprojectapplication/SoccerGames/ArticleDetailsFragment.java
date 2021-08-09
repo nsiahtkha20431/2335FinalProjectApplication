@@ -47,7 +47,7 @@ public class ArticleDetailsFragment extends Fragment {
     /** The String-type article title that was selected */
     String chosenArticle;
 
-    /** The Article-type article that was selected */
+    /** The Article-type favorite article that was selected */
     ArticleListFragment.Article chosenFavArticle;
 
     /** The position of the chosen article */
@@ -105,7 +105,7 @@ public class ArticleDetailsFragment extends Fragment {
         TextView descriptionView = articlesDetailsLayout.findViewById(R.id.descriptionView);
         Button addToFavButton = articlesDetailsLayout.findViewById(R.id.addToFavButton);
         Button backButton = articlesDetailsLayout.findViewById(R.id.backButton);
-        Button browserButton = articlesDetailsLayout.findViewById(R.id.brosweButton);
+        Button browserButton = articlesDetailsLayout.findViewById(R.id.broswerButton);
 
 
         descriptionView.setText(getString(R.string.description_is));

@@ -81,6 +81,18 @@ public class ArticleFavoritesListFragment extends Fragment {
         return articlesFavListLayout; //returning the RecyclerView layout
     }
 
+    public void notifyItemDeleted(int position) {
+        this.adapter.notifyItemRemoved(position);
+    }
+
+    public void notifyItemInserted(int position) {
+        adapter.notifyItemInserted(position);
+    }
+
+    public void userClickedFavTitle(ArticleListFragment.Article article, int position) {
+        ArticleFavoritesDetailsFragment adFragment = new ArticleFavoritesDetailsFragment(article, position);
+        getChildFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
+    }
 
     /**
      * The ViewHolder for this RecyclerView. This represents one element of the list and how it will look
@@ -104,38 +116,39 @@ public class ArticleFavoritesListFragment extends Fragment {
             super(itemView); //getting the super's View
 
             itemView.setOnClickListener(click -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage(R.string.do_u_delete + " " + articleTitle.getText())
-                        .setTitle(R.string.delete_title)
-                        .setNegativeButton(R.string.delete_no_option, (dialog, cl) -> { })
-                        .setPositiveButton(R.string.delete_yes_option, (dialog, cl) -> {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                builder.setTitle(R.string.delete_title)
+//                        .setNegativeButton(R.string.delete_no_option, (dialog, cl) -> { })
+//                        .setPositiveButton(R.string.delete_yes_option, (dialog, cl) -> {
+//
+//                            position = getAbsoluteAdapterPosition();
+//
+//                            ArticleListFragment.Article removedArticle = favArticlesList.get(position);
+//
+//                            favArticlesList.remove(position);
+//                            adapter.notifyItemRemoved(position);
+//                            db.delete(FinalOpenHelper.SOCCER_TABLE_NAME, "_id=?", new String[] {Long.toString(removedArticle.getID())});
+//
+//                            Snackbar.make(articleTitle, R.string.u_deleted + position, Snackbar.LENGTH_LONG)
+//                                    .setAction(R.string.soccer_details_snackbar_undo, clk -> {
+//                                        favArticlesList.add(position, removedArticle);
+//                                        adapter.notifyItemInserted(position);
+//
+//                                        ContentValues newRow = new ContentValues();
+//                                        newRow.put("_id", removedArticle.getID());
+//                                        newRow.put(FinalOpenHelper.TITLE_COLUMN, removedArticle.getTitle());
+//                                        newRow.put(FinalOpenHelper.DATE_COLUMN, removedArticle.getDatePublished());
+//                                        newRow.put(FinalOpenHelper.URL_COLUMN, removedArticle.getUrl());
+//                                        newRow.put(FinalOpenHelper.DESC_COLUMN, removedArticle.getDesc());
+//                                        db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
+//                                    })
+//                                    .show();
+//                        })
+//                        .create().show();
 
-                            position = getAbsoluteAdapterPosition();
+                int position = getAbsoluteAdapterPosition();
 
-                            ArticleListFragment.Article removedArticle = favArticlesList.get(position);
-
-                            favArticlesList.remove(position);
-                            adapter.notifyItemRemoved(position);
-                            String id = Long.toString(removedArticle.getID());
-                            Long ID = removedArticle.getID();
-                            db.delete(FinalOpenHelper.SOCCER_TABLE_NAME, "_id=?", new String[] {Long.toString(removedArticle.getID())});
-
-                            Snackbar.make(articleTitle, R.string.u_deleted + position, Snackbar.LENGTH_LONG)
-                                    .setAction(R.string.soccer_details_snackbar_undo, clk -> {
-                                        favArticlesList.add(position, removedArticle);
-                                        adapter.notifyItemInserted(position);
-
-                                        ContentValues newRow = new ContentValues();
-                                        newRow.put("_id", removedArticle.getID());
-                                        newRow.put(FinalOpenHelper.TITLE_COLUMN, removedArticle.getTitle());
-                                        newRow.put(FinalOpenHelper.DATE_COLUMN, removedArticle.getDatePublished());
-                                        newRow.put(FinalOpenHelper.URL_COLUMN, removedArticle.getUrl());
-                                        newRow.put(FinalOpenHelper.DESC_COLUMN, removedArticle.getDesc());
-                                        db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
-                                    })
-                                    .show();
-                        })
-                        .create().show();
+                userClickedFavTitle(favArticlesList.get(position), position);
             });
 
             articleThumb = itemView.findViewById(R.id.articleThumb); //initializing
@@ -143,7 +156,7 @@ public class ArticleFavoritesListFragment extends Fragment {
         }
 
         /**
-         * This function sets the position of the article in the onBindViewHolder
+         * This function is used to set the position of the article in the onBindViewHolder
          * @param p the int position of the article in the list
          */
         public void setPosition(int p) {
@@ -181,7 +194,8 @@ public class ArticleFavoritesListFragment extends Fragment {
          * @param parent The parent View
          * @param viewType The int view type
          * @return Returns The ViewHolder of this loaded row
-         */        @Override
+         */
+        @Override
         public FavArticleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater inflater = getLayoutInflater();
             View loadedRow = inflater.inflate(R.layout.article_row_layout, parent, false); //taking the loaded row and inflating it (takes layout xml files and converts into a View object)

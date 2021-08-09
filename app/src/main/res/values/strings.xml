@@ -28,17 +28,18 @@
     <string name="soccer_list_u_clicked_on">You chose:</string>
     <string name="soccer_list_rating_title">Please rate our app!</string>
     <string name="soccer_list_rating_done_button">DONE</string>
-    <string name="do_u_delete">Do you want to delete the artilce: </string>
-    <string name="delete_title">Delete article from Favorites </string>
+    <string name="do_u_delete">Do you want to delete the article: </string>
+    <string name="delete_title">Delete article from Favorites? </string>
     <string name="delete_no_option">No</string>
     <string name="delete_yes_option">Yes</string>
-    <string name="u_deleted">Yes</string>
+    <string name="u_deleted">You deleted article #</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="chargingIntent">Charging Stations</string>
     <string name="OCTranspoIntent">OCTranspo</string>
     <string name="MovieIntent">Movie Info</string>
     <string name="browser_button">Open in browser</string>
+    <string name="soccer_details_delete_to_fav_button">Delete from Favorites</string>
 
 
 </resources>
