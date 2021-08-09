@@ -69,20 +69,20 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/addToFavButton"
+        android:id="@+id/deleteFromFavButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:layout_marginBottom="92dp"
-        android:text="@string/soccer_details_add_to_fav_button"
+        android:text="@string/soccer_details_delete_to_fav_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/broswerButton"
+        android:id="@+id/brosweButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"

@@ -31,7 +31,7 @@
     <string name="u_deleted">Vous avez supprimé l\'article #</string>
     <string name="delete_yes_option">Oui</string>
     <string name="delete_no_option">Non</string>
-    <string name="delete_title">Supprimer l\'article des favoris</string>
+    <string name="delete_title">Supprimer l\'article des favoris?</string>
     <string name="do_u_delete">Voulez-vous supprimer l\'article :</string>
     <string name="open">Ouvert</string>
     <string name="close">Fermer</string>
@@ -39,4 +39,5 @@
     <string name="OCTranspoIntent">OCTranspo</string>
     <string name="MovieIntent">Informations sur le film</string>
     <string name="browser_button">Ouvrir dans le navigateur</string>
+    <string name="soccer_details_delete_to_fav_button">Supprimer l\'article des favoris</string>
 </resources>

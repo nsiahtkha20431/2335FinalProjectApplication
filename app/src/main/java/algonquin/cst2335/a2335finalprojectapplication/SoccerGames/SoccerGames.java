@@ -160,4 +160,14 @@ public class SoccerGames extends AppCompatActivity {
         ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
         getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
     }
+
+    /**
+     * This function opens up the details page (ArticleDetailsFragment) if one of the articles in the main RecyclerView (ArticleListFragment) was clicked
+     * @param article The String name of the article that was clicked
+     * @param position The position of the article in the RecyclerView
+     */
+    public void userClickedFavTitle(ArticleListFragment.Article article, int position) {
+        ArticleFavoritesDetailsFragment adFragment = new ArticleFavoritesDetailsFragment(article, position);
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
+    }
 }
