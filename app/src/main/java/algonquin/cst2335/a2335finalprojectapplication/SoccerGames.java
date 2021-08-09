@@ -21,10 +21,10 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.navigation.NavigationView;
 
-import algonquin.cst2335.a2335finalprojectapplication.ChargingStations.ChargingMainActivity;
+import algonquin.cst2335.a2335finalprojectapplication.ChargingStationsMain;
 import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.MovieInfo.MovieInfoActivity;
-import algonquin.cst2335.a2335finalprojectapplication.OCTranspo.OCTranspoActivity;
+import algonquin.cst2335.a2335finalprojectapplication.MovieInfoActivity;
+import algonquin.cst2335.a2335finalprojectapplication.OCTranspoActivity;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
 /**
@@ -120,7 +120,7 @@ public class SoccerGames extends AppCompatActivity {
                 break;
             case R.id.open_charging_activity:
                 charging.setOnClickListener( (click) -> {
-                    Intent chargingActivity = new Intent(SoccerGames.this, ChargingMainActivity.class);
+                    Intent chargingActivity = new Intent(SoccerGames.this, ChargingStationsMain.class);
                     startActivity(chargingActivity);
                 });
                 break;
@@ -158,7 +158,7 @@ public class SoccerGames extends AppCompatActivity {
      */
     public void userClickedTitle(String article, int position) {
         ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentHolder, adFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentPlaceHolder, adFragment).commit();
     }
 
     /**

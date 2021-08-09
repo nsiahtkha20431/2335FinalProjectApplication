@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.ContentValues;
 import android.content.Context;

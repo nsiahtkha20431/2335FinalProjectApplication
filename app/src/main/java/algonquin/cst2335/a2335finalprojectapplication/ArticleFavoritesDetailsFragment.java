@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.ContentValues;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
+import algonquin.cst2335.a2335finalprojectapplication.ArticleFavoritesDetailsFragment;
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.db;
