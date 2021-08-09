@@ -80,6 +80,7 @@ public class ArticleFavoritesDetailsFragment extends Fragment {
                 String aDate = results.getString(dateCol);
                 String aURL = results.getString(urlCol);
                 String aDesc = results.getString(descCol);
+                linkString = aURL;
 
                 titleView.setText(getString(R.string.article_is) + " " + aTitle);
                 dateView.setText(getString(R.string.date_is) + " " + aDate);
