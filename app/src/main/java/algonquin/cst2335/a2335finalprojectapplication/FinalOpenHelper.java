@@ -20,11 +20,7 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
      * General Database Details
      */
     public static final String NAME = "FinalProjectDatabase";
-    public static final int VERSION = 4;
-
-    /**
-     * OCTranspo Stop Selector Database Details
-     */
+    public static final int VERSION = 3;
     public static final String OCTRANSPO_TABLE_NAME = "BusStops";
     public static final String OCT_COL_ID = "ID";
     public static final String OCT_COL_NO = "BusStopNo";
@@ -41,6 +37,11 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
     public static final String movie_actors = "MainActors";
     public static final String movie_plot = "Plot";
     public static final String movie_poster = "PosterURL";
+    public static final String SOCCER_TABLE_NAME = "Favorites";
+    public static final String TITLE_COLUMN = "Title";
+    public static final String DATE_COLUMN = "Date";
+    public static final String URL_COLUMN = "URL";
+    public static final String DESC_COLUMN = "Description";
 
     /**
      * Electric Car Charging Station Database Details
@@ -64,20 +65,18 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE " + MOVIE_TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, " + movie_title
                 + " TEXT, " + movie_year + " INTEGER, " + movie_rating + " TEXT, " + movie_runtime + " TEXT, "
                 + movie_actors + " TEXT, " + movie_plot + " TEXT, " + movie_poster + " TEXT);");
-        //Electric Car Charging Station Table
-        db.execSQL("CREATE TABLE " + CHARGING_TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + location_name + " TEXT, "
-                + location_latitude + " TEXT, "
-                + location_longitude + " TEXT, "
-                + contact_phone_number + " TEXT);");
-
+        db.execSQL("Create table " + SOCCER_TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + TITLE_COLUMN + " TEXT,"
+                + DATE_COLUMN + " TEXT,"
+                + URL_COLUMN + " TEXT,"
+                + DESC_COLUMN + " TEXT);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + OCTRANSPO_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + MOVIE_TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + CHARGING_TABLE_NAME);
+        db.execSQL( "DROP TABLE IF EXISTS " + SOCCER_TABLE_NAME);
         onCreate(db);
     }
 }
