@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_drawer">
+
+    <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <include layout="@layout/toolbar"
         android:id="@+id/toolbar"/>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/movie_room"
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</RelativeLayout>
+    </RelativeLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_popup"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/movie_header"
+        app:menu="@menu/movie_toolbar_menu"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
