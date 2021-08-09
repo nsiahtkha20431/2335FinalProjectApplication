@@ -1,4 +1,4 @@
-package algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
+package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -32,7 +32,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import algonquin.cst2335.a2335finalprojectapplication.R;
-import algonquin.cst2335.a2335finalprojectapplication.SoccerGames.SoccerGames;
+import algonquin.cst2335.a2335finalprojectapplication.SoccerGames;
 
 /**
  * This class is the main RecyclerView that displays all the parsed article titles in a list to scroll through
