@@ -158,7 +158,7 @@ public class SoccerGames extends AppCompatActivity {
      */
     public void userClickedTitle(String article, int position) {
         ArticleDetailsFragment adFragment = new ArticleDetailsFragment(article, position);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragmentPlaceHolder, adFragment).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, adFragment).commit();
     }
 
     /**
