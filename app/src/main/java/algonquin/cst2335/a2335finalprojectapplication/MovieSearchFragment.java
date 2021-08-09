@@ -74,7 +74,7 @@ public class MovieSearchFragment extends Fragment {
                 editor.apply();
 
                 titleText_input = URLEncoder.encode(title_input.getText().toString(), "UTF-8");
-                url = "http://www.omdbapi.com/?t=" + titleText_input + "&apikey=6c9862c2";
+                url = "https://www.omdbapi.com/?t=" + titleText_input + "&apikey=6c9862c2";
                 Log.i("URL", url);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
