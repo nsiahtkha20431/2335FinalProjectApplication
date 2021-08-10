@@ -199,8 +199,6 @@ public class ArticleListFragment extends Fragment {
 
             itemView.setOnClickListener(click -> {
                 int position = getAbsoluteAdapterPosition();
-                Toast.makeText(getContext(), getString(R.string.soccer_list_u_clicked_on) + " " + articleTitlesList.get(position), Toast.LENGTH_SHORT).show();
-
                 SoccerGames parentActivity = (SoccerGames)getContext();
                 parentActivity.userClickedTitle(articleTitlesList.get(position), position);
             });

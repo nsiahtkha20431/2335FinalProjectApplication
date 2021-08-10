@@ -61,7 +61,7 @@ public class ArticleFavoritesDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View articleFavDetailsLayout = inflater.inflate(R.layout.soccer_fav_details_layout, container, false);
 
-        TextView titleView = articleFavDetailsLayout.findViewById(R.id.titleView);
+        TextView titleView = articleFavDetailsLayout.findViewById(R.id.favTitleView);
         TextView dateView = articleFavDetailsLayout.findViewById(R.id.dateView);
         TextView urlView = articleFavDetailsLayout.findViewById(R.id.urlView);
         TextView descriptionView = articleFavDetailsLayout.findViewById(R.id.descriptionView);
@@ -121,7 +121,7 @@ public class ArticleFavoritesDetailsFragment extends Fragment {
 
                         db.delete(FinalOpenHelper.SOCCER_TABLE_NAME, "_id=?", new String[] {Long.toString(removedArticle.getID())});
 
-                        Snackbar.make(titleView, R.string.u_deleted  + " " + chosenPosition, Snackbar.LENGTH_LONG)
+                        Snackbar.make(titleView, getString(R.string.u_deleted), Snackbar.LENGTH_LONG)
                                 .setAction(R.string.soccer_details_snackbar_undo, clk -> {
                                     this.parentFragment.favArticlesList.add(chosenPosition, removedArticle);
                                     this.parentFragment.notifyItemInserted(chosenPosition);

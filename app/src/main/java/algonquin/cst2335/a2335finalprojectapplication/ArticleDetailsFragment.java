@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -136,6 +137,7 @@ public class ArticleDetailsFragment extends Fragment {
             newRow.put(FinalOpenHelper.DESC_COLUMN, article.getDesc());
             long newID = db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
             article.setID(newID);
+            Toast.makeText(getContext(), getString(R.string.u_added) + " " + chosenArticle + " " + getString(R.string.to_ur_favs), Toast.LENGTH_SHORT).show();
         });
 
         browserButton.setOnClickListener( (clicked) -> {
