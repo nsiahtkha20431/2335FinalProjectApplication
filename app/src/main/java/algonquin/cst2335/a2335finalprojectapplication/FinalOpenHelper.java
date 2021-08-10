@@ -20,7 +20,7 @@ public class FinalOpenHelper extends SQLiteOpenHelper {
      * General Database Details
      */
     public static final String NAME = "FinalProjectDatabase";
-    public static final int VERSION = 3;
+    public static final int VERSION = 4;
     public static final String OCTRANSPO_TABLE_NAME = "BusStops";
     public static final String OCT_COL_ID = "ID";
     public static final String OCT_COL_NO = "BusStopNo";
