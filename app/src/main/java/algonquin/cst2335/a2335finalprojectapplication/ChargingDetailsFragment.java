@@ -16,6 +16,12 @@ public class ChargingDetailsFragment extends Fragment {
     String chosenLocation;
     int chosenPosition;
 
+    /**
+     * Constructor for the class that extends fragment
+     * Gets the location and position
+     * @param location
+     * @param position
+     */
     public ChargingDetailsFragment (String location, int position) {
         chosenLocation = location;
         chosenPosition = position;
@@ -24,12 +30,6 @@ public class ChargingDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View detailsView = inflater.inflate(R.layout.charging_fragment_details, container, false);
-//        TextView locationName = detailsView.findViewById(R.id.locationName);
-//        TextView longitude = detailsView.findViewById(R.id.longitudeText);
-//        TextView latitude = detailsView.findViewById(R.id.latitudeText);
-//        TextView phoneNumber = detailsView.findViewById(R.id.phoneText);
-        Button load = detailsView.findViewById(R.id.directionsButton);
-        Button favourites = detailsView.findViewById(R.id.favouritesButton);
         Button back = detailsView.findViewById(R.id.stationBackButton);
 
 

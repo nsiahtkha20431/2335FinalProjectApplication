@@ -2,6 +2,7 @@ package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.snackbar.Snackbar;
 
 public class ChargingSecondPage extends AppCompatActivity {
 
@@ -50,12 +53,19 @@ public class ChargingSecondPage extends AppCompatActivity {
         tx.commit();
     }
 
+    /**
+     * When the user clicks a row, the following information will be displayed on another page: Station Name, Latitude, Longitude, and Phone Number
+     * @param location
+     * @param position
+     */
+
     public void userClickedMessage(ChargingStationFragment.ChargingStation location, int position) {
         Intent chargingThirdPage = new Intent(ChargingSecondPage.this, ChargingThirdPage.class);
         chargingThirdPage.putExtra("StationName", location.getLocationTitle());
         chargingThirdPage.putExtra("Latitude", location.getLatitude());
         chargingThirdPage.putExtra("Longitude", location.getLongitude());
         chargingThirdPage.putExtra("Phone", location.getContactPhone());
+
         startActivity(chargingThirdPage);
 
 
