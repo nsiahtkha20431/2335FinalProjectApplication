@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/temp" />
 
     <TextView
-        android:id="@+id/titleView"
+        android:id="@+id/favTitleView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -34,8 +34,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Date view"
-        app:layout_constraintStart_toStartOf="@+id/titleView"
-        app:layout_constraintTop_toBottomOf="@+id/titleView" />
+        app:layout_constraintStart_toStartOf="@+id/favTitleView"
+        app:layout_constraintTop_toBottomOf="@+id/favTitleView" />
 
     <TextView
         android:id="@+id/urlView"
