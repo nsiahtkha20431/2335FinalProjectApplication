@@ -36,7 +36,9 @@
     <string name="delete_title">Delete article from Favorites? </string>
     <string name="delete_no_option">No</string>
     <string name="delete_yes_option">Yes</string>
-    <string name="u_deleted">You deleted article #</string>
+    <string name="u_deleted">You deleted this article from your Favorites</string>
+    <string name="u_added">You added</string>
+    <string name="to_ur_favs">to your Favorites</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="chargingIntent">Charging Stations</string>
