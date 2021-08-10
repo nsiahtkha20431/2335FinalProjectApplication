@@ -136,7 +136,6 @@ public class ChargingStationsMain extends AppCompatActivity {
     /**
      * The purpose of this method is to direct the program when a user selects an item from the menu
      * It will give instructions on how and what to do if a certain option is selected
-     *
      * @param item
      * @return
      */
