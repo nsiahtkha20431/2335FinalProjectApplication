@@ -25,9 +25,12 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.db;
 
 public class ArticleFavoritesDetailsFragment extends Fragment {
-    ArticleFavoritesListFragment parentFragment;
-    ArticleListFragment.Article currentArticle;
 
+    /** The parent fragment of this class which is the list of favorites */
+    ArticleFavoritesListFragment parentFragment;
+
+    /** An instance of the Article object article to manipulate in this class */
+    ArticleListFragment.Article currentArticle;
 
     /** The Article-type article that was selected */
     ArticleListFragment.Article chosenFavArticle;
@@ -48,6 +51,13 @@ public class ArticleFavoritesDetailsFragment extends Fragment {
         chosenPosition = position;
     }
 
+    /**
+     * The onCreateView for this fragment. Inflates the View, sets all the TextViews and Buttons, creates a new thread to parse all the information from the RSS feed and displays it, tells the app what to do when the buttons are clicked
+     * @param inflater The layout that we want to inflate in this fragment
+     * @param container The parent view that this fragment is attached to
+     * @param savedInstanceState The previous saved state
+     * @return Returns the Fragment view with the details displayed
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View articleFavDetailsLayout = inflater.inflate(R.layout.soccer_fav_details_layout, container, false);
 
@@ -111,11 +121,6 @@ public class ArticleFavoritesDetailsFragment extends Fragment {
 
                         db.delete(FinalOpenHelper.SOCCER_TABLE_NAME, "_id=?", new String[] {Long.toString(removedArticle.getID())});
 
-//                        TextView  = chosenFavArticle.getTitle();
-
-//                        TextView articleTitle = articleFavDetailsLayout.findViewById(R.id.articleTitle); //initializing
-
-
                         Snackbar.make(titleView, R.string.u_deleted  + " " + chosenPosition, Snackbar.LENGTH_LONG)
                                 .setAction(R.string.soccer_details_snackbar_undo, clk -> {
                                     this.parentFragment.favArticlesList.add(chosenPosition, removedArticle);
@@ -137,7 +142,6 @@ public class ArticleFavoritesDetailsFragment extends Fragment {
         browserButton.setOnClickListener( (clicked) -> {
             Uri openInBrowser = Uri.parse(linkString);
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, openInBrowser);
-//            browserIntent.setPackage("com.google.android.apps.maps");
             startActivity(browserIntent);
         });
 
