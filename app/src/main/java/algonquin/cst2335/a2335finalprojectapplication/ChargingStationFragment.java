@@ -36,6 +36,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
+
 public class ChargingStationFragment extends Fragment {
 
     /**
@@ -47,6 +48,12 @@ public class ChargingStationFragment extends Fragment {
     String stringURL;
     String latitude;
     String longitude;
+
+    /**
+     * Constructor for getting the latitude and longitude
+     * @param latitude
+     * @param longitude
+     */
 
     public ChargingStationFragment(String latitude, String longitude) {
         this.latitude = latitude;
@@ -245,12 +252,23 @@ public class ChargingStationFragment extends Fragment {
         }
     }
 
+    /**
+     * This class will be used strictly to get all the information that will be passed onto the third page
+     * There are getters that will take information from here and give it to the next page
+     */
     class ChargingStation {
         String locationTitle;
         String longitude;
         String latitude;
         String contactPhone;
 
+        /**
+         * Constructor for the Charging Station class
+         * @param locationTitle
+         * @param latitude
+         * @param longitude
+         * @param contactPhone
+         */
         public ChargingStation(String locationTitle, String latitude, String longitude, String contactPhone) {
             this.locationTitle = locationTitle;
             this.longitude = longitude;
@@ -258,6 +276,10 @@ public class ChargingStationFragment extends Fragment {
             this.contactPhone = contactPhone;
         }
 
+        /**
+         * Getters for Locaiton, Longitude, Latitude, and Phone Number
+         * @return
+         */
         String getLocationTitle() {
             return this.locationTitle;
         }

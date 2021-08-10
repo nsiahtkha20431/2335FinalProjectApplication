@@ -101,7 +101,7 @@
 
     <!-- Electric Car Charging -->
     <string name="electric_car_button">Electric Car Charging Stations</string>
-
+    <string name="charging_nav_header">Charging Stsations \nAuthor: Aparna Tiwari \nVersion: 1.0</string>
     <string name="charging_phone_number">Phone Number</string>
     <string name="charging_location_name">Location Name :</string>
     <string name="charging_latitude_coord">Latitude:</string>
