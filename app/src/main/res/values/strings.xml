@@ -3,8 +3,8 @@
     <string name="app_name">2335 Final Project Application</string>
     <string name="main_header">CST2335 Final Project Application</string>
     <string name="author_text" translatable="false">Created by:\nAparna Tiwari\nEmma McArthur\nNishat Khan\nRaphael Leblanc</string>
-    <string name="open" translatable="false">Open Menu</string>
-    <string name="close" translatable="false">Close Menu</string>
+    <string name="open_menu" translatable="false">Open Menu</string>
+    <string name="close_menu" translatable="false">Close Menu</string>
 
     <!-- OC Transpo -->
     <string name="oc_transpo_header">OCTranspo Stop Selector</string>
@@ -16,6 +16,34 @@
     <string name="add_stop_close">Close</string>
     <string name="back_button">Back</string>
     <string name="delete_button">Delete</string>
+    <string name="soccer_list_article_title">Article Title</string>
+    <string name="help_dialog_title">How to use the app</string>
+    <string name="help_dialog">This app allows you to search through a list of articles on news in professional soccer. Click the article to read the description and open the article in your browser. There is also an option to save the article to your Favorites. you can alternate between your Favorites list and the rest of the articles. You can also remove an article from your Favorites.</string>
+    <string name="help_dialog_got_it">Got it!</string>
+    <string name="article_is">Article: </string>
+    <string name="date_is">Date: </string>
+    <string name="description_is">"Description: "</string>
+    <string name="url_is">url: </string>
+    <string name="soccer_details_back_button">Back</string>
+    <string name="soccer_details_add_to_fav_button">Add to favorites</string>
+    <string name="soccer_details_delete_from_fav_button">Delete from favorites</string>
+    <string name="soccer_details_snackbar_udeleted">You deleted:</string>
+    <string name="soccer_details_snackbar_undo">UNDO</string>
+    <string name="soccer_list_u_clicked_on">You chose:</string>
+    <string name="soccer_list_rating_title">Please rate our app!</string>
+    <string name="soccer_list_rating_done_button">DONE</string>
+    <string name="do_u_delete">Do you want to delete the article: </string>
+    <string name="delete_title">Delete article from Favorites? </string>
+    <string name="delete_no_option">No</string>
+    <string name="delete_yes_option">Yes</string>
+    <string name="u_deleted">You deleted article #</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="chargingIntent">Charging Stations</string>
+    <string name="OCTranspoIntent">OCTranspo</string>
+    <string name="MovieIntent">Movie Info</string>
+    <string name="browser_button">Open in browser</string>
+    <string name="soccer_details_delete_to_fav_button">Delete from Favorites</string>
 
     <string name="refresh_button">Refresh</string>
     <string name="destination_label">Destination</string>
@@ -87,4 +115,5 @@
     <string name="charging_go_button">Go</string>
     <string name="charging_popout_header">Menu</string>
     <string name="charging_check_another_button">Check Another Location</string>
+
 </resources>

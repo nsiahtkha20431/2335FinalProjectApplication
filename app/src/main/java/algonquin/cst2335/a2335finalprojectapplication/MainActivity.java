@@ -15,9 +15,33 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ *  Main Activity for CST2335 Final Project Application.
+ *
+ *  This application contains four activities selected through a toolbar or navigation menu.
+ *  OCTranspo Stop Selector allows users to track live OCTranspo Bus Routes by stop number.
+ *  Electric Car Charging Stations allows users to search for charging stations based on their GPS
+ *  coordinates.
+ *  Movie Information allows users to look up information about movies by title.
+ *  Soccer Games allows users to download and store news articles about soccer.
+ *
+ *  Written for CST2335 Mobile Graphical Interface Programming Final Project
+ *  Algonquin College
+ *  August 8th, 2021
+ *
+ *  @author Aparna Tiwari, Emma McArthur, Nishat Khan, Raphael Leblanc
+ */
 
 public class MainActivity extends AppCompatActivity {
+
+    /**
+     * Instance of custom SQLiteOpenHelper class for managing application database
+     */
     public static FinalOpenHelper opener;
+
+    /**
+     * Application database
+     */
     public static SQLiteDatabase db;
 
     @Override
@@ -30,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         opener = new FinalOpenHelper(this);
         db = opener.getWritableDatabase();
 
-
         Toolbar toolbar = findViewById(R.id.toolbar2);
         setSupportActionBar(toolbar);
 
@@ -38,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.open, R.string.close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         NavigationView navigation = findViewById(R.id.nav_view);
         navigation.setNavigationItemSelectedListener((item) -> {
             onOptionsItemSelected(item);

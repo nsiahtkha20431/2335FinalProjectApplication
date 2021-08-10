@@ -12,6 +12,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import algonquin.cst2335.a2335finalprojectapplication.R;
 
+
 public class ChargingThirdPage extends AppCompatActivity {
 
     @Override
