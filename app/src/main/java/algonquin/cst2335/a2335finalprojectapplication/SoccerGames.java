@@ -34,13 +34,13 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
  */
 public class SoccerGames extends AppCompatActivity {
 
-    /**  */
+    /** Instance of the ArticleListFragment used for this class */
     ArticleListFragment articleFragment = new ArticleListFragment();
 
-    /**  */
+    /** Instance of the ArticleFavoritesListFragment used for this class */
     ArticleFavoritesListFragment favFrag = new ArticleFavoritesListFragment();
 
-    /**  */
+    /** Context object to use for this class */
     private static Context context;
 
     /**
