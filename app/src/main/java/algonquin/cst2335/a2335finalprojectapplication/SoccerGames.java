@@ -95,9 +95,6 @@ public class SoccerGames extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Button charging = findViewById(R.id.open_charging_activity);
-        Button octranspo = findViewById(R.id.open_OCT_activity);
-        Button movie = findViewById(R.id.open_movie_activity);
 
         switch (item.getItemId()) {
             case R.id.help_icon:
@@ -118,23 +115,17 @@ public class SoccerGames extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction().add(R.id.fragmentRoom, favFrag).commit();
                 }
                 break;
-            case R.id.open_charging_activity:
-                charging.setOnClickListener( (click) -> {
+            case R.id.ic_electric:
                     Intent chargingActivity = new Intent(SoccerGames.this, ChargingStationsMain.class);
                     startActivity(chargingActivity);
-                });
                 break;
-            case R.id.open_OCT_activity:
-                octranspo.setOnClickListener( (click) -> {
+            case R.id.ic_ocTranspo:
                     Intent ocTranspoActivity = new Intent(SoccerGames.this, OCTranspoActivity.class);
                     startActivity(ocTranspoActivity);
-                });
                 break;
-            case R.id.open_movie_activity:
-                movie.setOnClickListener( (click) -> {
+            case R.id.ic_movie:
                     Intent movieActivity = new Intent(SoccerGames.this, MovieInfoActivity.class);
                     startActivity(movieActivity);
-                });
                 break;
         }
 
