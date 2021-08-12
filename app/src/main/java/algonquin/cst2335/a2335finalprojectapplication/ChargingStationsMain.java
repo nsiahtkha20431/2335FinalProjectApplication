@@ -22,6 +22,9 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
+/**
+ * this class provides functionality to the first page
+ */
 public class ChargingStationsMain extends AppCompatActivity {
     private static Context context;
     SharedPreferences prefs;
