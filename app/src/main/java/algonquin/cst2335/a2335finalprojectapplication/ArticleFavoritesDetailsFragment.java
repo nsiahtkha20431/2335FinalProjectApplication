@@ -24,6 +24,10 @@ import algonquin.cst2335.a2335finalprojectapplication.R;
 
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.db;
 
+/** This class shows the details of any selected article from the Favorites list
+ * @author Nishat Khan
+ * @version 1.0
+ */
 public class ArticleFavoritesDetailsFragment extends Fragment {
 
     /** The parent fragment of this class which is the list of favorites */
