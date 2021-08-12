@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- General -->
     <string name="app_name">2335 Final Project Application</string>
+    <string name="author_text">Créé par: Aparna Tiwari, Emma McArthur , Nishat Khan, Raphael Leblanc</string>
+
+    <!-- Soccer -->
     <string name="soccer_list_rating_done_button">FINI</string>
     <string name="soccer_list_rating_title">" Évaluer notre application"</string>
     <string name="soccer_list_u_clicked_on">" Tu choisis:"</string>
@@ -16,17 +21,22 @@
     <string name="help_dialog">"Cette application vous permet de rechercher dans une liste d'articles sur l'actualité du football professionnel. Cliquez sur l'article pour lire la description et ouvrez l'article dans votre navigateur. Il existe également une option pour enregistrer l'article dans vos favoris. vous pouvez alterner entre votre liste de favoris et le reste des articles. Vous pouvez également supprimer un article de vos favoris. "</string>
     <string name="help_dialog_title">" Comment utiliser l'application"</string>
     <string name="soccer_list_article_title">"Titre"</string>
+    <string name="browser_button">Ouvrir dans le navigateur</string>
+    <string name="soccer_details_delete_to_fav_button">Supprimer l\'article des favoris</string>
+    <string name="u_added">Vous avez ajouté</string>
+    <string name="to_ur_favs">à vos Favoris</string>
+
+    <!-- OCTranspo -->
     <string name="delete_button">Supprimer</string>
-    <string name="back_button">" Retourner"</string>
-    <string name="add_stop_close">" Fermer"</string>
-    <string name="add_stop_button">Additionner</string>
-    <string name="add_stop_header">Entrer le # d\\\'arret et appuyer sur Additionner</string>
-    <string name="oc_transpo_header">Selecteur d\\\'arret d\\\'autobus OCTranspo</string>
+    <string name="back_button">Retourner</string>
+    <string name="add_stop_close">Fermer</string>
+    <string name="add_stop_button">Ajouter</string>
+    <string name="add_stop_header">Entrer le # d\'arrêt et appuyer sur \'Ajouter\'</string>
+    <string name="oc_transpo_header">Selecteur d\'arrêts OCTranspo</string>
     <string name="soccer_button">Jeux de Soccer</string>
     <string name="movie_info_button">Information de films</string>
     <string name="electric_car_button">Station de Charge de Vehicule Electrique</string>
-    <string name="oc_transpo_button">OCTranspo</string>
-    <string name="main_header">Bienvenue au Projet Finale de Aparna, Emma, Nishat et Raphael!</string>
+    <string name="main_header">CST2335 Final Project Application</string>
     <string name="date_is">"Date: "</string>
     <string name="u_deleted">Vous avez supprimé l\'article #</string>
     <string name="delete_yes_option">Oui</string>
@@ -35,11 +45,40 @@
     <string name="do_u_delete">Voulez-vous supprimer l\'article :</string>
     <string name="open">Ouvert</string>
     <string name="close">Fermer</string>
-    <string name="chargingIntent">" Stations de charge"</string>
-    <string name="OCTranspoIntent">OCTranspo</string>
-    <string name="MovieIntent">Informations sur le film</string>
-    <string name="browser_button">Ouvrir dans le navigateur</string>
-    <string name="soccer_details_delete_to_fav_button">Supprimer l\'article des favoris</string>
-    <string name="u_added">Vous avez ajouté</string>
-    <string name="to_ur_favs">à vos Favoris</string>
+    <string name="add_stop_hint">Entrez le numéro d\'arrêt</string>
+    <string name="refresh_button">Rafraîchir</string>
+    <string name="destination_label">Destination</string>
+    <string name="undo">ANNULER</string>
+    <string name="snackbar_added">L\'arrêt #%s a été ajouté.</string>
+    <string name="snackbar_deleted">L\'arrêt #%s a été supprimé.</string>
+    <string name="route_label">Route</string>
+    <string name="rt_label">Route:</string>
+    <string name="stop_label">Arrêt:</string>
+    <string name="dest_label">Destination:</string>
+    <string name="current_position">"Position actuelle: "</string>
+    <string name="speed">km/h</string>
+    <string name="arrival_label">Heure d\'arrivée</string>
+    <string name="start_label">Heure de début</string>
+    <string name="next_trips_label">Prochaines voyages</string>
+    <string name="trips_arrival_label">Arrivée</string>
+    <string name="trips_start_label">Heure de début</string>
+    <string name="trips_age_label">Mise à jour</string>
+    <string name="trips_last_label">Dernier?</string>
+    <string name="no_trips">Aucun voyage à afficher</string>
+    <string name="menu_add_stop">Ajouter arrêt</string>
+    <string name="menu_help">Aide</string>
+    <string name="help">Le sélecteur d\'arrêts  OC Transpo affiche en direct les données relatives aux arrêts et aux itinéraires provenant du serveur d\'OCTranspo.  Sélectionnez un numéro d\'arrêt pour afficher les itinéraires d\'autobus entrants.   Sélectionnez un numéro d\'itinéraire pour afficher les détails de l\'itinéraire et les trajets à venir.   Pour ajouter un arrêt à votre liste, sélectionnez le signe plus dans la barre d\'outils ou \" Ajouter arrêt \" dans le menu de navigation.</string>
+    <string name="menu_close">Sortir</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="oct_api_error">"Erreur d'API: Veuillez réessayer. "</string>
+    <string name="oct_stop_error">Erreur: Numéro d\'arrêt invalide.</string>
+    <string name="oct_default_error">"Erreur: Veuillez réessayer. "</string>
+    <string name="oct_alert_title">Attention</string>
+    <string name="oct_alert_message_empty">Veuillez entrer un numéro d\'arrêt à ajouter à votre liste!</string>
+    <string name="oct_alert_message_invalid">Les numéros d\'arrêt ne doivent contenir que des chiffres!</string>
+    <string name="oct_loading_title">"Chargement "</string>
+    <string name="oct_stop_loading_message">Chargement des données d\'arrêt...</string>
+    <string name="oct_route_loading_message">Chargement des données de route...</string>
+
 </resources>

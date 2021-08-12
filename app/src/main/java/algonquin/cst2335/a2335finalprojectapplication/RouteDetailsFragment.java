@@ -1,11 +1,13 @@
 package algonquin.cst2335.a2335finalprojectapplication;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -45,14 +47,19 @@ import java.util.stream.Collectors;
 public class RouteDetailsFragment extends Fragment {
 
     /**
-     * Stop number to display trip data for
+     * Stop number to display trip data for.
      */
-    private int stop;
+    private String stop;
 
     /**
-     * Route number to display trip data for
+     * Route number to display trip data for.
      */
-    private int route;
+    private String route;
+
+    /**
+     * Direction ID for stops that are serviced by both directions of a route.
+     */
+    private String direction;
 
     /**
      * Holds the completed url to access server data for route and stop numbers.
@@ -64,9 +71,10 @@ public class RouteDetailsFragment extends Fragment {
      * @param stop bus stop number to show trip data for
      * @param route bus route number to show trip data for
      */
-    public RouteDetailsFragment(int stop, int route) {
+    public RouteDetailsFragment(String stop, String route, String direction) {
         this.stop = stop;
         this.route = route;
+        this.direction = direction;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -128,7 +136,11 @@ public class RouteDetailsFragment extends Fragment {
                 String stopDesc = stopData.getString("StopLabel");
                 String error = stopData.getString("Error");
                 JSONObject routeObject = stopData.getJSONObject("Route");
-                JSONObject routeData = routeObject.getJSONObject("RouteDirection");
+                JSONObject routeData = routeObject.optJSONObject("RouteDirection");
+                if (routeData == null) {
+                    JSONArray routeDataArray = routeObject.getJSONArray("RouteDirection");
+                    routeData = (JSONObject) routeDataArray.get(Integer.parseInt(direction));
+                }
                 String routeNumber = routeData.getString("RouteNo");
                 if (!routeNumber.equals("")) {
                     String routeDest = routeData.getString("RouteLabel");
@@ -219,7 +231,7 @@ public class RouteDetailsFragment extends Fragment {
         Button rfrsh = routeDetailsView.findViewById(R.id.refreshButton);
         rfrsh.setOnClickListener( clk -> {
             getParentFragmentManager().popBackStack();
-            parent.routeSelected(stop, route);
+            parent.routeSelected(stop, route, direction);
         });
 
         Button back = routeDetailsView.findViewById(R.id.rtBackButton);
