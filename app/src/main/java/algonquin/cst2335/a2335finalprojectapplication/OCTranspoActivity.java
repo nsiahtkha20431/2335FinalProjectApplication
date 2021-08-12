@@ -106,14 +106,13 @@ public class OCTranspoActivity extends AppCompatActivity {
      */
     public void addStop(String stop, String description) {
         ContentValues newStop = new ContentValues();
-        String message = getResources().getString(R.string.snackbar_start)
-                + stop + getResources().getString(R.string.snackbar_added);
+        String message = getResources().getString(R.string.snackbar_added, stop);
         newStop.put(FinalOpenHelper.OCT_COL_NO, stop);
         newStop.put(FinalOpenHelper.OCT_COL_DESC, description);
         MainActivity.db.insert(FinalOpenHelper.OCTRANSPO_TABLE_NAME, FinalOpenHelper.OCT_COL_NO, newStop);
         Snackbar.make(findViewById(R.id.listFrag), message, Snackbar.LENGTH_SHORT)
                 .setAction(getResources().getString(R.string.undo), click -> {
-                    deleteStop(Integer.parseInt(stop), description);
+                    deleteStop(stop, description);
                 }).show();
     }
 
@@ -121,7 +120,7 @@ public class OCTranspoActivity extends AppCompatActivity {
      * Inflates new StopDetailsFragment
      * @param stopNo the stop number to display details for
      */
-    public void stopSelected(int stopNo) {
+    public void stopSelected(String stopNo) {
         StopDetailsFragment newFrag = new StopDetailsFragment(stopNo);
         getSupportFragmentManager().beginTransaction().replace(R.id.listFrag, newFrag, "detail").addToBackStack(null).commit();
     }
@@ -131,10 +130,9 @@ public class OCTranspoActivity extends AppCompatActivity {
      * @param stopNo the stop number to be deleted from the database and stored in Shared Preferences
      * @param description the stop description to be stored in Shared Preferences
      */
-    public void deleteStop(int stopNo, String description) {
+    public void deleteStop(String stopNo, String description) {
         String where = FinalOpenHelper.OCT_COL_NO + " = " + stopNo;
-        String message = getResources().getString(R.string.snackbar_start)
-                + stopNo + getResources().getString(R.string.snackbar_deleted);
+        String message = getResources().getString(R.string.snackbar_deleted, stopNo);
         MainActivity.db.delete(FinalOpenHelper.OCTRANSPO_TABLE_NAME, where, null);
         prefs.edit().putString("deleted_stop", String.valueOf(stopNo)).apply();
         prefs.edit().putString("deleted_stop_desc", description).apply();
@@ -160,8 +158,8 @@ public class OCTranspoActivity extends AppCompatActivity {
      * @param stop stop number to show route details for
      * @param route route number to show route details for
      */
-    public void routeSelected(int stop, int route) {
-        RouteDetailsFragment newFrag = new RouteDetailsFragment(stop, route);
+    public void routeSelected(String stop, String route, String direction) {
+        RouteDetailsFragment newFrag = new RouteDetailsFragment(stop, route, direction);
         getSupportFragmentManager().beginTransaction().replace(R.id.listFrag, newFrag, "rdetail").addToBackStack(null).commit();
     }
 

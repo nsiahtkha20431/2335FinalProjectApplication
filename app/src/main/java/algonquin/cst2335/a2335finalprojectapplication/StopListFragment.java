@@ -45,7 +45,8 @@ public class StopListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View stopListLayout = inflater.inflate(R.layout.stop_list_layout, container,false);
         stopList = stopListLayout.findViewById(R.id.stopRecycler);
-        initializeArray();
+        busStops = new ArrayList<>();
+        fillArray();
         stopList.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         adptr = new StopListAdapter(busStops, getContext());
         stopList.setAdapter(adptr);
@@ -55,14 +56,16 @@ public class StopListFragment extends Fragment {
     /**
      * Adds stop data from database to busStops array to be loaded in the RecyclerView.
      */
-    private void initializeArray() {
-        busStops = new ArrayList<>();
+    private void fillArray() {
+        if (!busStops.isEmpty()) {
+            busStops.clear();
+        }
         Cursor results = MainActivity.db.rawQuery("Select * from " + FinalOpenHelper.OCTRANSPO_TABLE_NAME + ";", null);
 
         int ctr = 0;
         while (results.moveToNext()) {
             busStops.add(new ArrayList<>());
-            busStops.get(ctr).add(String.valueOf(results.getInt(results.getColumnIndex(FinalOpenHelper.OCT_COL_NO))));
+            busStops.get(ctr).add(String.valueOf(results.getInt(results.getColumnIndex(FinalOpenHelper.OCT_COL_NO))).trim());
             busStops.get(ctr).add(results.getString(results.getColumnIndex(FinalOpenHelper.OCT_COL_DESC)));
             ctr++;
         }
@@ -73,7 +76,7 @@ public class StopListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        initializeArray();
+        fillArray();
         updateList();
     }
 
@@ -81,7 +84,7 @@ public class StopListFragment extends Fragment {
      * Reloads stop data from database into RecyclerView.
      */
     private void updateList() {
-        initializeArray();
+        fillArray();
         adptr = new StopListAdapter(busStops, getContext());
         stopList.setAdapter(adptr);
     }
@@ -158,7 +161,7 @@ public class StopListFragment extends Fragment {
             stopDescription = view.findViewById(R.id.listDescription);
 
             view.setOnClickListener( clk -> {
-                int stopNo = Integer.parseInt(stopNumber.getText().toString());
+                String stopNo = stopNumber.getText().toString().trim();
                 OCTranspoActivity parent = (OCTranspoActivity) getContext();
                 parent.stopSelected(stopNo);
             });

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -54,7 +55,7 @@ public class StopDetailsFragment extends Fragment {
     /**
      * Stop Number to display
      */
-    private int stopNo;
+    private String stopNo;
 
     /**
      * Stores parent activity context
@@ -64,27 +65,28 @@ public class StopDetailsFragment extends Fragment {
     /**
      * No argument constructor sets stopNo to -1, triggering the Add Stop Layout
      */
-    public StopDetailsFragment() { this.stopNo = -1; }
+    public StopDetailsFragment() { this.stopNo = "-1"; }
 
     /**
      * Constructor sets the stopNo, triggering the Stop Details Layout.
      * @param stopNo stop number to be displayed
      */
-    public StopDetailsFragment(int stopNo) {
+    public StopDetailsFragment(String stopNo) {
         this.stopNo = stopNo;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         parent = (OCTranspoActivity) getContext();
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+
         SharedPreferences prefs = getActivity().getSharedPreferences("OCT_Data", Context.MODE_PRIVATE);
         View detailsView;
         String stopUrl = "https://api.octranspo1.com/v2.0/GetRouteSummaryForStop?appID=" + parent.getAppId()
                 + "&apiKey=" + parent.getApiKey() + "&stopNo=";
 
-        if (stopNo == -1) { //if "Add new" selected, inflate Add Stop Layout
+        if (stopNo == "-1") { //if "Add new" selected, inflate Add Stop Layout
             detailsView = inflater.inflate(R.layout.add_stop_layout, container, false);
             EditText stopNumber = detailsView.findViewById(R.id.addStopNumber);
             String savedStop = prefs.getString("saved_stop", "");
@@ -93,10 +95,11 @@ public class StopDetailsFragment extends Fragment {
             // Add Stop Click Listener
             Button addStop = detailsView.findViewById(R.id.addStopButton);
             addStop.setOnClickListener(clk -> {
+                String stop = stopNumber.getText().toString().trim();
                 // If stop number was entered continue to search, else show error alert
-                if (stopNumber.getText().toString().length() > 0) {
+                if (stop.length() > 0 && !stop.matches("[^0-9]")) {
                     // Save stop number entered to Shared Preferences
-                    String stop = stopNumber.getText().toString();
+
                     prefs.edit().putString("saved_stop", stop).apply();
                     // Pull stop data from server
                     try {
@@ -143,16 +146,26 @@ public class StopDetailsFragment extends Fragment {
                     }
                 } else { // Alert if Stop Number was left empty
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    String message = null;
+                    if (stop.length() == 0) {
+                        message = getResources().getString(R.string.oct_alert_message_empty);
+                    } else {
+                        message = getResources().getString(R.string.oct_alert_message_invalid);
+                    }
                     builder.setTitle(getResources().getString(R.string.oct_alert_title))
-                            .setMessage(getResources().getString(R.string.oct_alert_message))
+                            .setMessage(message)
                             .setPositiveButton("OK", (dialog, which) -> dialog.cancel());
                     AlertDialog alert = builder.create();
                     alert.show();
                 }
+                imm.hideSoftInputFromWindow(parent.getCurrentFocus().getWindowToken(), 0);
             });
             // Close Add Stop fragment
             Button closeFrag = detailsView.findViewById(R.id.addStopButtonClose);
-            closeFrag.setOnClickListener(clk -> getParentFragmentManager().popBackStackImmediate());
+            closeFrag.setOnClickListener(clk -> {
+                imm.hideSoftInputFromWindow(parent.getCurrentFocus().getWindowToken(), 0);
+                getParentFragmentManager().popBackStackImmediate();
+            });
 
         } else { // Otherwise inflate the Stop Details layout for the selected stop
             //inflate stop detail layout
@@ -190,6 +203,7 @@ public class StopDetailsFragment extends Fragment {
                                 routes.add(new ArrayList<>());
                                 routes.get(0).add(routeObject.getString("RouteNo"));
                                 routes.get(0).add(routeObject.getString("RouteHeading"));
+                                routes.get(0).add(routeObject.getString("DirectionID"));
                             }
                         } else {
                             for (int i = 0; i < routeArray.length(); i++) {
@@ -197,6 +211,7 @@ public class StopDetailsFragment extends Fragment {
                                 routes.add(new ArrayList<>());
                                 routes.get(i).add(routeObject.getString("RouteNo"));
                                 routes.get(i).add(routeObject.getString("RouteHeading"));
+                                routes.get(i).add(routeObject.getString("DirectionID"));
                             }
 
                         }
@@ -270,6 +285,7 @@ public class StopDetailsFragment extends Fragment {
             if (position < routeData.size()) {
                 holder.routeNumber.setText(routeData.get(position).get(0));
                 holder.routeDescription.setText(routeData.get(position).get(1));
+                holder.direction = routeData.get(position).get(2);
             }
         }
 
@@ -295,6 +311,11 @@ public class StopDetailsFragment extends Fragment {
         public TextView routeDescription;
 
         /**
+         * String to hold DirectionID
+         */
+        private String direction;
+
+        /**
          * Creates new RouteViewHolder with initialized values
          * @param view
          */
@@ -304,9 +325,9 @@ public class StopDetailsFragment extends Fragment {
             routeDescription = view.findViewById(R.id.listDescription);
 
             view.setOnClickListener( clk -> {
-                int routeNo = Integer.parseInt(routeNumber.getText().toString());
+                String routeNo = routeNumber.getText().toString();
                 OCTranspoActivity parent = (OCTranspoActivity) getContext();
-                parent.routeSelected(stopNo, routeNo);
+                parent.routeSelected(stopNo, routeNo, direction);
             });
         }
 
