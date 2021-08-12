@@ -33,9 +33,6 @@ import java.net.URL;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.R;
-
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.db;
 
 /**

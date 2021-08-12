@@ -21,12 +21,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.material.navigation.NavigationView;
 
-import algonquin.cst2335.a2335finalprojectapplication.ChargingStationsMain;
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.MovieInfoActivity;
-import algonquin.cst2335.a2335finalprojectapplication.OCTranspoActivity;
-import algonquin.cst2335.a2335finalprojectapplication.R;
-
 /**
  * This is the main activity class for the Soccer Articles API
  * @author Nishat Khan
