@@ -16,12 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
-
-import algonquin.cst2335.a2335finalprojectapplication.FinalOpenHelper;
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 import static algonquin.cst2335.a2335finalprojectapplication.MainActivity.db;
 
@@ -116,35 +111,6 @@ public class ArticleFavoritesListFragment extends Fragment {
             super(itemView); //getting the super's View
 
             itemView.setOnClickListener(click -> {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-//                builder.setTitle(R.string.delete_title)
-//                        .setNegativeButton(R.string.delete_no_option, (dialog, cl) -> { })
-//                        .setPositiveButton(R.string.delete_yes_option, (dialog, cl) -> {
-//
-//                            position = getAbsoluteAdapterPosition();
-//
-//                            ArticleListFragment.Article removedArticle = favArticlesList.get(position);
-//
-//                            favArticlesList.remove(position);
-//                            adapter.notifyItemRemoved(position);
-//                            db.delete(FinalOpenHelper.SOCCER_TABLE_NAME, "_id=?", new String[] {Long.toString(removedArticle.getID())});
-//
-//                            Snackbar.make(articleTitle, R.string.u_deleted + position, Snackbar.LENGTH_LONG)
-//                                    .setAction(R.string.soccer_details_snackbar_undo, clk -> {
-//                                        favArticlesList.add(position, removedArticle);
-//                                        adapter.notifyItemInserted(position);
-//
-//                                        ContentValues newRow = new ContentValues();
-//                                        newRow.put("_id", removedArticle.getID());
-//                                        newRow.put(FinalOpenHelper.TITLE_COLUMN, removedArticle.getTitle());
-//                                        newRow.put(FinalOpenHelper.DATE_COLUMN, removedArticle.getDatePublished());
-//                                        newRow.put(FinalOpenHelper.URL_COLUMN, removedArticle.getUrl());
-//                                        newRow.put(FinalOpenHelper.DESC_COLUMN, removedArticle.getDesc());
-//                                        db.insert(FinalOpenHelper.SOCCER_TABLE_NAME, FinalOpenHelper.TITLE_COLUMN, newRow);
-//                                    })
-//                                    .show();
-//                        })
-//                        .create().show();
 
                 int position = getAbsoluteAdapterPosition();
 
