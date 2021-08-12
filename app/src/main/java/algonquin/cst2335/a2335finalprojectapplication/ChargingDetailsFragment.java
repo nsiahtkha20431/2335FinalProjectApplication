@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
+/**
+ * Contains information on how to load details in to the fragment and recycler view
+ */
 public class ChargingDetailsFragment extends Fragment {
     String chosenLocation;
     int chosenPosition;
