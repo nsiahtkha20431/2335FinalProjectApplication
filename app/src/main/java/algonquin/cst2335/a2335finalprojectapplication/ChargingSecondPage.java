@@ -13,6 +13,9 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 
+/**
+ * This class provides functionality to the second page
+ */
 public class ChargingSecondPage extends AppCompatActivity {
 
     /**

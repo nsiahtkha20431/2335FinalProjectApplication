@@ -10,9 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
-import algonquin.cst2335.a2335finalprojectapplication.R;
 
 
+/**
+ * This class provides functionality to the third page
+ */
 public class ChargingThirdPage extends AppCompatActivity {
 
     @Override

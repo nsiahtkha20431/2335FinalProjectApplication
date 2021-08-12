@@ -36,7 +36,9 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
-
+/**
+ * this class contains information on how to laod information into the fragment and recycler view
+ */
 public class ChargingStationFragment extends Fragment {
 
     /**
